@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components{
+   /* Carousel Container */
+
+   .carousel {
+    @apply relative w-full h-[100vh] 
+  }
+  .carousel-indicators {
+    @apply flex justify-center absolute z-50 bottom-24 left-52
+  }
+  
+  .indicator {
+    @apply w-[15px] h-[15px] rounded-full bg-white m-2 cursor-pointer
+  }
+  
+  .indicator.active {
+    @apply bg-[#298BD9]
+  }
+  
+  .carousel-slides {
+    @apply relative w-full h-full
+  }
+  
+  .slide {
+    transition: opacity 0.5s;
+    background-size: cover;
+    background-position: center;
+    @apply absolute opacity-0 w-full h-full
+  }
+  
+  .slide.active {
+    opacity: 1;
+  }
+
+    .carousel_button{
+        @apply flex gap-5 absolute bottom-20 left-[40%]
+    }
+
+    .carousel_button button{
+        @apply border-white border p-5 rounded-full text-white 
+        hover:bg-[#298BD9] duration-300
+    }
+    
+    .form_container{
+        @apply absolute top-0 bg-[#00000041] z-40 right-0 h-full w-[40%]
+       flex flex-col items-center pt-20 lg:w-[30%]
+    }
+
+    .form_container img{
+        @apply w-[170px]
+    }
+
+    .form_title{
+        @apply text-white font-manrope
+    }
+
+    .form_title h2{
+        @apply text-[1.5rem]
+    }
+
+    .form_title p{
+        @apply text-sm
+    }
+
+    .form_form_wrapper{
+        @apply flex flex-col gap-10  w-[60%] mt-5 cursor-pointer
+    }
+   
+    .form_form_wrapper form{
+        @apply flex flex-col  gap-10
+    }
+
+    .form_form_wrapper form .input{
+        @apply bg-[#ffffff41] p-3 rounded-[5px] outline-0 
+    }
+
+
+    .form_button{
+        @apply flex flex-col items-center gap-3 font-manrope
+    }
+
+    .form_button .btn_login{
+        background: linear-gradient(93deg, #298BD9 0%, #33C0E4 100%);
+        @apply w-full p-3 rounded-[5px] text-white font-medium
+    }
+
+    .form_button .btn_register{
+        @apply w-full rounded-[5px] text-center  border-white border p-3 text-white
+    }
+
+    .form_register_wrapper {
+      @apply p-5 flex flex-col items-center 
+      font-manrope gap-5 overflow-hidden
+    }
+    
+    .form_register_wrapper h2{
+      @apply text-[2rem] font-semibold 
+    }
+
+    .form_register_wrapper form {
+      @apply flex flex-col w-[500px] overflow-y-auto gap-5 p-5;
+    
+      /* Style the scrollbar */
+      scrollbar-width: thin;
+      scrollbar-color: #999 transparent; /* You can adjust the colors as needed */
+    
+      &::-webkit-scrollbar {
+        width: 5px; /* Width of the scrollbar */
+      }
+    
+      &::-webkit-scrollbar-thumb {
+        background-color: #999; /* Color of the thumb */
+        border-radius: 2px; /* Radius of the thumb */
+      }
+    
+      &::-webkit-scrollbar-track {
+        background-color: transparent; /* Color of the track */
+      }
+    }
+    
+
+    .form_register_wrapper form .input{
+      @apply bg-[#EAEAEC] p-3 rounded-[5px] outline-0  
+    }
+    .image_input_box{
+     @apply  border rounded-[7px] p-10 flex items-center justify-center
+    }
+    
+}
+
+
+.button_register{
+  background: linear-gradient(93deg, #298BD9 0%, #33C0E4 100%) !important;
+  color: #fff; 
+  padding:10px;
+  border-radius: 7px;/* Change this to your desired gray color */
+}
+
+.button_register:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+
+
+}
+
+
+
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper{
+  border-radius: 20px !important;
+}
+
+
+.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root{
+  border-radius: 10px !important;
+  background-color: #e5e5e5 !important;
+  
+}
+
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+  border-radius: 10px !important;
+  background-color: #e5e5e5 !important;
+  
+  
+}
+
+
+.css-1jow3cf-MuiFormControl-root-MuiTextField-root {
+  border-radius: 10px !important;
+  background-color: #e5e5e5 !important;
+}
+
+
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline{
+  border: none !important;
+}
+
+.css-z3c6am-MuiFormControl-root-MuiTextField-root{
+  border-radius: 10px !important;
+  background-color: #e5e5e5 !important;
+}

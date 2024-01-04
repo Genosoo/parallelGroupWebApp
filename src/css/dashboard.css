@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer components{
+
+    .db_container{
+        @apply w-[95%] 
+    }
+
+    .db_cards_container{
+        @apply bg-[#001529] rounded-[15px] p-5  font-manrope
+    }
+
+    .db_cards_container h3{
+        @apply text-white  mb-5 
+    }
+
+    .db_cards_wrapper{
+        @apply  
+        flex  gap-5  w-full flex-col
+    }
+
+    .db_cards_box{
+        @apply flex gap-4
+    }
+
+    .db_cards{
+        @apply bg-white  rounded-[15px]
+        flex flex-col items-start pl-6 pt-3 text-[#298BD9]  
+        w-[30%] h-[150px] 
+    }
+
+    .db_cards h1{
+        @apply  text-[3rem] font-bold
+    }
+
+    .db_cards span{
+        @apply text-[10px] uppercase rounded-[3px] text-white  px-2 p-[1px] 
+    }
+
+    .db_cards .cards_active{
+        @apply  bg-[#76CB75] 
+    }
+    .db_cards .cards_inactive{
+        @apply  bg-[#FF7979] 
+    }
+
+
+    .db_cards {
+        @apply  font-bold
+    }
+
+    .chart_container{
+        @apply flex flex-col pt-3
+    }
+
+    .chart_container h2{
+        @apply text-lg  font-manrope font-semibold text-[#001529] py-2
+    }
+
+    .chart_wrapper{
+        @apply flex gap-5
+    }
+
+    .chart_box{
+        @apply bg-white w-[50%] flex items-center
+         justify-center p-10 rounded-[15px] h-[370px]
+         overflow-hidden
+    }
+   
+
+
+}

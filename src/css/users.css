@@ -1,0 +1,235 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer components{
+    .users_table_wrapper{
+        @apply mr-20 bg-white h-[75vh] rounded-[10px] 
+      }
+
+      
+      .users_table_container {
+        overflow-y: auto;
+        scrollbar-width: thin; /* Firefox */
+        scrollbar-color: #888 #f0f0f0; /* Firefox */
+        box-shadow: none !important;
+        height:100%;
+      }
+      
+        /* WebKit (Chrome, Safari) */
+      .users_table_container::-webkit-scrollbar {
+          width: 10px;
+          height:10px;
+        }
+      
+      .users_table_container::-webkit-scrollbar-thumb {
+          background-color: #a9cef4;
+        }
+      
+      .users_table_container::-webkit-scrollbar-track {
+          background-color: #ffffff;
+          border-radius: 6px; 
+        }
+
+      .users_table_container span{
+        @apply font-manrope text-xs font-medium
+      }
+
+      .users_table_header{
+        @apply w-[190px] font-bold text-sm font-manrope
+      }
+
+      .users_table_logo{
+        @apply w-[50px]
+      }
+
+    
+
+      .users_box_wrapper1{
+        @apply flex gap-3 
+      }
+
+      .users_box_left{
+        @apply flex flex-col p-6 w-[60%] 
+      }
+
+      .users_box_wrapper1 {
+        @apply font-manrope w-full
+      }
+
+      .users_box_wrapper1 .box{
+        @apply  bg-[#EBF4FD] rounded-[20px]   h-full
+      }
+
+      .users_box_wrapper1 .box1{
+        @apply  w-[30%] 
+      }
+
+      .users_box_wrapper1 .box1 .mem_id{
+        @apply flex flex-col
+      }
+
+
+      .users_box_wrapper1 .box2{
+        @apply   flex flex-col  w-[70%]  py-3 
+      }
+
+      .users_box_wrapper1 .box img{
+        @apply   w-[100%]   h-full  border-2 border-black rounded-[20px]
+         object-fill
+      }
+
+      .users_box_wrapper1 .box2{
+        @apply flex gap-5 items-center justify-center 
+      }
+    
+
+      .users_box_wrapper1 .box span {
+        @apply text-[12px] font-manrope  flex 
+      }
+
+      .users_box_wrapper1 .box .p1{
+        @apply text-[#298BD9] font-bold
+      }
+      
+      .users_box_wrapper1 .box p{
+        @apply w-[200px] 
+      }
+      .users_box_wrapper1 .box3 {
+        @apply w-full p-5 flex flex-col gap-5
+      }
+
+      .users_box_wrapper1 .box3 span{
+       @apply flex gap-5
+      }
+
+      .users_box_right{
+        @apply  w-[40%] pt-6 pr-6 
+      }
+
+      .users_box_wrapper2{
+        @apply flex flex-col justify-between h-[87%]
+      }
+
+      .users_box_wrapper2 .box4{
+        @apply  bg-[#EBF4FD] rounded-[20px]  
+      }
+
+
+      .users_box_wrapper2 .box4{
+        @apply flex gap-5 items-center justify-center
+      }
+    
+
+      .users_box_wrapper2 .box4 span {
+        @apply text-[12px] font-manrope  flex 
+      }
+
+      .users_box_wrapper2 .box4 .p1{
+        @apply text-[#298BD9] font-bold
+      }
+      
+      .users_box_wrapper2 .box4 p{
+        @apply w-[200px] 
+      }
+      .users_box_wrapper2 .box4 {
+        @apply w-full p-5 flex flex-col gap-5
+      }
+
+      .users_box_wrapper2 .box4 span{
+       @apply flex gap-5 
+      }
+
+      .users_dailog_btn_close{
+        background: linear-gradient(93deg, #298BD9 0%, #33C0E4 100%);
+        @apply w-full p-3 rounded-[10px] text-white font-manrope font-semibold 
+      }
+
+      .users_dailog_btn_close:hover{
+        background: linear-gradient(93deg, #1d2b36 0%, #121c1e 100%);
+      }
+
+
+      .users_header_container{
+        @apply w-[95%]  flex
+      }
+
+      .users_header_container .search_box{
+        @apply w-[90%] bg-white  rounded-[10px] flex items-center gap-4 pr-3
+      }
+
+      .users_header_container .search_box input{
+        @apply w-[100%] bg-white h-full p-4  rounded-[10px] outline-none
+      }
+
+      .users_btn_search svg{
+        @apply text-[#298BD9] text-[25px] 
+      }
+
+      .users_btn_clear{
+        @apply bg-[#e0e0e080] p-2 rounded-[10px] hover:bg-slate-600
+         hover:text-white  duration-300 text-[#298BD9]
+      }
+
+      .users_btn_clear svg{
+        @apply  text-[25px]  
+      }
+
+    .btn_add_users{
+      @apply bg-[#298BD9] rounded-[10px] flex items-center justify-center
+       text-white font-manrope text-xs px-2 ml-3 font-semibold gap-2
+       w-[150px]  hover:bg-slate-600   duration-300
+    }
+
+    .btn_add_users svg{
+      @apply text-base
+    }
+
+    .action_btn_wrapper{
+        @apply flex gap-3
+    }
+
+    .btn_update_users{
+        @apply bg-[#298BD9] text-white p-2 rounded-full hover:bg-gray-700
+        duration-300
+    }
+
+    .btn_delete_users{
+        @apply bg-[#FF7979] text-white p-2 rounded-full hover:bg-gray-700
+        duration-300
+    }
+
+    .dailog_delete_box{
+        @apply bg-white h-[200px]  flex flex-col justify-around items-center
+    }
+
+    .dailog_delete_box p{
+        @apply font-manrope font-medium
+    }
+
+    .dailog_delete_box button{
+        @apply p-2 text-white m-2 w-[100px] rounded-[5px] 
+        hover:bg-gray-700
+        duration-300
+    }
+
+    .dailog_delete_box .yes{
+        @apply p-2 bg-[#298BD9] 
+    }
+
+
+    .dailog_delete_box .no{
+        @apply p-2  bg-[#FF7979]
+    }
+
+    .message_success{
+        @apply bg-[#9FBB73] text-center  font-manrope  p-2 text-white
+    }
+
+    .message_error{
+        @apply bg-[#FF7979]  text-center  text-white font-manrope p-2
+    }
+
+}

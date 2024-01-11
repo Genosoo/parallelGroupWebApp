@@ -2,9 +2,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../authContext/AuthContext';
+import { useAuth } from '../../authContext/AuthContext';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 import logo from '../../assets/login/logo.png'
@@ -15,11 +15,15 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-
+import { useDropzone } from 'react-dropzone';
+import { BiImageAdd } from "react-icons/bi";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Menu } from '@mui/icons-material';
+import { random } from 'lodash';
+
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -70,70 +74,90 @@ export default function Login() {
 
   const [registerFormData, setRegisterFormData] = useState({
     username:'',
-    password: '@Password123',
-    password2: '@Password123',
+    password: '',
+    password2: '',
     individual: {
       memship_id:'',
-      prefix:'',
+      // prefix:'',
       first_name:'',
+      // middle_name:'',
       last_name:'',
-      suffix: '',
-      nickname:'',
+      // suffix: '',
+      // nickname:'',
       mobile_number:'',
       email:'',
-      occupation:'',
-      region:'',
-      province:'',
-      municipality:'',
-      barangay:'',
-      bldg_number:'',
-      bldg_name:'',
-      street_number:'',
-      street_name:'',
-      memship_type:'',
-      position:'',
-      application_date:'',
-      approved_date:'',
-      memship_status:'',
-      closed_date:'',
+      // occupation:'',
+      // region:'',
+      // province:'',
+      // municipality:'',
+      // barangay:'',
+      // bldg_number:'',
+      // bldg_name:'',
+      // street_number:'',
+      // street_name:'',
+      // memship_type:'',
+      // position:'',
+      // application_date:'',
+      // approved_date:'',
+      // memship_status:'',
+      // closed_date:'',
       photo:'',
     }, 
   });
   const [selectedProvince, setSelectedProvince] = useState('');
   const [selectedMunicipality, setSelectedMunicipality] = useState('');
-  const [selectedImage, setSelectedImage] = useState(null);
 
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
 
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
+  useEffect(() => {
+    if (successMessage) {
+      setShowSuccessMessage(true);
+      const timer = setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 3000); // 3 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [successMessage]);
+
+  const onDrop = useCallback((acceptedFiles) => {
+    const image = acceptedFiles[0];
+    const reader = new FileReader();
   
-    if (file) {
-      const reader = new FileReader();
+    reader.onload = () => {
+      const base64String = reader.result.split(',')[1]; // Extracting the base64 string
+      const filename = image.name;
   
-      reader.onloadend = () => {
-        setSelectedImage(reader.result);
-        // Convert the image to base64 and update the registerFormData
-        const base64Image = reader.result.split(',')[1]; // Extract the base64 data
-        const filename = file.name; // Get the filename
-        setRegisterFormData((prevData) => ({
-          ...prevData,
-          individual: {
-            ...prevData.individual,
-            photo: {
-              data: base64Image,
-              filename: filename,
-            },
-          },
-        }));
+      const photo = {
+        data: base64String,
+        filename: filename,
       };
   
-      reader.readAsDataURL(file);
-    }
-  };
+      setSelectedImage(URL.createObjectURL(image));
   
+      // Set the 'photo' property in registerFormData
+      setRegisterFormData((prevData) => ({
+        ...prevData,
+        individual: {
+          ...prevData.individual,
+          photo: photo,
+        },
+      }));
+  
+      // Now, you can do something with the 'photo' object, like sending it to the server.
+      console.log(photo);
+    };
+  
+    reader.readAsDataURL(image);
+  }, [setRegisterFormData]);
+  
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
+
+
   
 
   useEffect(() => {
@@ -222,7 +246,7 @@ export default function Login() {
       setLoading(true);
 
        // Generate a unique ID for memship_id
-    const memshipId = uuid();
+       const memshipId = random(100000, 999999).toString(); // Adjust the range as needed
 
     const registrationData = {
       ...registerFormData,
@@ -245,34 +269,36 @@ export default function Login() {
       } else {
         // Clear the registration form after a successful registration
         setRegisterFormData({
-          username: '',
+          username:'',
           password: '',
           password2: '',
           individual: {
-            prefix:'',
-            first_name: '',
-            last_name: '',
-            suffix:'',
-            nickname:'',
+            memship_id:'',
+            // prefix:'',
+            first_name:'',
+            // middle_name:'',
+            last_name:'',
+            // suffix: '',
+            // nickname:'',
             mobile_number:'',
             email:'',
-            occupation:'',
-            region:'',
-            province:'',
-            municipality:'',
-            barangay:'',
-            bldg_number:'',
-            bldg_name:'',
-            street_number:'',
-            street_name:'',
-            memship_type:'',
-            position:'',
-            application_date:'',
-            approved_date:'',
-            memship_status:'',
-            closed_date:'',
+            // occupation:'',
+            // region:'',
+            // province:'',
+            // municipality:'',
+            // barangay:'',
+            // bldg_number:'',
+            // bldg_name:'',
+            // street_number:'',
+            // street_name:'',
+            // memship_type:'',
+            // position:'',
+            // application_date:'',
+            // approved_date:'',
+            // memship_status:'',
+            // closed_date:'',
             photo:'',
-          },
+          }, 
         });
 
         setSuccessMessage('Registration successful!'); // Add this line
@@ -357,9 +383,12 @@ export default function Login() {
         aria-describedby="alert-dialog-slide-description"
       >
         <div className="form_register_wrapper">
+        {showSuccessMessage && (
+            <p style={{ color: 'green' }}>{successMessage}</p>
+          )}
           <h2>Register</h2>
           <form onSubmit={handleRegisterSubmit}>
-          <FormControl>
+          {/* <FormControl>
               <InputLabel>Prefix</InputLabel>
               <Select
                 name="individual.prefix"
@@ -375,26 +404,34 @@ export default function Login() {
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>
+            </FormControl> */}
 
             <TextField
               type="text"
               name="individual.first_name"
               value={registerFormData.individual.first_name}
-              placeholder="First name"
+              placeholder="First Name"
               onChange={handleRegisterChange}
             />
+{/* 
+<TextField
+              type="text"
+              name="individual.middle_name"
+              value={registerFormData.individual.middle_name}
+              placeholder="Middle Name"
+              onChange={handleRegisterChange}
+            /> */}
 
           <TextField
               type="text"
               name="individual.last_name"
               value={registerFormData.individual.last_name}
-              placeholder="Last name"
+              placeholder="Last Name"
               onChange={handleRegisterChange}
             />
 
          
-            <FormControl>
+            {/* <FormControl>
               <InputLabel>Suffix</InputLabel>
               <Select
                 name="individual.suffix"
@@ -410,17 +447,25 @@ export default function Login() {
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>
+            </FormControl> */}
 
 
            
-            <TextField
+            {/* <TextField
               type="text"
               name="individual.nickname"
               value={registerFormData.individual.nickname}
               placeholder="Nickname"
               onChange={handleRegisterChange}
-            />
+            /> */}
+
+        <TextField
+            type="email"
+            name="individual.email"
+            value={registerFormData.individual.email}
+            placeholder="Email Address"
+            onChange={handleRegisterChange}
+          />
 
             <TextField
               type="number"
@@ -431,16 +476,10 @@ export default function Login() {
             />
 
           
-          <TextField
-            type="email"
-            name="individual.email"
-            value={registerFormData.individual.email}
-            placeholder="Email Address"
-            onChange={handleRegisterChange}
-          />
+        
 
             
-            <FormControl>
+            {/* <FormControl>
               <InputLabel>Occupation</InputLabel>
               <Select
                 name="individual.occupation"
@@ -456,10 +495,10 @@ export default function Login() {
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>
+            </FormControl> */}
 
 
-            <FormControl>
+            {/* <FormControl>
               <InputLabel>Region</InputLabel>
               <Select
                 name="individual.region"
@@ -475,10 +514,10 @@ export default function Login() {
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>
+            </FormControl> */}
 
             
-
+{/* 
             <FormControl>
               <InputLabel>Province</InputLabel>
               <Select
@@ -501,9 +540,9 @@ export default function Login() {
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>
+            </FormControl> */}
 
-            <FormControl>
+            {/* <FormControl>
               <InputLabel>Municipality</InputLabel>
               <Select
                 name="individual.municipality"
@@ -541,18 +580,18 @@ export default function Login() {
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>
+            </FormControl> */}
 
-            <TextField
+            {/* <TextField
               type="text"
               name="individual.legist_dist"
               value={registerFormData.individual.legist_dist}
               placeholder="District"
               disabled
               onChange={handleRegisterChange}
-            />
+            /> */}
 
-            <FormControl>
+            {/* <FormControl>
               <InputLabel>Barangay</InputLabel>
               <Select
                 name="individual.barangay"
@@ -574,10 +613,10 @@ export default function Login() {
                     </MenuItem>
                   ))}
               </Select>
-            </FormControl>
+            </FormControl> */}
 
 
-            <div className='flex justify-between'>
+            {/* <div className='flex justify-between'>
               <TextField
                   type="text"
                   name="individual.bldg_number"
@@ -592,9 +631,9 @@ export default function Login() {
                   placeholder="Bldg. Name"
                   onChange={handleRegisterChange}
                 />
-            </div>
+            </div> */}
 
-          <TextField
+          {/* <TextField
             type="text"
             name="individual.street_number"
             value={registerFormData.individual.street_number}
@@ -607,12 +646,12 @@ export default function Login() {
             value={registerFormData.individual.street_name}
             placeholder="Street. Name"
             onChange={handleRegisterChange}
-          />
+          /> */}
 
 
 
 
-            <FormControl>
+            {/* <FormControl>
               <InputLabel>Membership Type</InputLabel>
               <Select
                 name="individual.memship_type"
@@ -628,11 +667,11 @@ export default function Login() {
               </MenuItem>
               ))}
               </Select>
-            </FormControl>
+            </FormControl> */}
 
 
 
-            <FormControl>
+            {/* <FormControl>
               <InputLabel>Position</InputLabel>
               <Select
                 name="individual.position"
@@ -649,9 +688,9 @@ export default function Login() {
                 ))}
               </Select>
             </FormControl>
+ */}
 
-
-<LocalizationProvider dateAdapter={AdapterDayjs}>
+{/* <LocalizationProvider dateAdapter={AdapterDayjs}>
   <DatePicker
     value={registerFormData.individual.application_date || null}
     label="Membership Date Application"
@@ -738,50 +777,72 @@ export default function Login() {
       });
     }}
   />
-</LocalizationProvider>
+</LocalizationProvider> */}
 
 
+
+<div>
+      <div {...getRootProps()} className={isDragActive ? 'dropzone-active' : 'dropzone'}>
+        <input {...getInputProps()} id="file-input" />
+        {selectedImage ? (
+    <div>
+      <img src={selectedImage} alt="Selected" className="selected-image" />
+    </div>
+  ) : (
+    <div className="text-[30px] text-gray-500">
+      <BiImageAdd />
+    </div>
+  )}
+        {
+          isDragActive ?
+            <p className='text-xl text-gray-700 font-light'>Drop the image here...</p> :
+            <p className='text-xl text-gray-400 font-light'>Drag and drop an image here or</p>
+        }
         
-<div className='image_input_box' >
-  <label htmlFor='inputField'>dfdsafadsf</label>
-      <input
-      id='inputField'
-        type="file"
-        accept="image/*"
-        className='text-white d-none'
-        name="individual.photo"
-        onChange={handleImageChange}
-      />
-      {selectedImage && (
-        <div>
-          <img
-            src={selectedImage}
-            alt="Selected"
-            style={{ maxWidth: '100%', maxHeight: '200px' }}
-          />
-        </div>
-      )}
+      <div  className="choose-image-button">
+        Choose Image
+      </div>
+      </div>
+
+
+     
     </div>
 
-    <div>
-  <input
-    type="checkbox"
-    id="termsCheckbox"
-    checked={agreeToTerms}
-    onChange={() => setAgreeToTerms(!agreeToTerms)}
-  />
-  <label htmlFor="termsCheckbox">I agree to the <b className='text-[#33C0E4]'>Terms and Conditions</b></label>
+    <TextField
+              type="password"
+              name="password"
+              value={registerFormData.password}
+              placeholder="Password"
+              onChange={handleRegisterChange}
+            />
+            <TextField
+              type="password"
+              name="password2"
+              value={registerFormData.password2}
+              placeholder="Confirm Password"
+              onChange={handleRegisterChange}
+            />
+
+    <div className='flex gap-3'>
+    <input
+      type="checkbox"
+      id="termsCheckbox"
+      checked={agreeToTerms}
+      onChange={() => setAgreeToTerms(!agreeToTerms)}
+    />
+    <label htmlFor="termsCheckbox"> I agree to the <span className='text-[#33C0E4]'>Terms and Conditions</span></label>
 </div>
-{successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
       
           {errorSignup && <p style={{ color: 'red' }}>{errorSignup}</p>}
           <button
-  className={`button_register ${!agreeToTerms ? 'disabled' : 'button_register'}`}
-  type="submit"
-  disabled={!agreeToTerms}
->
-  {loading ? 'Registering...' : 'Register'}
-</button>
+            className={`button_register ${!agreeToTerms ? 'disabled' : 'button_register'}`}
+            type="submit"
+            disabled={!agreeToTerms}
+          >
+            {loading ? 'Registering...' : 'Register'}
+          </button>
+
+          <div className='button_signin' onClick={handleClose}>Sign In</div>
 
         </form>
         </div>
@@ -825,3 +886,5 @@ export default function Login() {
       </div>
   );
 }
+
+

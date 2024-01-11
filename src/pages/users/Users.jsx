@@ -19,9 +19,11 @@ import { RiDeleteBack2Line } from "react-icons/ri";
 import { FaRegEdit } from "react-icons/fa";
 import Slide from '@mui/material/Slide';
 import FormAdd from "./FormAdd";
+import { BsCardList } from "react-icons/bs";
+import FormUpdate from "./FormUpdate";
 
 const baseUrl = import.meta.env.VITE_URL;
-const getUsersData = `${baseUrl}/api/individual/`;
+const userEndpoint = `${baseUrl}/api/individual/`;
 const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
 
 export default function Users() {
@@ -39,7 +41,22 @@ export default function Users() {
   const [deleteUsername, setDeleteUsername] = useState(null);
   const [deleteSuccessMessage, setDeleteSuccessMessage] = useState("");
   const [addUsersDialogOpen, setAddUsersDialogOpen] = useState(false);
+  const [updateFormOpen, setUpdateFormOpen] = useState(false);
+  const [updateData, setUpdateData] = useState(null);
 
+
+  const handleCloseUpdateForm = () => {
+    setUpdateFormOpen(false);
+  };
+
+
+  const handleOpenUpdateForm = (data, index, page) => {
+    
+    const dataIndex = (page * rowsPerPage) + index
+    setUpdateData(data[dataIndex]);
+    setUpdateFormOpen(true);
+    console.log('dataIndex',dataIndex )
+  };
   const handleAddUsersDialogOpen = () => {
     setAddUsersDialogOpen(true);
   };
@@ -85,19 +102,29 @@ export default function Users() {
     getTheCsrfToken();
   }, []);
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dataResponse = await axios.get(getUsersData);
-        setData(dataResponse.data.success);
-        console.log("Users", dataResponse.data);
+        const dataResponse = await axios.get(userEndpoint);
+        const filteredData = dataResponse.data.success.filter((user) => {
+          // Check if the user has the role "Parallel Group Administrator"
+          return (
+            !user.roles.some((role) =>
+              role.toLowerCase() === "parallel group administrator"
+            )
+          );
+        });
+        setData(filteredData);
+        console.log("Users", filteredData);
       } catch (error) {
         console.log(error);
       }
     };
-
+  
     fetchData();
   }, []);
+  
 
   const handleOpenDialog = (item) => {
     setSelectedItem(item);
@@ -215,6 +242,24 @@ const handleFindClick = () => {
    
 
     <div className="users_header_container">
+
+    <Dialog
+        open={updateFormOpen}
+        onClose={handleCloseUpdateForm}
+        TransitionComponent={Slide}
+        fullWidth
+        maxWidth="md"
+      >
+        {/* Pass the necessary props to the FormUpdate component */}
+        <FormUpdate  
+          onClose={handleCloseUpdateForm} 
+          apiEndpoint={userEndpoint} 
+          data={updateData} 
+          csrfToken={csrfToken}
+       />
+      </Dialog>
+
+
         <div className="search_box">
             <input
               value={searchInput}
@@ -237,109 +282,116 @@ const handleFindClick = () => {
     {selectedItem && (
       <Dialog  
       fullWidth
-      maxWidth="lg"
+      maxWidth="md"
       open={openDialog} onClose={handleCloseDialog}>
-       <div className="flex">
-       <div className="box_left">
-        <div className="users_box_wrapper1">
-          <div className="box box1">
-               <img 
-               src={`http://localhost:8000/${selectedItem.individual?.photo}`} 
-               alt=""
-               className="users_table_logo"
-               onError={(e) => {
-                e.target.onerror = null; // Prevent infinite loop
-                e.target.src = testImage; // Replace with the path to your default image
-              }}
-              />
-             <div className="mem_id">
-                <p className="p1">Membership ID:</p> 
-                <p className="p2">{selectedItem.number ?? "---"}</p>
+       <div className="user_dialog_container">
+         <div className="user_box_wrapper1">
+           <div className="user_flex">
+           <div className="user_box_1">
+            <img 
+                    src={`http://localhost:8000/${selectedItem.individual?.photo}`} 
+                    alt=""
+                    className="users_table_logo"
+                    onError={(e) => {
+                      e.target.onerror = null; // Prevent infinite loop
+                      e.target.src = testImage; // Replace with the path to your default image
+                    }} 
+                  />
+              <span>Membership ID:</span>
+              <h3>{selectedItem.individual?.memship_id ?? "---"}</h3>
+            </div>
+            <div className="user_box_2">
+              <span className="span1">
+                <p>Prefix</p>
+                  <p>First Name</p>
+                  <p>Middle Name</p>
+                  <p>Last Name</p>
+                  <p>Suffix</p>
+                  <p>Nickname</p>
+              </span>
+              <span className="span2">
+                  <p>{selectedItem.individual?.prefix_data?.desc ?? "---"}</p>
+                  <p>{selectedItem.individual?.first_name ?? "---"}</p>
+                  <p>{selectedItem.individual?.middle_name ?? "---"}</p>
+                  <p>{selectedItem.individual?.last_name ?? "---"}</p>
+                  <p>{selectedItem.individual?.suffix_data?.desc ?? "---"}</p>
+                  <p>{selectedItem.individual?.nickname ?? "---"}</p>
+                
+              </span>
+            </div>
+           </div>
+
+            <div className="user_box_3">
+              <span className="span1">
+                <p>Region</p>
+                <p>Province</p>
+                <p>District</p>
+                <p>City/Municipality</p>
+                <p>Barangay</p>
+                <p>Bldg. Number</p>
+                <p>Bldg. Name</p>
+                <p>Street Number</p>
+                <p>Street Name</p>
+              </span>
+              <span className="span2">
+              <p>{selectedItem.individual?.region_data?.desc ?? "---"}</p>
+              <p>{selectedItem.individual?.province_data?.desc ?? "---"}</p>
+              <p>{selectedItem.individual?.municipality_data?.legist_dist ?? "---"}</p>
+              <p>{selectedItem.individual?.municipality_data?.desc ?? "---"}</p>
+              <p>{selectedItem.individual?.barangay_data?.desc ?? "---"}</p>
+              <p>{selectedItem.individual?.bldg_number ?? "---"}</p>
+              <p>{selectedItem.individual?.bldg_name ?? "---"}</p>
+              <p>{selectedItem.individual?.street_number ?? "---"}</p>
+              <p>{selectedItem.individual?.street_name ?? "---"}</p>
+               
+              </span>
+            </div>
+         </div>
+
+         <div className="user_box_wrapper2">
+             <div className="user_box_4">
+                 <span className="span1">
+                    <p>Mobile Number</p>
+                    <p>Email Address</p>
+                    <p>Occupation</p>
+                 </span>
+
+                 <span className="span2">
+                   <p>{selectedItem.individual?.mobile_number ?? "---"}</p>
+                   <p>{selectedItem.individual?.email ?? "---"}</p>
+                   <p>{selectedItem.individual?.occupation_data?.desc ?? "---"}</p>
+                 </span>
+
+              
              </div>
-          </div>
-          <div className="box box2 ">
-             <span>
-                <p className="p1">Prefix</p> 
-                <p className="p2">{selectedItem.number ?? "---"}</p>
-             </span>
-             <span>
-                <p className="p1">First Name</p> 
-                <p className="p2">{selectedItem.name ?? "---"}</p>
-             </span>
 
-             <span>
-                <p className="p1">Middle Name</p> 
-                <p className="p2">{selectedItem.name ?? "---"}</p>
-             </span>
-             <span>
-                <p className="p1">Last Name</p> 
-                <p className="p2">{selectedItem.req_type ?? "---" }</p>
-             </span>
-             <span>
-                <p className="p1">Suffix</p> 
-                <p className="p2">{selectedItem.req_type ?? "---" }</p>
-             </span>
-             <span>
-                <p className="p1">Nickname</p> 
-                <p className="p2">{selectedItem.req_type ?? "---" }</p>
-             </span>
-          </div>
-        </div>
-        <div className="users_box_wrapper1 pt-6">
-          <div className="box box3">
-          <span>
-                <p className="p1">Individual ID</p> 
-                <p className="p2">{selectedItem.affiliation ?? "---"}</p>
-             </span>
-             <span>
-                <p className="p1">Date Created</p> 
-                <p className="p2">{selectedItem.name ?? "---"}</p>
-             </span>
-             <span>
-                <p className="p1">Date Modified</p> 
-                <p className="p2">{selectedItem.reg_date ?? "---" }</p>
-             </span>
-             <span>
-                <p className="p1">Record Created By</p> 
-                <p className="p2">{selectedItem.reg_number ?? "---" }</p>
-             </span>
-             <span>
-                <p className="p1">Action</p> 
-                <p className="p2">{selectedItem.application_date ?? "---" }</p>
-             </span>
-             
-          </div>
-        </div>
-        </div>
+             <div className="user_box_5">
+             <span className="span1">
+                     <p>Membership Type</p>
+                     <p>Affilication (Parallel Group)</p>
+                     <p>Position in (Parallel Group)</p>
+                     <p>Membership Date Application</p>
+                     <p>Membership Date Approved</p>
+                     <p>Membership Status</p>
+                     <p>Membership Date Closed</p>
+                     <p>ReferredBy</p>
+                 </span>
+                 <span className="span2">
+                 <p>{selectedItem.individual?.memship_type_data?.desc ?? "---"}</p>
+                 <p>---</p>
+                 <p>{selectedItem.individual?.position_data?.desc ?? "---"}</p>
+                 <p>{selectedItem.individual?.application_date ?? "---"}</p>
+                 <p>{selectedItem.individual?.approved_date ?? "---"}</p>
+                 <p>{selectedItem.individual?.memship_status_data?.desc ?? "---"}</p>
+                 <p>{selectedItem.individual?.closed_date ?? "---"}</p>
+                 <p>---</p>
+                 </span>
 
-        <div className="box_right">
-          <div className="box_wrapper2">
-          <div className="box4">
-          <span>
-                <p className="p1">Individual ID</p> 
-                <p className="p2">{selectedItem.affiliation ?? "---"}</p>
-             </span>
-             <span>
-                <p className="p1">Date Created</p> 
-                <p className="p2">{selectedItem.name ?? "---"}</p>
-             </span>
-             <span>
-                <p className="p1">Date Modified</p> 
-                <p className="p2">{selectedItem.reg_date ?? "---" }</p>
-             </span>
-             <span>
-                <p className="p1">Record Created By</p> 
-                <p className="p2">{selectedItem.reg_number ?? "---" }</p>
-             </span>
-             <span>
-                <p className="p1">Action</p> 
-                <p className="p2">{selectedItem.application_date ?? "---" }</p>
-             </span>
-          </div>
-          </div>
+             </div>
 
-          <button className="dailog_btn_close" onClick={handleCloseDialog}>Close</button>
-        </div>
+             <button className="user_dailog_btn_close" onClick={handleCloseDialog}>Close</button>
+
+         </div>
        </div>
       </Dialog>
     )}
@@ -371,7 +423,7 @@ const handleFindClick = () => {
   fullWidth
   maxWidth="md"
 >
-  <FormAdd />
+  <FormAdd  onClose={handleAddUsersDialogClose} />
 </Dialog>
 
     <div className="users_table_wrapper">
@@ -390,13 +442,9 @@ const handleFindClick = () => {
         <Table>
           <TableHead >
             <TableRow >
-              <TableCell >
-                <div className="users_table_header">User ID</div>
+            <TableCell>
+                <div className="users_table_header">Username</div>
               </TableCell>
-              <TableCell>
-                <div className="users_table_header">User Name</div>
-              </TableCell>
-
               <TableCell>
                 <div className="users_table_header">First Name</div>
               </TableCell>
@@ -405,19 +453,6 @@ const handleFindClick = () => {
               </TableCell>
               <TableCell>
                 <div className="users_table_header">Email Address</div>
-              </TableCell>
-              <TableCell>
-
-                <div className="users_table_header">Individual ID</div>
-              </TableCell>
-              <TableCell>
-                <div className="users_table_header">Date Created</div>
-              </TableCell>
-              <TableCell>
-                <div className="users_table_header">Date Modified</div>
-              </TableCell>
-              <TableCell>
-                <div className="users_table_header">Record Created By</div>
               </TableCell>
               <TableCell  sx={{
                 position:"sticky", 
@@ -430,20 +465,19 @@ const handleFindClick = () => {
           </TableHead>
           <TableBody>
             {renderTableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, index) => (
-              <TableRow key={index} onClick={() => handleOpenDialog(item)} style={{ cursor: "pointer" }}>
-                  <TableCell><span>{item.id ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.username ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.first_name ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.last_name ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.email ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.user_id ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.created_at  ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.updated_at ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.created_by?? "---"}</span></TableCell>
+              <TableRow key={index} style={{ cursor: "pointer" }}>
+                  <TableCell><span>{item?.username ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.individual?.first_name ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.individual?.last_name ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.individual?.email ?? "---"}</span></TableCell>
+
                   <TableCell sx={{position:"sticky", right:0,  bgcolor:"#f5f5f5cd",}}>
                     <div className="action_btn_wrapper ">
-                      <button   className="btn_update_users">
-                        <FaRegEdit/>
+                    <button   className="btn_view_users" onClick={() => handleOpenDialog(item)}  >
+                        <BsCardList/>
+                      </button>
+                      <button   className="btn_update_users"  onClick={() => handleOpenUpdateForm(data, index, page)}>
+                        <FaRegEdit />
                       </button>
                       <button className="btn_delete_users" onClick={(event) => handleDelete(item.id, item.username, event)}>
                         <RiDeleteBack2Line />

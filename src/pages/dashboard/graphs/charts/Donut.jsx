@@ -40,6 +40,7 @@ const DonutChart = () => {
 
   return (
     <div className="chart_box">
+      <p>Parallel Groups</p>
       <Doughnut data={chartData} options={options} />
     </div>
   );

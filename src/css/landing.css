@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer components{
+    .landingPage_container{
+        @apply bg-[#EBF4FD]
+    }
+}
+
+.landingPage_container .login_navbar{
+    display: none;
+}

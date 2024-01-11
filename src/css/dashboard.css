@@ -15,7 +15,7 @@
     }
 
     .db_cards_container h3{
-        @apply text-white  mb-5 
+        @apply text-white  mb-5  text-base
     }
 
     .db_cards_wrapper{
@@ -67,8 +67,12 @@
 
     .chart_box{
         @apply bg-white w-[50%] flex items-center
-         justify-center p-10 rounded-[15px] h-[370px]
-         overflow-hidden
+         justify-center rounded-[15px] h-[370px]
+         overflow-hidden flex-col px-10 relative
+    }
+
+    .chart_box p{
+        @apply font-semibold font-manrope text-gray-800 absolute top-2
     }
    
 

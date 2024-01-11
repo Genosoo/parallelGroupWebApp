@@ -50,8 +50,8 @@ export default function ButtonLogout({isOpen}) {
 
   return (
     <button style={{ justifyContent: isOpen ? "start" : "center" }} className='btn_logout' onClick={handleLogout}>
-      <div className="icon">< BiLogOut /></div>
-      <h2  style={{ display: isOpen ? "block" : "none" }} > Logout</h2>
+      < BiLogOut />
+      Logout
       </button>
   )
 }

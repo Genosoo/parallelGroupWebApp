@@ -28,8 +28,6 @@ export default function Users() {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [openDialog, setOpenDialog] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState("");
@@ -99,14 +97,8 @@ export default function Users() {
     fetchData();
   }, []);
 
-  const handleOpenDialog = (item) => {
-    setSelectedItem(item);
-    setOpenDialog(true);
-  };
 
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
+
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -230,119 +222,11 @@ const handleFindClick = () => {
          
         </div>
         <button className="btn_add_users" onClick={handleAddUsersDialogOpen}>
-          <BsPersonPlus/>Add Users</button>
+          <BsPersonPlus/>Add Individual</button>
       </div>
 
      
-    {selectedItem && (
-      <Dialog  
-      fullWidth
-      maxWidth="lg"
-      open={openDialog} onClose={handleCloseDialog}>
-       <div className="flex">
-       <div className="box_left">
-        <div className="users_box_wrapper1">
-          <div className="box box1">
-               <img 
-               src={`http://localhost:8000/${selectedItem.logo}`} 
-               alt=""
-               className="users_table_logo"
-               onError={(e) => {
-                e.target.onerror = null; // Prevent infinite loop
-                e.target.src = testImage; // Replace with the path to your default image
-              }}
-              />
-             <div className="mem_id">
-                <p className="p1">Membership ID:</p> 
-                <p className="p2">{selectedItem.number ?? "---"}</p>
-             </div>
-          </div>
-          <div className="box box2 ">
-             <span>
-                <p className="p1">Prefix</p> 
-                <p className="p2">{selectedItem.number ?? "---"}</p>
-             </span>
-             <span>
-                <p className="p1">First Name</p> 
-                <p className="p2">{selectedItem.name ?? "---"}</p>
-             </span>
-
-             <span>
-                <p className="p1">Middle Name</p> 
-                <p className="p2">{selectedItem.name ?? "---"}</p>
-             </span>
-             <span>
-                <p className="p1">Last Name</p> 
-                <p className="p2">{selectedItem.req_type ?? "---" }</p>
-             </span>
-             <span>
-                <p className="p1">Suffix</p> 
-                <p className="p2">{selectedItem.req_type ?? "---" }</p>
-             </span>
-             <span>
-                <p className="p1">Nickname</p> 
-                <p className="p2">{selectedItem.req_type ?? "---" }</p>
-             </span>
-          </div>
-        </div>
-        <div className="users_box_wrapper1 pt-6">
-          <div className="box box3">
-          <span>
-                <p className="p1">Individual ID</p> 
-                <p className="p2">{selectedItem.affiliation ?? "---"}</p>
-             </span>
-             <span>
-                <p className="p1">Date Created</p> 
-                <p className="p2">{selectedItem.name ?? "---"}</p>
-             </span>
-             <span>
-                <p className="p1">Date Modified</p> 
-                <p className="p2">{selectedItem.reg_date ?? "---" }</p>
-             </span>
-             <span>
-                <p className="p1">Record Created By</p> 
-                <p className="p2">{selectedItem.reg_number ?? "---" }</p>
-             </span>
-             <span>
-                <p className="p1">Action</p> 
-                <p className="p2">{selectedItem.application_date ?? "---" }</p>
-             </span>
-             
-          </div>
-        </div>
-        </div>
-
-        <div className="box_right">
-          <div className="box_wrapper2">
-          <div className="box4">
-          <span>
-                <p className="p1">Individual ID</p> 
-                <p className="p2">{selectedItem.affiliation ?? "---"}</p>
-             </span>
-             <span>
-                <p className="p1">Date Created</p> 
-                <p className="p2">{selectedItem.name ?? "---"}</p>
-             </span>
-             <span>
-                <p className="p1">Date Modified</p> 
-                <p className="p2">{selectedItem.reg_date ?? "---" }</p>
-             </span>
-             <span>
-                <p className="p1">Record Created By</p> 
-                <p className="p2">{selectedItem.reg_number ?? "---" }</p>
-             </span>
-             <span>
-                <p className="p1">Action</p> 
-                <p className="p2">{selectedItem.application_date ?? "---" }</p>
-             </span>
-          </div>
-          </div>
-
-          <button className="dailog_btn_close" onClick={handleCloseDialog}>Close</button>
-        </div>
-       </div>
-      </Dialog>
-    )}
+    
 
 <Dialog
   open={deleteConfirmationDialogOpen}
@@ -391,53 +275,144 @@ const handleFindClick = () => {
           <TableHead >
             <TableRow >
               <TableCell >
-                <div className="users_table_header">User ID</div>
+                <div className="users_table_header">Membership ID</div>
               </TableCell>
               <TableCell>
-                <div className="users_table_header">User Name</div>
+                <div className="users_table_header">Prefix</div>
               </TableCell>
 
               <TableCell>
                 <div className="users_table_header">First Name</div>
               </TableCell>
               <TableCell>
+                <div className="users_table_header">Middle Name</div>
+              </TableCell>
+              <TableCell>
                 <div className="users_table_header">Last Name</div>
+              </TableCell>
+              <TableCell>
+                <div className="users_table_header">Suffix</div>
+              </TableCell>
+              <TableCell>
+                <div className="users_table_header">Nickname</div>
+              </TableCell>
+              <TableCell>
+                <div className="users_table_header">Mobile Number</div>
               </TableCell>
               <TableCell>
                 <div className="users_table_header">Email Address</div>
               </TableCell>
               <TableCell>
-
-                <div className="users_table_header">Individual ID</div>
+                <div className="users_table_header">Accupation</div>
               </TableCell>
               <TableCell>
-                <div className="users_table_header">Date Created</div>
+                <div className="users_table_header">Region</div>
               </TableCell>
               <TableCell>
-                <div className="users_table_header">Date Modified</div>
+                <div className="users_table_header">Province</div>
               </TableCell>
               <TableCell>
-                <div className="users_table_header">Record Created By</div>
+                <div className="users_table_header">District</div>
               </TableCell>
               <TableCell>
-                <div className="users_table_header">Action</div>
+                <div className="users_table_header">City/Municipality</div>
+              </TableCell>
+              <TableCell>
+                <div className="users_table_header">Barangay</div>
+              </TableCell>
+              <TableCell>
+                <div className="users_table_header">Bldg.Number</div>
+              </TableCell>
+              <TableCell>
+                <div className="users_table_header">Bldg.Name</div>
+              </TableCell>
+              <TableCell>
+                <div className="users_table_header">Street Number</div>
+              </TableCell>
+              <TableCell>
+                <div className="users_table_header">Street Name</div>
+              </TableCell>
+              <TableCell>
+                <div className="users_table_header">Membership Type</div>
+              </TableCell>
+              <TableCell>
+                <div className="users_table_header">Affiliation (Parallel Group)</div>
+              </TableCell>
+              <TableCell>
+                <div className="users_table_header">Position in Parallel Group</div>
+              </TableCell>
+              <TableCell>
+                <div className="users_table_header">Membership Date Application</div>
+              </TableCell>
+              <TableCell>
+                <div className="users_table_header">Membership Date Approved</div>
+              </TableCell>
+              <TableCell>
+                <div className="users_table_header">Membership Status</div>
+              </TableCell>
+              <TableCell>
+                <div className="users_table_header">Membership Date Closed</div>
+              </TableCell>
+              <TableCell>
+                <div className="users_table_header">ReferredBy</div>
+              </TableCell>
+              <TableCell>
+                <div className="users_table_header">Photo</div>
+              </TableCell>
+              <TableCell  sx={{
+                position:"sticky", 
+                right:0, 
+                bgcolor:"#f5f5f5cd",
+                }}>
+                <div className="users_table_header ">Action</div>
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {renderTableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, index) => (
-              <TableRow key={index} onClick={() => handleOpenDialog(item)} style={{ cursor: "pointer" }}>
-                  <TableCell><span>{item.id ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.username ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.first_name ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.last_name ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.email ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.user_id ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.created_at  ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.updated_at ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.created_by?? "---"}</span></TableCell>
+              <TableRow key={index} style={{ cursor: "pointer" }}>
+                  <TableCell><span>{item.individual.memship_id ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.prefix_data ? item.individual.prefix_data.desc ?? "---" : "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.first_name ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.middle_name ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.last_name ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.suffix_data ? item.individual.suffix_data.desc ?? "---" : "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.nickname ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.mobile_number ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.email ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.occupation_data ? item.individual.occupation_data.desc ?? "---" : "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.region_data ? item.individual.region_data.desc ?? "---" : "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.province_data ? item.individual.province_data.desc ?? "---" : "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.municipality_data ? item.individual.municipality_data.legist_dist ?? "---" : "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.municipality_data ? item.individual.municipality_data.desc ?? "---" : "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.barangay_data ? item.individual.barangay_data.desc ?? "---" : "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.bldg_number ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.bldg_name ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.street_number ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.street_name ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.memship_type_data ? item.individual.memship_type_data.desc ?? "---" : "---"}</span></TableCell>
+                  <TableCell><span>---</span></TableCell>
+                  <TableCell><span>{item.individual.position_data ? item.individual.position_data.desc ?? "---" : "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.application_date ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.approved_date ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.memship_status_data ? item.individual.memship_status_data.desc ?? "---" : "---"}</span></TableCell>
+                  <TableCell><span>{item.individual.closed_date ?? "---"}</span></TableCell>
+                  <TableCell><span>---</span></TableCell>
                   <TableCell>
-                    <div className="action_btn_wrapper">
+                  <img 
+                      src={`http://localhost:8000/${item?.individual?.photo}`} 
+                      alt=""
+                      className="users_table_logo "
+                      onError={(e) => {
+                        e.target.onerror = null; // Prevent infinite loop
+                        e.target.src = testImage; // Replace with the path to your default image
+                      }}
+                    />
+
+                 </TableCell>
+                
+                 <TableCell sx={{position:"sticky", right:0,  bgcolor:"#f5f5f5cd",}}>
+                    <div className="action_btn_wrapper ">
                       <button   className="btn_update_users">
                         <FaRegEdit/>
                       </button>

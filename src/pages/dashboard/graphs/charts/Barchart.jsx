@@ -36,7 +36,8 @@ const BarChart = ({ dataList }) => {
   };
 
   return (
-    <div className="chart_box">
+    <div className="chart_box p-10">
+      <p>Total No. of Members (Active/Inactive)</p>
       <Bar data={chartData} />
     </div>
   );

@@ -1,11 +1,18 @@
-import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Avatar from '@mui/material/Avatar';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import ChangePassword from './ChangePassword'
+import { IoHomeOutline } from "react-icons/io5";
+import { BsPersonVideo2 } from "react-icons/bs";
+const baseUrl = import.meta.env.VITE_URL;
+const getAccount = `${baseUrl}/api/my_account/`;
+
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -48,7 +55,9 @@ const StyledMenu = styled((props) => (
 }));
 
 export default function CustomizedMenus() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [data, setData] = useState([])
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -56,6 +65,21 @@ export default function CustomizedMenus() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const dataResponse = await axios.get(getAccount);
+        setData(dataResponse.data.success);
+        console.log("my account nav", dataResponse.data.success);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -74,10 +98,12 @@ export default function CustomizedMenus() {
         endIcon={<KeyboardArrowDownIcon sx={{color:"#000"}} />}
       >
           <div className="flex gap-5 items-center justify-center">
-          <Avatar alt="Remy Sharp"   sx={{ width: 35, height: 35 }} src="/static/images/avatar/1.jpg" />
+          <Avatar alt={data.individual?.first_name}   sx={{ width: 35, height: 35 }}  src={`${baseUrl}${data.individual?.photo}`} />
                 <div className="flex flex-col items-start justify-center text-black font-manrope">
-                    <p className='font-bold text-[12px] leading-3'>Juan Dela Cruz</p>
-                    <span className='text-[10px]'>roles</span>
+                    <p className='font-bold text-[12px] leading-3'>
+                    {data.individual?.first_name} {data.individual?.last_name}
+                    </p>
+                    <span className='text-[10px]'>{data.roles}</span>
                 </div>
           </div>
       </Button>
@@ -90,13 +116,24 @@ export default function CustomizedMenus() {
         open={open}
         onClose={handleClose}
       >
+
        
         {/* <Divider sx={{ my: 0.5 }} /> */}
-        <MenuItem onClick={handleClose} disableRipple>
-          <AccountCircleIcon />
-          Account
+        <Link to={'/parallel-groups'}>
+        <MenuItem disableRipple>
+          <span className='flex items-center gap-3'><IoHomeOutline/>Home</span>
         </MenuItem>
-       
+        </Link> 
+
+        <Link to={'main/account/'}>
+        <MenuItem onClick={handleClose} disableRipple>
+        <span className='flex items-center gap-3'> <BsPersonVideo2 />
+         Account </span>
+        </MenuItem>
+        </Link> 
+        <MenuItem disableRipple>
+          <ChangePassword />
+        </MenuItem>
       </StyledMenu>
     </div>
   );

@@ -45,27 +45,45 @@ export default function Cards({data}) {
             </div> */}
             </div>
 
+            <div className="db_cards_box">
+            <div className="db_cards">
+                <h1>44</h1>
+                <p>Parallel Groups</p>
+            </div>
 
-          <div className="db_cards_box">
-          {/* <div className="db_cards bg-gray-500">
-               
-            </div> */}
-            {/* <div className="db_cards">
-                <h1>{data.memship_types?.['Parallel Group Member']}</h1>
-                <p>Total No. of Members</p>
+            <div className="db_cards">
+                <h1>20</h1>
+                <p>Luzon</p>
             </div>
             <div className="db_cards">
-                <h1>{data.memship_status?.Active}</h1>
-                <p>No. of Members</p>
-                <span className="cards_active">Active</span>
-
+                <h1>20</h1>
+                <p>Visayas</p>
             </div>
             <div className="db_cards">
-               <h1>{data.memship_status?.Inactive}</h1>
-                <p>No. of Members</p>
-                <span className="cards_inactive">Inactive</span>
-            </div> */}
-          </div>
+            <h1>4</h1>
+                <p>Mindanao</p>
+            </div>
+            </div>
+
+            <div className="db_cards_box">
+            <div className="db_cards">
+                <h1>44</h1>
+                <p>Member</p>
+            </div>
+
+            <div className="db_cards">
+                <h1>20</h1>
+                <p>Luzon</p>
+            </div>
+            <div className="db_cards">
+                <h1>20</h1>
+                <p>Visayas</p>
+            </div>
+            <div className="db_cards">
+            <h1>4</h1>
+                <p>Mindanao</p>
+            </div>
+            </div>
         </div>
     </div>
   )

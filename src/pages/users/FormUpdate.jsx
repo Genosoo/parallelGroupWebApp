@@ -9,7 +9,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 
 
@@ -24,9 +25,14 @@ export default function FormUpdate({ data, apiEndpoint, csrfToken, onClose  }) {
         first_name: data.individual?.first_name || "",
         last_name: data.individual?.last_name || "",
         email: data.individual?.email || "",
+        mobile_number:data.individual?.mobile_number,
+        birth_date:data.individual?.birth_date,
+        gender:data.individual?.gender,
       },
+      username:"",
     });
 
+    
 
 
     const [openPasswordDialog, setOpenPasswordDialog] = useState(false);
@@ -121,8 +127,17 @@ export default function FormUpdate({ data, apiEndpoint, csrfToken, onClose  }) {
     
           return () => clearTimeout(timeoutId);
         } else {
+
+          const registrationData = {
+            ...formData,
+            username: formData.individual.email,
+            individual: {
+              ...formData.individual,
+            },
+          };
+
           // Always send formData with PUT request
-          const response = await axios.put(apiEndpoint, formData, {
+          const response = await axios.put(apiEndpoint, registrationData, {
             headers: {
               'X-CSRFToken': csrfToken,
             },
@@ -175,6 +190,7 @@ export default function FormUpdate({ data, apiEndpoint, csrfToken, onClose  }) {
             Update successful!
           </MuiAlert>
         </Snackbar>
+
   <div className="flex flex-col">
      <TextField
     label="First Name"
@@ -204,6 +220,46 @@ export default function FormUpdate({ data, apiEndpoint, csrfToken, onClose  }) {
     onChange={handleInputChange}
   />
   </div>
+
+  <div className="flex flex-col">
+  <TextField
+   label="Mobile Number"
+    type="number"
+    name="individual.mobile_number"
+    value={formData.individual.mobile_number || ""}
+    onChange={handleInputChange}
+  />
+  </div>
+
+  
+  <div className="flex flex-col">
+            <span>Gender:</span>
+            <Select
+              name="individual.gender"
+              value={formData.individual.gender}
+              required
+              onChange={handleInputChange}
+            >
+              <MenuItem  value="" disabled>
+                <span className='text-black'> Gender</span>
+              </MenuItem>
+              <MenuItem value="male">Male</MenuItem>
+              <MenuItem value="female">Female</MenuItem>
+              {/* <MenuItem value="other">Other</MenuItem> */}
+            </Select>
+          </div>
+
+  <div className="flex flex-col">
+    <span>Date of Birth:</span>
+  <TextField
+    type="date"
+    name="individual.birth_date"
+    value={formData.individual.birth_date || ""}
+    onChange={handleInputChange}
+  />
+  </div>
+
+
   <Button
           className={`button_change_password`}
           onClick={handleOpenPasswordDialog}

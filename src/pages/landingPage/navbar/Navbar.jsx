@@ -29,8 +29,8 @@ const Navbar = () => {
   const location = useLocation();
 
   return (
-    <nav className="">
-        <div className='p-3 font-manrope shadow flex items-center justify-around'>
+    <nav className=" sticky top-0 z-[1000]">
+        <div className='p-3 font-manrope shadow flex items-center justify-between bg-white'>
         <div className="flex justify-between items-center">
           <img src={logo} alt="" />
         </div>

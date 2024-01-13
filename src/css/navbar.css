@@ -10,7 +10,7 @@
       }
 
       .navbar_container{
-        @apply flex justify-between   items-center h-[7vh]  px-5 lg:pr-20  sticky top-0 pt-3 bg-[#EBF4FD]
+        @apply flex justify-between  items-center h-[7vh]  px-5 lg:pr-20  sticky top-0 pt-3 bg-[#EBF4FD]
       }
 
     .nav_right_box{

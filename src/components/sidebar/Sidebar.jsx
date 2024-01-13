@@ -1,10 +1,10 @@
 import { AiOutlineAlignLeft } from 'react-icons/ai';
-import Logo from '../../assets/sidebar/logo.png';
+import Logo from '../../assets/sidebar/logo-1.png';
 import { NavLink } from 'react-router-dom';
 import { CgProfile } from 'react-icons/cg';
 import { BsGrid} from 'react-icons/bs';
 import { IoMapOutline } from 'react-icons/io5';
-import ButtonLogout from './ButtonLogout';
+// import ButtonLogout from './ButtonLogout';
 import { CiSettings } from 'react-icons/ci';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -158,7 +158,7 @@ const Sidebar = () => {
                             </h2>
                         </NavLink>
                     ))}
-                    <ButtonLogout isOpen={isOpen} />
+                    {/* <ButtonLogout isOpen={isOpen} /> */}
                 </div>
             </div>
 

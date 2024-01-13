@@ -269,124 +269,45 @@ const handleFindClick = () => {
          
         </div>
         <button className="btn_add_users" onClick={handleAddUsersDialogOpen}>
-          <BsPersonPlus/>Add Users</button>
+          <BsPersonPlus/>Add Administrator</button>
       </div>
 
      
     {selectedItem && (
       <Dialog  
-      fullWidth
-      maxWidth="md"
       open={openDialog} onClose={handleCloseDialog}>
-       <div className="user_dialog_container">
-         <div className="user_box_wrapper1">
-           <div className="user_flex">
-           <div className="user_box_1">
+      <div className="p-10 flex flex-col items-center gap-3">
+          <div className="bg-white shadow rounded-full p-3">
             <img 
-                    src={`http://localhost:8000/${selectedItem.individual?.photo}`} 
+                    src={`${baseUrl}${selectedItem.individual?.photo}`} 
                     alt=""
-                    className="users_table_logo"
+                    className="w-[200px] h-[200px] object-cover rounded-full"
                     onError={(e) => {
                       e.target.onerror = null; // Prevent infinite loop
                       e.target.src = testImage; // Replace with the path to your default image
                     }} 
                   />
-              <span>Membership ID:</span>
-              <h3>{selectedItem.individual?.memship_id ?? "---"}</h3>
             </div>
             <div className="user_box_2">
               <span className="span1">
-                <p>Prefix</p>
                   <p>First Name</p>
-                  <p>Middle Name</p>
                   <p>Last Name</p>
-                  <p>Suffix</p>
-                  <p>Nickname</p>
+                  <p>Mobile Number</p>
+                  <p>Email Address</p>
+                  <p>Date of Birth</p>
+                  <p>Gender</p>
               </span>
               <span className="span2">
-                  <p>{selectedItem.individual?.prefix_data?.desc ?? "---"}</p>
                   <p>{selectedItem.individual?.first_name ?? "---"}</p>
-                  <p>{selectedItem.individual?.middle_name ?? "---"}</p>
                   <p>{selectedItem.individual?.last_name ?? "---"}</p>
-                  <p>{selectedItem.individual?.suffix_data?.desc ?? "---"}</p>
-                  <p>{selectedItem.individual?.nickname ?? "---"}</p>
-                
-              </span>
-            </div>
-           </div>
-
-            <div className="user_box_3">
-              <span className="span1">
-                <p>Region</p>
-                <p>Province</p>
-                <p>District</p>
-                <p>City/Municipality</p>
-                <p>Barangay</p>
-                <p>Bldg. Number</p>
-                <p>Bldg. Name</p>
-                <p>Street Number</p>
-                <p>Street Name</p>
-              </span>
-              <span className="span2">
-              <p>{selectedItem.individual?.region_data?.desc ?? "---"}</p>
-              <p>{selectedItem.individual?.province_data?.desc ?? "---"}</p>
-              <p>{selectedItem.individual?.municipality_data?.legist_dist ?? "---"}</p>
-              <p>{selectedItem.individual?.municipality_data?.desc ?? "---"}</p>
-              <p>{selectedItem.individual?.barangay_data?.desc ?? "---"}</p>
-              <p>{selectedItem.individual?.bldg_number ?? "---"}</p>
-              <p>{selectedItem.individual?.bldg_name ?? "---"}</p>
-              <p>{selectedItem.individual?.street_number ?? "---"}</p>
-              <p>{selectedItem.individual?.street_name ?? "---"}</p>
-               
-              </span>
-            </div>
-         </div>
-
-         <div className="user_box_wrapper2">
-             <div className="user_box_4">
-                 <span className="span1">
-                    <p>Mobile Number</p>
-                    <p>Email Address</p>
-                    <p>Occupation</p>
-                 </span>
-
-                 <span className="span2">
-                   <p>{selectedItem.individual?.mobile_number ?? "---"}</p>
+                  <p>{selectedItem.individual?.mobile_number ?? "---"}</p>
                    <p>{selectedItem.individual?.email ?? "---"}</p>
-                   <p>{selectedItem.individual?.occupation_data?.desc ?? "---"}</p>
-                 </span>
-
-              
-             </div>
-
-             <div className="user_box_5">
-             <span className="span1">
-                     <p>Membership Type</p>
-                     <p>Affilication (Parallel Group)</p>
-                     <p>Position in (Parallel Group)</p>
-                     <p>Membership Date Application</p>
-                     <p>Membership Date Approved</p>
-                     <p>Membership Status</p>
-                     <p>Membership Date Closed</p>
-                     <p>ReferredBy</p>
-                 </span>
-                 <span className="span2">
-                 <p>{selectedItem.individual?.memship_type_data?.desc ?? "---"}</p>
-                 <p>---</p>
-                 <p>{selectedItem.individual?.position_data?.desc ?? "---"}</p>
-                 <p>{selectedItem.individual?.application_date ?? "---"}</p>
-                 <p>{selectedItem.individual?.approved_date ?? "---"}</p>
-                 <p>{selectedItem.individual?.memship_status_data?.desc ?? "---"}</p>
-                 <p>{selectedItem.individual?.closed_date ?? "---"}</p>
-                 <p>---</p>
-                 </span>
-
-             </div>
-
-             <button className="user_dailog_btn_close" onClick={handleCloseDialog}>Close</button>
-
-         </div>
-       </div>
+                   <p>{selectedItem.individual?.birth_date ?? "---"}</p>
+                   <p>{selectedItem.individual?.gender ?? "---"}</p>
+              </span>
+            </div>
+           <button className="user_dailog_btn_close" onClick={handleCloseDialog}>Close</button>
+          </div>
       </Dialog>
     )}
 

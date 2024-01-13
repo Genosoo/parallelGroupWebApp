@@ -1,16 +1,12 @@
 import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Avatar from '@mui/material/Avatar';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import axios from "axios";
-import ChangePassword from './ChangePassword'
-import { BsPersonVideo2 } from "react-icons/bs";
 import ButtonLogout from './ButtonLogout';
-import { IoHomeOutline } from "react-icons/io5";
 
 
 const baseUrl = import.meta.env.VITE_URL;
@@ -107,9 +103,9 @@ export default function CustomizedMenus() {
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon sx={{color:"#000"}} />}
       >
-          <div className="flex gap-5 items-center  justify-center">
+          <div className="flex gap-5 items-center   font-montserrat ">
           <Avatar alt={data.individual?.first_name}   sx={{ width: 35, height: 35 }}  src={`${baseUrl}${data.individual?.photo}`} />
-                <div className="flex flex-col items-start justify-center text-black font-manrope">
+                <div className="flex flex-col items-start   text-black">
                     <p className='font-bold text-[12px] leading-3'>
                     {data.individual?.first_name} {data.individual?.last_name}
                     </p>
@@ -127,28 +123,69 @@ export default function CustomizedMenus() {
         onClose={handleClose}
       >
 
-        
+     <div className='p-2 flex flex-col gap-1'>
+          
       {/* Conditionally render Dashboard link based on role */}
       {roles === 'Administrator' || roles === 'Parallel Group Administrator' ? (
           <Link to={'/main/dashboard'}>
-            <MenuItem disableRipple>
-              <span className='flex items-center gap-3'><IoHomeOutline/>Dashboard</span>
-            </MenuItem>
-          </Link>
+             <div className="flex flex-col w-full gap-1">
+             <span className='flex  items-center  font-montserrat  
+               bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px] hover:bg-gray-800 hover:text-white duration-200'>Dashboard</span>
+            <div className='h-[1px] bg-[#298ad949] w-full'></div>
+             </div>
+          </Link >
         ) : null}
        
         <Link to={'/parallel-groups/account/'}>
-        <MenuItem onClick={handleClose} disableRipple>
-        <span className='flex items-center gap-3'> <BsPersonVideo2 />
-         Account </span>
-        </MenuItem>
+        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
+             <span className='flex  items-center  font-montserrat  
+               bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px] hover:bg-gray-800 hover:text-white duration-200'>Command Center</span>
+            <div className='h-[1px] bg-[#298ad949] w-full'></div>
+             </div>
         </Link> 
-        <MenuItem disableRipple>
-          <ChangePassword />
-        </MenuItem>
-        <MenuItem disableRipple>
+
+        <Link to={'/parallel-groups/account/'}>
+        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
+             <span className='flex  items-center  font-montserrat  
+               bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px] hover:bg-gray-800 hover:text-white duration-200'>New Report</span>
+            <div className='h-[1px] bg-[#298ad949] w-full'></div>
+             </div>
+        </Link> 
+
+        <Link to={'/parallel-groups/account/'}>
+        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
+             <span className='flex  items-center  font-montserrat  
+               bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px] hover:bg-gray-800 hover:text-white duration-200'>Report Tracker</span>
+            <div className='h-[1px] bg-[#298ad949] w-full'></div>
+             </div>
+        </Link> 
+
+        <Link to={'/parallel-groups/account/'}>
+        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
+             <span className='flex  items-center  font-montserrat  
+               bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px] hover:bg-gray-800 hover:text-white duration-200'>Report History</span>
+            <div className='h-[1px] bg-[#298ad949] w-full'></div>
+             </div>
+        </Link> 
+
+        <Link to={'/parallel-groups/account/'}>
+        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
+             <span className='flex  items-center  font-montserrat  
+               bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px] hover:bg-gray-800 hover:text-white duration-200'>Watch Now</span>
+            <div className='h-[1px] bg-[#298ad949] w-full'></div>
+             </div>
+        </Link> 
+
+        <Link to={'/parallel-groups/account/'}>
+        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
+             <span className='flex  items-center  font-montserrat  
+               bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px] hover:bg-gray-800 hover:text-white duration-200'>My Profile</span>
+            <div className='h-[1px] bg-[#298ad949] w-full'></div>
+             </div>
+        </Link> 
+
           <ButtonLogout />
-        </MenuItem>
+     </div>
       </StyledMenu>
     </div>
   );

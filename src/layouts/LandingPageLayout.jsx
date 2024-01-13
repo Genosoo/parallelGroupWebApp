@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom"
 
 export default function LandingPageLayout() {
   return (
-    <div className='flex flex-col justify-between h-[100vh]'>
+    <div className='flex flex-col justify-between bg-[#EBF4FD]'>
         <Navbar />
         <Outlet />
         <Footer />

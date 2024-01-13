@@ -5,7 +5,6 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-import { IoKeyOutline } from "react-icons/io5";
 
 const baseUrl = import.meta.env.VITE_URL;
 const myAccount = `${baseUrl}/api/my_account/`;
@@ -76,10 +75,10 @@ export default function Account() {
 
 
   return (
-    <div>
-      <button className="flex items-center gap-3"  onClick={handleOpenChangePasswordDialog}>
-         <IoKeyOutline/> Change Password
-      </button>
+    <>
+     <span className="cursor-pointer text-xs text-blue-500 hover:font-bold duration-200"  onClick={handleOpenChangePasswordDialog}>
+         Change Password
+      </span>
 
       <Dialog open={openChangePasswordDialog} onClose={handleCloseChangePasswordDialog}>
       <h2 className="text-center font-manrope pt-2 font-bold text-lg">Change Password</h2>
@@ -110,6 +109,6 @@ export default function Account() {
           <Button variant="contained" onClick={changePassword}>Save</Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 }

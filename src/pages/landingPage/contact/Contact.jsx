@@ -1,6 +1,3 @@
-import Cards from "../cards/Cards";
-
-
 export default function About() {
   return (
     <div className="h-full flex flex-col items-center font-montserrat  bg-[#EBF4FD] pt-10">
@@ -45,7 +42,6 @@ export default function About() {
       </p>
       </div>
       </div>
-     <Cards />
     </div>
   )
 }

@@ -6,12 +6,12 @@ import image5  from '../../../../assets/ads/image5.jpg'
 
 export default function Ads() {
   return (
-    <div className="h-[30vh] bg-white flex items-center justify-center gap-2 p-2">
-        <img className='h-full w-[50%]' src={image1} alt="" />
-        <img className='h-full w-[50%]' src={image2} alt="" />
-        <img className='h-full w-[50%]' src={image3} alt="" />
-        <img className='h-full w-[50%]' src={image4} alt="" />
-        <img className='h-full w-[50%]' src={image5} alt="" />
+    <div className="h-[30vh] bg-white overflow-hidden flex items-center justify-center gap-2 p-2">
+        <img className='h-full w-[20%]' src={image1} alt="" />
+        <img className='h-full w-[20%]' src={image2} alt="" />
+        <img className='h-full w-[20%]' src={image3} alt="" />
+        <img className='h-full w-[20%]' src={image4} alt="" />
+        <img className='h-full w-[20%]' src={image5} alt="" />
     </div>
   )
 }

@@ -14,7 +14,7 @@ export default function Cards({data}) {
             </div>
 
             <div className="db_cards">
-                <h1>{data.memship_types?.['Parallel Group Member']}</h1>
+            <h1>{data.members?.total || 0}</h1>
                 <p>Total No. of Members</p>
             </div>
             <div className="db_cards">
@@ -43,44 +43,45 @@ export default function Cards({data}) {
                 <p>No. of Parallel Groups</p>
                 <span className="cards_inactive">Inactive</span>
             </div> */}
+            
             </div>
 
             <div className="db_cards_box">
             <div className="db_cards">
-                <h1>44</h1>
+                <h1>{data.parallel_groups?.total || 0}</h1>
                 <p>Parallel Groups</p>
             </div>
 
             <div className="db_cards">
-                <h1>20</h1>
+            <h1>{data.parallel_group_by_island ? data.parallel_group_by_island['Luzon'] || 0 : 0}</h1>
                 <p>Luzon</p>
             </div>
             <div className="db_cards">
-                <h1>20</h1>
+            <h1>{data.parallel_group_by_island ? data.parallel_group_by_island['Visayas'] || 0 : 0}</h1>
                 <p>Visayas</p>
             </div>
             <div className="db_cards">
-            <h1>4</h1>
+            <h1>{data.parallel_group_by_island ? data.parallel_group_by_island['Mindanao'] || 0 : 0}</h1>
                 <p>Mindanao</p>
             </div>
             </div>
 
             <div className="db_cards_box">
             <div className="db_cards">
-                <h1>44</h1>
-                <p>Member</p>
+                 <h1>{data.members?.total || 0}</h1>
+                <p>Members</p>
             </div>
 
             <div className="db_cards">
-                <h1>20</h1>
+              <h1>{data.members_by_island ? data.members_by_island['Luzon'] || 0 : 0}</h1>
                 <p>Luzon</p>
             </div>
             <div className="db_cards">
-                <h1>20</h1>
+                <h1>{data.members_by_island ? data.members_by_island['Visayas'] || 0 : 0}</h1>
                 <p>Visayas</p>
             </div>
             <div className="db_cards">
-            <h1>4</h1>
+            <h1>{data.members_by_island ? data.members_by_island['Mindanao'] || 0 : 0}</h1>
                 <p>Mindanao</p>
             </div>
             </div>

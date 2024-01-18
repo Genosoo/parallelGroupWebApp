@@ -4,24 +4,18 @@ import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import 'chart.js/auto';
 
-const DonutChart = () => {
-  const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
-  const data = [12, 19, 3, 5, 2, 3]; // Sample data for the chart
+const DonutChart = ({ dataList }) => {
+  const labels = ["Red"];
 
-  const colorPalette = [
-    'rgb(255, 99, 132)',
-    'rgb(54, 162, 235)',
-    'rgb(255, 205, 86)',
-    'rgb(75, 192, 192)',
-    'rgb(153, 102, 255)',
-    'rgb(255, 159, 64)',
-  ];
+  const parallelGroupsTotal = dataList.parallel_groups?.total || 0;
+
+  const colorPalette = ['rgb(255, 99, 132)'];
 
   const datasets = [
     {
       label: "Count of Items",
       backgroundColor: colorPalette.slice(0, labels.length),
-      data: data,
+      data: [parallelGroupsTotal], // Wrap the total value in an array
     },
   ];
 
@@ -34,6 +28,13 @@ const DonutChart = () => {
     plugins: {
       legend: {
         position: 'right',
+      },
+      datalabels: {
+        formatter: (value, context) => {
+          return value; // Display the total value on the chart
+        },
+        color: 'white', // Set the color of the label
+        display: true, // Show the label
       },
     },
   };

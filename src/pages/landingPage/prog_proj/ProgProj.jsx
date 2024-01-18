@@ -1,4 +1,3 @@
-import Cards from "../cards/Cards";
 
 
 export default function About() {
@@ -45,7 +44,6 @@ export default function About() {
       </p>
       </div>
       </div>
-     <Cards />
     </div>
   )
 }

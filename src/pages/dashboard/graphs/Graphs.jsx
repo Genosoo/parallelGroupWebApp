@@ -32,6 +32,8 @@ export default function Graphs() {
       fetchData(); 
     }, []);
 
+    
+
   return (
     <div className="chart_container">
       <h2>Graphs</h2>

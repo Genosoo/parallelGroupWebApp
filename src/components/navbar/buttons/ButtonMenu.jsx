@@ -137,50 +137,43 @@ export default function CustomizedMenus() {
           </Link >
         ) : null}
        
-        <Link to={''}>
-        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
+        {/* <Link to={'/parallel-groups/command-center'}>
+        <div className="flex flex-col w-full gap-1 " onClick={handleClose}>
              <span className='flex  items-center  font-montserrat  
                bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px]
-                hover:bg-gray-800 hover:text-white duration-200'>Command Center</span>
+                duration-200 hover:bg-gray-800 hover:text-white'>Command Center</span>
             <div className='h-[1px] bg-[#298ad949] w-full'></div>
              </div>
         </Link> 
 
-        <Link to={''}>
-        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
+        <Link to={'/parallel-groups/new-report'}>
+        <div className="flex flex-col w-full gap-1 " onClick={handleClose}>
              <span className='flex  items-center  font-montserrat  
                bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px]
-                hover:bg-gray-800 hover:text-white duration-200'>New Report</span>
+                e duration-200 hover:bg-gray-800 hover:text-white'>New Report</span>
             <div className='h-[1px] bg-[#298ad949] w-full'></div>
              </div>
         </Link> 
 
-        <Link to={''}>
-        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
+        <Link to={'/parallel-groups/report-tracker'}>
+        <div className="flex flex-col w-full gap-1 " onClick={handleClose}>
              <span className='flex  items-center  font-montserrat  
                bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px]
-                hover:bg-gray-800 hover:text-white duration-200'>Report Tracker</span>
+                duration-200 hover:bg-gray-800 hover:text-white'>Report Tracker</span>
             <div className='h-[1px] bg-[#298ad949] w-full'></div>
              </div>
         </Link> 
 
-        <Link to={''}>
-        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
-             <span className='flex  items-center  font-montserrat  
-               bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px]
-                hover:bg-gray-800 hover:text-white duration-200'>Report History</span>
-            <div className='h-[1px] bg-[#298ad949] w-full'></div>
-             </div>
-        </Link> 
+     
 
-        <Link to={'/parallel-groups/account/'}>
-        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
+        <Link to={'/parallel-groups/watch/'}>
+        <div className="flex flex-col w-full gap-1 " onClick={handleClose}>
              <span className='flex  items-center  font-montserrat  
                bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px]
-                hover:bg-gray-800 hover:text-white duration-200'>Watch Now</span>
+                 duration-200 hover:bg-gray-800 hover:text-white'>Watch Now</span>
             <div className='h-[1px] bg-[#298ad949] w-full'></div>
              </div>
-        </Link> 
+        </Link>  */}
 
         <Link to={'/main/account/'}>
         <div className="flex flex-col w-full gap-1" onClick={handleClose}>

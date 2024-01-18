@@ -114,6 +114,10 @@
     .form_register_wrapper form input{
       @apply bg-[#03030341]  p-3 rounded-[5px] outline-0  
     }
+
+    .form_register_wrapper form .birth_date{
+      @apply bg-[#03030341]  py-6 text-[#ffffff90] rounded-[5px] outline-0  
+    }
     
     .form_register_wrapper form .form-select{
       @apply bg-[#03030341] border-0 text-[#ffffff90] p-3 rounded-[5px] outline-0  

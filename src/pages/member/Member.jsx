@@ -343,16 +343,16 @@ const handleFindClick = () => {
             <div className="user_box_2">
               <span className="span1">
                 <p>Prefix</p>
+                  <p>Username</p>
                   <p>First Name</p>
-                  <p>Middle Name</p>
                   <p>Last Name</p>
                   <p>Suffix</p>
                   <p>Nickname</p>
               </span>
               <span className="span2">
                   <p>{selectedItem.individual?.prefix_data?.desc ?? "---"}</p>
+                  <p>{selectedItem.username ?? "---"}</p>
                   <p>{selectedItem.individual?.first_name ?? "---"}</p>
-                  <p>{selectedItem.individual?.middle_name ?? "---"}</p>
                   <p>{selectedItem.individual?.last_name ?? "---"}</p>
                   <p>{selectedItem.individual?.suffix_data?.desc ?? "---"}</p>
                   <p>{selectedItem.individual?.nickname ?? "---"}</p>
@@ -516,7 +516,7 @@ const handleFindClick = () => {
                   <TableCell><span>{item.individual?.email ?? "---"}</span></TableCell>
                   <TableCell>
                   <img 
-                      src={`http://localhost:8000/${item?.individual?.photo}`} 
+                      src={`${baseUrl}${item?.individual?.photo}`} 
                       alt=""
                       className="users_table_logo "
                       onError={(e) => {
@@ -565,7 +565,7 @@ const handleFindClick = () => {
         <button className="btn_excel" onClick={handleExportExcel}>
           <SiMicrosoftexcel />
         </button>
-      <button disabled className="btn_pdf"><BsFiletypePdf /></button>
+      <button disabled className="btn_pdf opacity-10"><BsFiletypePdf /></button>
      
       </div>
     </div>

@@ -46,8 +46,6 @@ export default function Login({onClose}) {
     individual: {
       first_name: '',
       last_name: '',
-      mobile_number:'',
-      email:'',
       birth_date:'',
       gender:'',
       parallel_groups_multiple:[],
@@ -148,22 +146,7 @@ export default function Login({onClose}) {
     }
 
     
-         // Check if gender is selected
-         if (!registerFormData.individual.email) {
-          setErrorSignup('Please create your email address.');
-          setLoading(false);
-          return;
-        }
-
-
-        
-         // Check if gender is selected
-         if (!registerFormData.individual.mobile_number) {
-          setErrorSignup('Please add your Mobile Number');
-          setLoading(false);
-          return;
-        }
-
+    
          // Check if gender is selected
     if (!registerFormData.individual.gender) {
       setErrorSignup('Please select your gender.');
@@ -210,7 +193,7 @@ export default function Login({onClose}) {
       const memshipId = random(100000, 999999).toString();
       const registrationData = {
         ...registerFormData,
-        username: registerFormData.individual.email,
+        username: registerFormData.username,
         individual: {
           ...registerFormData.individual,
           memship_id: memshipId,
@@ -225,9 +208,9 @@ export default function Login({onClose}) {
   
         setSuccessMessage('Registration successful!'); // Add this line
   
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 5000);
+        setTimeout(() => {
+          window.location.reload();
+        },3000);
     } catch (error) {
       console.error('Registration error:', error);
       setErrorSignup(error.response.data.error);
@@ -331,6 +314,14 @@ export default function Login({onClose}) {
               onChange={handleRegisterChange}
             />
 
+          <TextField
+              type="text"
+              name="username"
+              value={registerFormData.username || ""}
+              placeholder="Username"
+              onChange={handleRegisterChange}
+            />
+
          
           <TextField
               type="text"
@@ -366,28 +357,28 @@ export default function Login({onClose}) {
           </div>
 
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-  <DatePicker
-    value={registerFormData.individual.birth_date || null}
-    label="Date of Birth"
-    renderInput={(props) => (
-      <input
-        {...props}
-        label="Date of Birth"
-        placeholder="Date of Birth"
-      />
-    )}
-    
-    onChange={(date) => {
-      const formattedDate = date ? date.format('YYYY-MM-DD') : null;
-      handleRegisterChange({
-        target: {
-          name: 'individual.birth_date',
-          value: formattedDate,
-        },
-      });
-    }}
-  />
-</LocalizationProvider>
+              <DatePicker
+                value={registerFormData.individual.birth_date || null}
+                label="Date of Birth"
+                renderInput={(props) => (
+                  <input
+                    {...props}
+                    label="Date of Birth"
+                    placeholder="Date of Birth"
+                  />
+                )}
+                
+                onChange={(date) => {
+                  const formattedDate = date ? date.format('YYYY-MM-DD') : null;
+                  handleRegisterChange({
+                    target: {
+                      name: 'individual.birth_date',
+                      value: formattedDate,
+                    },
+                  });
+                }}
+              />
+            </LocalizationProvider>
 
 
           <TextField
@@ -406,18 +397,18 @@ export default function Login({onClose}) {
               onChange={handleRegisterChange}
             />
 
-<div>
+        <div>
           <div {...getRootProps()} className={isDragActive ? 'dropzone-active' : 'dropzone'}>
             <input {...getInputProps()} id="file-input" />
             {selectedImage ? (
-        <div>
-          <img src={selectedImage} alt="Selected" className="selected-image" />
-        </div>
-      ) : (
-        <div className="text-[30px] text-gray-500">
-          <BiImageAdd />
-        </div>
-      )}
+            <div>
+              <img src={selectedImage} alt="Selected" className="selected-image" />
+            </div>
+          ) : (
+            <div className="text-[30px] text-gray-500">
+              <BiImageAdd />
+            </div>
+          )}
             {
               isDragActive ?
                 <p className='text-xl text-gray-700 font-light'>Drop the image here...</p> :
@@ -455,33 +446,33 @@ export default function Login({onClose}) {
           </div>
           
           
-  {selectedRole === "Parallel Group Administrator" && (
-   <div className="flex flex-col">
-    <span>Parallel Groups:</span>
-    <FormControl>
-    <Select
-      multiple
-      id="parallel-groups"
-      value={registerFormData.individual.parallel_groups_multiple || []}
-      onChange={(e) =>
-        setRegisterFormData((prevData) => ({
-          ...prevData,
-          individual: {
-            ...prevData.individual,
-            parallel_groups_multiple: e.target.value,
-          },
-        }))
-      }
-    >
-      {parallelGroupOptions.map((item) => (
-        <MenuItem key={item.id} value={item.id}>
-          {item.name} 
-        </MenuItem>
-      ))}
-    </Select>
-  </FormControl>
-   </div>
-)}
+            {selectedRole === "Parallel Group Administrator" && (
+            <div className="flex flex-col">
+              <span>Parallel Groups:</span>
+              <FormControl>
+              <Select
+                multiple
+                id="parallel-groups"
+                value={registerFormData.individual.parallel_groups_multiple || []}
+                onChange={(e) =>
+                  setRegisterFormData((prevData) => ({
+                    ...prevData,
+                    individual: {
+                      ...prevData.individual,
+                      parallel_groups_multiple: e.target.value,
+                    },
+                  }))
+                }
+              >
+                {parallelGroupOptions.map((item) => (
+                  <MenuItem key={item.id} value={item.id}>
+                    {item.name} 
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            </div>
+          )}
 
 
 

@@ -54,7 +54,7 @@
     }
 
     .chart_container{
-        @apply flex flex-col pt-3
+        @apply flex flex-col pt-3 pb-10
     }
 
     .chart_container h2{
@@ -67,12 +67,12 @@
 
     .chart_box{
         @apply bg-white w-[50%] flex items-center
-         justify-center rounded-[15px] h-[370px]
+         justify-center rounded-[15px] h-[350px] pt-10
          overflow-hidden flex-col px-10 relative
     }
 
     .chart_box p{
-        @apply font-semibold font-manrope text-gray-800 absolute top-2
+        @apply font-semibold font-manrope text-gray-800 absolute top-3
     }
    
 

@@ -25,13 +25,13 @@ const Carousel = ({ images }) => {
   }, [activeIndex]);
 
   return (
-    <div className="h-[60vh]">
+    <div className="h-[70vh]">
       <div className="carousel-slides">
-        {images.map((image, index) => (
+        {images.map((item, index) => (
           <div
             key={index}
             className={`slide${index === activeIndex ? ' active' : ''}`}
-            style={{ backgroundImage: `url(${image.src})` }}
+            style={{ backgroundImage: `url(${item.src})` }}
           ></div>
         ))}
       </div>

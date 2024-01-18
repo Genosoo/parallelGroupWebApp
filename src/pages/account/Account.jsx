@@ -14,6 +14,7 @@ const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
 export default function Account() {
   const [data, setData] = useState([]);
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
@@ -75,6 +76,7 @@ export default function Account() {
       try {
         const dataResponse = await axios.get(myAccount);
         setData(dataResponse.data.success);
+        setUsername(dataResponse.data.success.username);
         setFirstName(dataResponse.data.success.individual.first_name);
         setLastName(dataResponse.data.success.individual.last_name);
         setEmail(dataResponse.data.success.individual.email);
@@ -106,7 +108,7 @@ export default function Account() {
   
       // Include the photo and filename in the update data
       const updateData = {
-        username:email,
+        username:username,
         individual: {
           first_name: firstName,
           last_name: lastName,
@@ -129,7 +131,7 @@ export default function Account() {
           headers: {
             "X-CSRFToken": csrfToken,
           },
-        }
+        } 
       );
   
       console.log("update response", updateResponse.data);
@@ -225,7 +227,8 @@ export default function Account() {
        </div>
       </div>
      </div>
-        <Dialog open={formUpdate} onClose={handleFormUpdateClose}>
+        <Dialog 
+        open={formUpdate} onClose={handleFormUpdateClose}>
                 <DialogContent>
                   <div className="flex flex-col gap-5 ">
                     {successMessage && <p className="text-green-500">{successMessage}</p>}
@@ -239,6 +242,11 @@ export default function Account() {
                     <div className="flex flex-col">
                       <span>Last Name:</span>
                       <input type="text" className="p-3 bg-gray-200 rounded-lg w-[250px]" value={lastName || ""} onChange={(e) => setLastName(e.target.value)} />
+                    </div>
+                    <div className="flex flex-col">
+                      <span>Username</span>
+                      <input type="text" className="p-3 bg-gray-200
+                       rounded-lg w-[250px]" value={username || ""} onChange={(e) => setUsername(e.target.value)} />
                     </div>
                     <div className="flex flex-col">
                       <span>Email Address:</span>
@@ -313,6 +321,11 @@ export default function Account() {
                        <span className="flex gap-3  p-3 rounded-[10px] bg-white text-gray-400">Last name:
                        <p className="capitalize font-bold text-gray-600">{lastName}</p>
                        </span>
+
+                       <span className="flex gap-3  p-3 rounded-[10px] bg-white text-gray-400">Username:
+                       <p className="capitalize font-bold text-gray-600">{username}</p>
+                       </span>
+
 
                        <span className="flex gap-3  p-3 rounded-[10px] bg-white text-gray-400">Email Address:
                        <p className="font-bold text-gray-600">{email}</p>

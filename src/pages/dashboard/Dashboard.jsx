@@ -19,7 +19,7 @@ export default function Dashboard() {
         setData(dataResponse.data.success);
  
   
-        console.log("data", dataResponse.data);
+        console.log("data", dataResponse.data.success);
  
   
       } catch (error) {

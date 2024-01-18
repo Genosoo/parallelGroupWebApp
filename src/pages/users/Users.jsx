@@ -293,7 +293,7 @@ const handleFindClick = () => {
           <div className="p-10 flex flex-col items-center gap-3">
           <div className="bg-white shadow rounded-full p-3">
             <img 
-                    src={`http://localhost:8000/${selectedItem.individual?.photo}`} 
+                    src={`${baseUrl}${selectedItem.individual?.photo}`} 
                     alt=""
                     className="w-[200px] h-[200px] object-cover rounded-full"
                     onError={(e) => {
@@ -306,6 +306,7 @@ const handleFindClick = () => {
               <span className="span1">
                   <p>First Name</p>
                   <p>Last Name</p>
+                  <p>Username</p>
                   <p>Mobile Number</p>
                   <p>Email Address</p>
                   <p>Date of Birth</p>
@@ -314,6 +315,7 @@ const handleFindClick = () => {
               <span className="span2">
                   <p>{selectedItem.individual?.first_name ?? "---"}</p>
                   <p>{selectedItem.individual?.last_name ?? "---"}</p>
+                  <p>{selectedItem?.username ?? "---"}</p>
                   <p>{selectedItem.individual?.mobile_number ?? "---"}</p>
                    <p>{selectedItem.individual?.email ?? "---"}</p>
                    <p>{selectedItem.individual?.birth_date ?? "---"}</p>

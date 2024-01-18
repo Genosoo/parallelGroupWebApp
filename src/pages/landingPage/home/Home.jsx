@@ -5,7 +5,6 @@ import image2 from '../../../assets/login/image2.png'
 import image3 from '../../../assets/login/image3.png'
 import image4 from '../../../assets/login/image4.png'
 
-import Cards from '../cards/Cards'
 import Ads from './ads/Ads';
 
 export default function Home() {
@@ -20,7 +19,6 @@ export default function Home() {
       <Carousel images={images}/>
       <Ads />
       <Blogs />
-      <Cards />
     </div>
   )
 }

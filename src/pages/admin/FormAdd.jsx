@@ -46,8 +46,6 @@ export default function Login({onClose}) {
     individual: {
       first_name: '',
       last_name: '',
-      mobile_number:'',
-      email:'',
       birth_date:'',
       gender:'',
       parallel_groups_multiple:[],
@@ -139,21 +137,6 @@ export default function Login({onClose}) {
     }
 
     
-         // Check if gender is selected
-         if (!registerFormData.individual.email) {
-          setErrorSignup('Please create your email address.');
-          setLoading(false);
-          return;
-        }
-
-
-        
-         // Check if gender is selected
-         if (!registerFormData.individual.mobile_number) {
-          setErrorSignup('Please add your Mobile Number');
-          setLoading(false);
-          return;
-        }
 
          // Check if gender is selected
     if (!registerFormData.individual.gender) {
@@ -201,7 +184,7 @@ export default function Login({onClose}) {
       const memshipId = random(100000, 999999).toString();
       const registrationData = {
         ...registerFormData,
-        username: registerFormData.individual.email,
+        username: registerFormData.username,
         individual: {
           ...registerFormData.individual,
           memship_id: memshipId,
@@ -331,6 +314,13 @@ export default function Login({onClose}) {
               onChange={handleRegisterChange}
             />
 
+            <TextField
+              type="text"
+              name="username"
+              value={registerFormData.username || ""}
+              placeholder="Username"
+              onChange={handleRegisterChange}
+            />
          
           <TextField
               type="text"

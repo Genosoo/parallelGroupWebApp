@@ -20,6 +20,7 @@ export default function FormUpdate({ data, apiEndpoint, csrfToken, onClose  }) {
     const [errorSignup, setErrorSignup] = useState('');
   
     const [formData, setFormData] = useState({
+      username: data?.username || "",
       individual: {
         user_id:data.individual?.user_id,
         first_name: data.individual?.first_name || "",
@@ -29,7 +30,6 @@ export default function FormUpdate({ data, apiEndpoint, csrfToken, onClose  }) {
         birth_date:data.individual?.birth_date,
         gender:data.individual?.gender,
       },
-      username:"",
     });
 
     
@@ -130,7 +130,7 @@ export default function FormUpdate({ data, apiEndpoint, csrfToken, onClose  }) {
 
           const registrationData = {
             ...formData,
-            username: formData.individual.email,
+            username: formData.username,
             individual: {
               ...formData.individual,
             },
@@ -213,6 +213,16 @@ export default function FormUpdate({ data, apiEndpoint, csrfToken, onClose  }) {
 
   <div className="flex flex-col">
   <TextField
+    label="Username"
+    type="text"
+    name="username"
+    value={formData.username || ""}
+    onChange={handleInputChange}
+  />
+  </div>
+
+  <div className="flex flex-col">
+  <TextField
    label="Email Address"
     type="email"
     name="individual.email"
@@ -236,7 +246,7 @@ export default function FormUpdate({ data, apiEndpoint, csrfToken, onClose  }) {
             <span>Gender:</span>
             <Select
               name="individual.gender"
-              value={formData.individual.gender}
+              value={formData.individual.gender || ""}
               required
               onChange={handleInputChange}
             >

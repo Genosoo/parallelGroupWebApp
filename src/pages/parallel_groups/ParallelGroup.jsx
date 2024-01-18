@@ -20,10 +20,15 @@ import Search from "./Search";
 import ButtonAdd from "./ButtonAdd";
 import FormAdd from "./FormAdd";
 import FormUpdate from "./FormUpdate";
+import { FaFileCsv } from "react-icons/fa";
+import { SiMicrosoftexcel } from "react-icons/si";
+import { BsFiletypePdf } from "react-icons/bs";
 
 const baseUrl = import.meta.env.VITE_URL;
 const parallelEndpoint = `${baseUrl}/api/parallel_group/`;
 const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
+const getFileCsv = `${baseUrl}/api/parallel_group/export/csv/`;
+const getFileExcel = `${baseUrl}/api/parallel_group/export/excel/`;
 
 export default function ParallelGroups() {
   const [data, setData] = useState([]);
@@ -210,6 +215,55 @@ const handleDeleteCancelled = () => {
   
 
   const renderTableData = searchResults.length > 0 ? searchResults : data;
+
+  const handleExportCsv = async () => {
+    try {
+      // Make an API request to get the CSV file
+      const response = await axios.get(getFileCsv, {
+        responseType: 'blob', // Set responseType to blob to handle binary data
+      });
+
+      // Create a link element to download the file
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'data.csv');
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error exporting CSV:", error);
+    }
+  };
+
+  const handleExportExcel = async () => {
+    try {
+      // Make an API request to get the Excel file
+      const response = await axios.get(getFileExcel, {
+        responseType: 'blob', // Set responseType to blob to handle binary data
+      });
+
+      // Create a link element to download the file
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'data.xlsx');
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error exporting Excel:", error);
+    }
+  };
+
+
+  
 
   return (
    <>
@@ -536,6 +590,17 @@ const handleDeleteCancelled = () => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+        <div className="export_box">
+        <span>Export</span>
+        <button className="btn_csv" onClick={handleExportCsv}>
+          <FaFileCsv />
+        </button>
+        <button className="btn_excel" onClick={handleExportExcel}>
+          <SiMicrosoftexcel />
+        </button>
+      <button disabled className="btn_pdf opacity-10"><BsFiletypePdf /></button>
+     
+      </div>
     </div>
    </>
   );

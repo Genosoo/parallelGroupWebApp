@@ -16,6 +16,7 @@ export default function Account() {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [photo, setPhoto] = useState(null);
@@ -77,6 +78,7 @@ export default function Account() {
         setData(dataResponse.data.success);
         setFirstName(dataResponse.data.success.individual.first_name);
         setLastName(dataResponse.data.success.individual.last_name);
+        setUsername(dataResponse.data.success.username);
         setEmail(dataResponse.data.success.individual.email);
         setMobileNumber(dataResponse.data.success.individual.mobile_number);
         setBirthDate(dataResponse.data.success.individual.birth_date);
@@ -106,7 +108,7 @@ export default function Account() {
   
       // Include the photo and filename in the update data
       const updateData = {
-        username:email,
+        username:username,
         individual: {
           first_name: firstName,
           last_name: lastName,
@@ -239,6 +241,14 @@ export default function Account() {
                       <span>Last Name:</span>
                       <input type="text" className="p-3 bg-gray-200 rounded-lg w-[250px]" value={lastName || ""} onChange={(e) => setLastName(e.target.value)} />
                     </div>
+
+                    <div className="flex flex-col">
+                      <span>Username:</span>
+                      <input type="text" className="p-3 bg-gray-200 rounded-lg 
+                      w-[250px]" value={username || ""} onChange={(e) => setUsername(e.target.value)} />
+                    </div>
+                    
+
                     <div className="flex flex-col">
                       <span>Email Address:</span>
                       <input type="text" className="p-3 bg-gray-200 rounded-lg w-[250px]" value={email || ""} onChange={(e) => setEmail(e.target.value)} />
@@ -302,15 +312,17 @@ export default function Account() {
               </Dialog>
 
        
-    <div>
-      
-                 <div className="flex flex-col gap-2">
+                 <div className="flex  flex-col gap-2">
                       <span className="flex gap-3  p-3 rounded-[10px] bg-white">First name:
                        <p className="capitalize font-bold text-gray-600">{firstName}</p>
                        </span>
 
                        <span className="flex gap-3  p-3 rounded-[10px] bg-white">Last name:
                        <p className="capitalize font-bold text-gray-600">{lastName}</p>
+                       </span>
+
+                       <span className="flex gap-3  p-3 rounded-[10px] bg-white">username:
+                       <p className="capitalize font-bold text-gray-600">{username}</p>
                        </span>
 
                        <span className="flex gap-3  p-3 rounded-[10px] bg-white">Email Address:
@@ -330,10 +342,6 @@ export default function Account() {
                        <p className="font-bold text-gray-600">{gender}</p>
                        </span>
                     </div>
-
-                
-    </div>
-
     </div>
   );
 }

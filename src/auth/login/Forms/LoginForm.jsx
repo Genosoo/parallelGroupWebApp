@@ -112,7 +112,7 @@ export default function LoginForm() {
           type="text"
           name="username"
           value={formData.username}
-          placeholder="Enter username or Email "
+          placeholder="Enter username"
           onChange={handleChange}
         />
         <input

@@ -269,7 +269,7 @@ const handleFindClick = () => {
          
         </div>
         <button className="btn_add_users" onClick={handleAddUsersDialogOpen}>
-          <BsPersonPlus/>Add Administrator</button>
+          <BsPersonPlus/>Add Parallel Admin</button>
       </div>
 
      

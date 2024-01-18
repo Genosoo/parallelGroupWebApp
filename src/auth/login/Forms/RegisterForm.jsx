@@ -21,6 +21,7 @@ const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
 const loginUrl = `${baseUrl}/api/login/`;
 const signupUrl = `${baseUrl}/api/signup/`;
 const getParallelGroup = `${baseUrl}/api/parallel_group/`
+const getRegions = `${baseUrl}/api/region/`
 
 
 export default function Login() {
@@ -33,6 +34,7 @@ export default function Login() {
   const [csrfToken, setCsrfToken] = useState('');
   const [open, setOpen] = React.useState(false);
   const [parallelGroupOptions, setParallelGroupOptions] = useState([])
+  const [regionsOptions, setRegionsOptions] = useState([]);
 
   const [registerFormData, setRegisterFormData] = useState({
     username:'',
@@ -42,12 +44,12 @@ export default function Login() {
       memship_id:'',
       first_name:'',
       last_name:'',
-      mobile_number:'',
-      email:'',
       parallel_group:'',
       birth_date:'',
       gender:'',
       photo:'',
+      region:'',
+
     }, 
   });
   const [selectedProvince, setSelectedProvince] = useState('');
@@ -119,6 +121,11 @@ export default function Login() {
         const parallelGroupResponse = await axios.get(getParallelGroup);
         setParallelGroupOptions(parallelGroupResponse.data.success);
         console.log('Test Parallel Group', parallelGroupResponse.data.success)
+       
+        const regionsResponse = await axios.get(getRegions);
+        setRegionsOptions(regionsResponse.data.success);
+        console.log('Test Regions', regionsResponse.data.success)
+
 
       } catch (error) {
         console.error('Error fetching options:', error);
@@ -177,21 +184,21 @@ export default function Login() {
     }
 
     
-         // Check if gender is selected
-         if (!registerFormData.individual.email) {
-          setErrorSignup('Please create your email address.');
-          setLoading(false);
-          return;
-        }
+        //  // Check if gender is selected
+        //  if (!registerFormData.individual.email) {
+        //   setErrorSignup('Please create your email address.');
+        //   setLoading(false);
+        //   return;
+        // }
 
 
         
-         // Check if gender is selected
-         if (!registerFormData.individual.mobile_number) {
-          setErrorSignup('Please add your Mobile Number');
-          setLoading(false);
-          return;
-        }
+        //  // Check if gender is selected
+        //  if (!registerFormData.individual.mobile_number) {
+        //   setErrorSignup('Please add your Mobile Number');
+        //   setLoading(false);
+        //   return;
+        // }
 
          // Check if gender is selected
     if (!registerFormData.individual.gender) {
@@ -240,10 +247,15 @@ export default function Login() {
       const memshipId = random(100000, 999999).toString();
       const registrationData = {
         ...registerFormData,
-        username: registerFormData.individual.email,
+        username: registerFormData.username,
         individual: {
           ...registerFormData.individual,
           memship_id: memshipId,
+          // Exclude properties with empty values
+          ...(registerFormData.individual.email && { email: registerFormData.individual.email }),
+          ...(registerFormData.individual.mobile_number && {
+            mobile_number: registerFormData.individual.mobile_number,
+          }),
         },
       };
   
@@ -267,12 +279,11 @@ export default function Login() {
             memship_id: '',
             first_name: '',
             last_name: '',
-            mobile_number: '',
-            email: '',
             parallel_group: '',
             birth_date: '',
             gender: '',
             photo: '',
+            region:'',
           },
         });
   
@@ -358,13 +369,22 @@ export default function Login() {
               onChange={handleRegisterChange}
             />
 
+
+          <input
+              placeholder="Username"
+              type="text"
+              name="username"
+              value={registerFormData.username}
+              required
+              onChange={handleRegisterChange}
+            />
+
+
         <input
-              placeholder="Email Address"
+            placeholder="Email Address"
             type="email"
             name="individual.email"
-            value={registerFormData.individual.email}
-            
-            required
+            value={registerFormData.individual.email || ''}
             onChange={handleRegisterChange}
             autoComplete="off"
           />
@@ -373,8 +393,7 @@ export default function Login() {
               placeholder="Mobile Number"
               type="number"
               name="individual.mobile_number"
-              value={registerFormData.individual.mobile_number}
-              required
+              value={registerFormData.individual.mobile_number || ''}
               onChange={handleRegisterChange}
             />
 
@@ -411,30 +430,31 @@ export default function Login() {
                 ))}
               </select>
               
+              <input
+              placeholder="Date of Birth"
+              type="date"
+              className='birth_date'
+              name="individual.birth_date"
+              value={registerFormData.individual.birth_date || null}
+              onChange={handleRegisterChange}
+            />
 
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-  <DatePicker
-    value={registerFormData.individual.birth_date || null}
-    label="Date of Birth"
-    renderInput={(props) => (
-      <input
-        {...props}
-        label="Date of Birth"
-        placeholder="Date of Birth"
-      />
-    )}
-    
-    onChange={(date) => {
-      const formattedDate = date ? date.format('YYYY-MM-DD') : null;
-      handleRegisterChange({
-        target: {
-          name: 'individual.birth_date',
-          value: formattedDate,
-        },
-      });
-    }}
-  />
-</LocalizationProvider>
+          <select
+                className="form-select"
+                name="individual.region"
+                value={registerFormData.individual.region}
+                required
+                onChange={handleRegisterChange}
+              >
+                <option value="" disabled>
+                Region
+                </option>
+                {regionsOptions.map((region) => (
+                  <option key={region.id} value={region.id}>
+                    {region.desc}
+                  </option>
+                ))}
+              </select>
 
        
 

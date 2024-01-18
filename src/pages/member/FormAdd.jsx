@@ -85,8 +85,6 @@ export default function Login() {
       last_name:'',
       // suffix: '',
       // nickname:'',
-      mobile_number:'',
-      email:'',
       parallel_group:'',
       birth_date:'',
       gender:'',
@@ -105,7 +103,6 @@ export default function Login() {
       // approved_date:'',
       // memship_status:'',
       // closed_date:'',
-      photo:'',
     }, 
   });
   const [selectedProvince, setSelectedProvince] = useState('');
@@ -286,33 +283,6 @@ export default function Login() {
     }
 
     
-         // Check if gender is selected
-         if (!registerFormData.individual.email) {
-          setErrorSignup('Please create your email address.');
-          setLoading(false);
-    
-          // Clear the gender-specific error message after 3 seconds
-          setTimeout(() => {
-            setErrorSignup('');
-          }, 3000);
-    
-          return;
-        }
-
-
-        
-         // Check if gender is selected
-         if (!registerFormData.individual.mobile_number) {
-          setErrorSignup('Please add your Mobile Number');
-          setLoading(false);
-    
-          // Clear the gender-specific error message after 3 seconds
-          setTimeout(() => {
-            setErrorSignup('');
-          }, 3000);
-    
-          return;
-        }
 
          // Check if gender is selected
     if (!registerFormData.individual.gender) {
@@ -392,7 +362,7 @@ export default function Login() {
       const memshipId = random(100000, 999999).toString();
       const registrationData = {
         ...registerFormData,
-        username: registerFormData.individual.email,
+        username: registerFormData.username,
         individual: {
           ...registerFormData.individual,
           memship_id: memshipId,
@@ -418,12 +388,9 @@ export default function Login() {
             memship_id: '',
             first_name: '',
             last_name: '',
-            mobile_number: '',
-            email: '',
             parallel_group: '',
             birth_date: '',
             gender: '',
-            photo: '',
           },
         });
   
@@ -502,6 +469,14 @@ export default function Login() {
               name="individual.last_name"
               value={registerFormData.individual.last_name}
               placeholder="Last Name"
+              onChange={handleRegisterChange}
+            />
+
+          <TextField
+              type="text"
+              name="username"
+              value={registerFormData.username}
+              placeholder="Username"
               onChange={handleRegisterChange}
             />
 
@@ -598,7 +573,7 @@ export default function Login() {
 
 
 <div>
-          <div {...getRootProps()} className={isDragActive ? 'dropzone-active' : 'dropzone'}>
+        <div {...getRootProps()} className={isDragActive ? 'dropzone-active' : 'dropzone'}>
             <input {...getInputProps()} id="file-input" />
             {selectedImage ? (
         <div>

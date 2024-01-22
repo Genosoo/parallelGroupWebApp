@@ -332,13 +332,13 @@ export default function Login() {
   return (
         <div className="form_register_wrapper">
         <Snackbar
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        open={snackbarOpen}
-        autoHideDuration={3000} // 3 seconds
-        onClose={handleSnackbarClose}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+          open={snackbarOpen}
+          autoHideDuration={3000} // 3 seconds
+          onClose={handleSnackbarClose}
       >
         <SnackbarContent
           message={<span id="message-id">{successMessage}</span>}

@@ -189,6 +189,15 @@ export default function CustomizedMenus() {
              </div>
         </Link> 
 
+        <Link to={'/parallel-groups/manage/'}>
+        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
+             <span className='flex  items-center  font-montserrat  
+               bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px]
+                duration-200 hover:bg-gray-800 hover:text-white'>Manage</span>
+            <div className='h-[1px] bg-[#298ad949] w-full'></div>
+             </div>
+        </Link> 
+
           <ButtonLogout />
      </div>
       </StyledMenu>

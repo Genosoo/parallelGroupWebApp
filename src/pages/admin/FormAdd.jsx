@@ -42,7 +42,7 @@ export default function Login({onClose}) {
     username:'',
     password: '',
     password2: '',
-    roles:["Parallel Group Administrator"],
+    roles:[],
     individual: {
       first_name: '',
       last_name: '',
@@ -57,7 +57,17 @@ export default function Login({onClose}) {
 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
- 
+  const handleRoleChange = (e) => {
+    const value = e.target.value;
+  
+    setSelectedRole(value);
+  
+    setRegisterFormData((prevData) => ({
+      ...prevData,
+      roles: value ? [value] : [], // Set to an array with the selected value or an empty array
+    }));
+  
+  };
   
   useEffect(() => {
     const fetchData = async () => {
@@ -122,7 +132,6 @@ export default function Login({onClose}) {
         setErrorSignup('');
       }, 3000);
 
-
     if (!registerFormData.individual.first_name) {
       setErrorSignup('Please input your first name.');
       setLoading(false);
@@ -137,7 +146,7 @@ export default function Login({onClose}) {
     }
 
     
-
+    
          // Check if gender is selected
     if (!registerFormData.individual.gender) {
       setErrorSignup('Please select your gender.');
@@ -190,15 +199,6 @@ export default function Login({onClose}) {
           memship_id: memshipId,
         },
       };
-
-        // If the selected role is "Parallel Group Administrator"
-    if (selectedRole === "Parallel Group Administrator") {
-      // Automatically add the "Parallel Groups Administrator" role
-      setRegisterFormData((prevData) => ({
-        ...prevData,
-        roles: [...prevData.roles, "Parallel Groups Administrator"],
-      }));
-    }
   
       const response = await axios.post(userEndpoint, registrationData, {
         headers: {
@@ -314,13 +314,14 @@ export default function Login({onClose}) {
               onChange={handleRegisterChange}
             />
 
-            <TextField
+          <TextField
               type="text"
               name="username"
               value={registerFormData.username || ""}
               placeholder="Username"
               onChange={handleRegisterChange}
             />
+
          
           <TextField
               type="text"
@@ -356,28 +357,28 @@ export default function Login({onClose}) {
           </div>
 
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-  <DatePicker
-    value={registerFormData.individual.birth_date || null}
-    label="Date of Birth"
-    renderInput={(props) => (
-      <input
-        {...props}
-        label="Date of Birth"
-        placeholder="Date of Birth"
-      />
-    )}
-    
-    onChange={(date) => {
-      const formattedDate = date ? date.format('YYYY-MM-DD') : null;
-      handleRegisterChange({
-        target: {
-          name: 'individual.birth_date',
-          value: formattedDate,
-        },
-      });
-    }}
-  />
-</LocalizationProvider>
+              <DatePicker
+                value={registerFormData.individual.birth_date || null}
+                label="Date of Birth"
+                renderInput={(props) => (
+                  <input
+                    {...props}
+                    label="Date of Birth"
+                    placeholder="Date of Birth"
+                  />
+                )}
+                
+                onChange={(date) => {
+                  const formattedDate = date ? date.format('YYYY-MM-DD') : null;
+                  handleRegisterChange({
+                    target: {
+                      name: 'individual.birth_date',
+                      value: formattedDate,
+                    },
+                  });
+                }}
+              />
+            </LocalizationProvider>
 
 
           <TextField
@@ -396,18 +397,18 @@ export default function Login({onClose}) {
               onChange={handleRegisterChange}
             />
 
-<div>
+        <div>
           <div {...getRootProps()} className={isDragActive ? 'dropzone-active' : 'dropzone'}>
             <input {...getInputProps()} id="file-input" />
             {selectedImage ? (
-        <div>
-          <img src={selectedImage} alt="Selected" className="selected-image" />
-        </div>
-      ) : (
-        <div className="text-[30px] text-gray-500">
-          <BiImageAdd />
-        </div>
-      )}
+            <div>
+              <img src={selectedImage} alt="Selected" className="selected-image" />
+            </div>
+          ) : (
+            <div className="text-[30px] text-gray-500">
+              <BiImageAdd />
+            </div>
+          )}
             {
               isDragActive ?
                 <p className='text-xl text-gray-700 font-light'>Drop the image here...</p> :
@@ -424,33 +425,54 @@ export default function Login({onClose}) {
         </div>
              
            
+             <div className="flex flex-col">
+            <span>Roles:</span>
+            <select
+              className='p-3 border rounded-[5px]'
+              id="role"
+              name="roles"
+              value={selectedRole || ""}
+              onChange={handleRoleChange}
+            >
+              <option value="">User</option>
+              {rolesOptions
+                .filter((role) => !(account === "Parallel Group Administrator" && role.name === "Administrator"))
+                .map((role) => (
+                  <option key={role.id} value={role.name}>
+                    {role.name}
+                  </option>
+                ))}
+            </select>
+          </div>
           
           
-   <div className="flex flex-col">
-    <span>Parallel Groups:</span>
-    <FormControl>
-    <Select
-      multiple
-      id="parallel-groups"
-      value={registerFormData.individual.parallel_groups_multiple || []}
-      onChange={(e) =>
-        setRegisterFormData((prevData) => ({
-          ...prevData,
-          individual: {
-            ...prevData.individual,
-            parallel_groups_multiple: e.target.value,
-          },
-        }))
-      }
-    >
-      {parallelGroupOptions.map((item) => (
-        <MenuItem key={item.id} value={item.id}>
-          {item.name} 
-        </MenuItem>
-      ))}
-    </Select>
-  </FormControl>
-   </div>
+            {selectedRole === "Parallel Group Administrator" && (
+            <div className="flex flex-col">
+              <span>Parallel Groups:</span>
+              <FormControl>
+              <Select
+                multiple
+                id="parallel-groups"
+                value={registerFormData.individual.parallel_groups_multiple || []}
+                onChange={(e) =>
+                  setRegisterFormData((prevData) => ({
+                    ...prevData,
+                    individual: {
+                      ...prevData.individual,
+                      parallel_groups_multiple: e.target.value,
+                    },
+                  }))
+                }
+              >
+                {parallelGroupOptions.map((item) => (
+                  <MenuItem key={item.id} value={item.id}>
+                    {item.name} 
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            </div>
+          )}
 
 
 

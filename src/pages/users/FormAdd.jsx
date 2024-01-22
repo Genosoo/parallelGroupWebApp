@@ -21,6 +21,7 @@ const userEndpoint = `${baseUrl}/api/individual/`;
 const getRoles = `${baseUrl}/api/roles/`;
 const getParallelGroup = `${baseUrl}/api/parallel_group/`
 const myAccount = `${baseUrl}/api/my_account/`;
+const getRegions = `${baseUrl}/api/region/`
 
 
 
@@ -36,6 +37,7 @@ export default function Login({onClose}) {
   const [parallelGroupOptions, setParallelGroupOptions] = useState([])
   const [selectedImage, setSelectedImage] = useState(null);
   const [passwordValidationError, setPasswordValidationError] = useState('');
+  const [regionsOptions, setRegionsOptions] = useState([]);
 
 
   const [registerFormData, setRegisterFormData] = useState({
@@ -50,6 +52,8 @@ export default function Login({onClose}) {
       gender:'',
       parallel_groups_multiple:[],
       photo:'',
+      region:'',
+
     }, 
   });
 
@@ -83,6 +87,10 @@ export default function Login({onClose}) {
         const parallelGroupAdminRole = await axios.get(myAccount);
         setAccount(parallelGroupAdminRole.data.success.roles[0]);
         console.log('Test Account',  parallelGroupAdminRole.data.success.roles[0])
+
+        const regionsResponse = await axios.get(getRegions);
+        setRegionsOptions(regionsResponse.data.success);
+        console.log('Test Regions', regionsResponse.data.success)
 
       } catch (error) {
         console.error('Error fetching options:', error);
@@ -355,6 +363,26 @@ export default function Login({onClose}) {
               {/* <MenuItem value="other">Other</MenuItem> */}
             </Select>
           </div>
+
+          <div className="flex flex-col">
+            <span>Region:</span>
+          <Select
+                name="individual.region"
+                value={registerFormData.individual.region}
+                required
+                onChange={handleRegisterChange}
+                
+              >
+                <MenuItem value="" disabled>
+                Region
+                </MenuItem>
+                {regionsOptions.map((region) => (
+                  <MenuItem key={region.id} value={region.id}>
+                    {region.desc}
+                  </MenuItem>
+                ))}
+              </Select>
+              </div>
 
           <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker

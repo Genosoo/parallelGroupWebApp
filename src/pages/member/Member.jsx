@@ -23,7 +23,7 @@ import FormAdd from "./FormAdd";
 import FormUpdate from "./FormUpdate";
 import { FaFileCsv } from "react-icons/fa";
 import { SiMicrosoftexcel } from "react-icons/si";
-import { BsFiletypePdf } from "react-icons/bs";
+import PDFGenerator from "./PDFGenerate";
 const baseUrl = import.meta.env.VITE_URL;
 const individualEnpoint = `${baseUrl}/api/individual/`;
 const getFileCsv = `${baseUrl}/api/individual/export/csv/`;
@@ -329,7 +329,7 @@ const handleFindClick = () => {
            <div className="user_flex">
            <div className="user_box_1">
             <img 
-                    src={`http://localhost:8000/${selectedItem.individual?.photo}`} 
+                    src={`${baseUrl}${selectedItem.individual?.photo}`} 
                     alt=""
                     className="users_table_logo"
                     onError={(e) => {
@@ -562,11 +562,12 @@ const handleFindClick = () => {
         <button className="btn_csv" onClick={handleExportCsv}>
           <FaFileCsv />
         </button>
+        
         <button className="btn_excel" onClick={handleExportExcel}>
           <SiMicrosoftexcel />
         </button>
-      <button disabled className="btn_pdf opacity-10"><BsFiletypePdf /></button>
-     
+
+        <PDFGenerator data={data}/>
       </div>
     </div>
    </>

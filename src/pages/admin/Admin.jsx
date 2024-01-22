@@ -51,10 +51,10 @@ export default function Users() {
   };
 
 
-  const handleOpenUpdateForm = (data, index, page) => {
+  const handleOpenUpdateForm = (filteredData, index, page) => {
     
     const dataIndex = (page * rowsPerPage) + index
-    setUpdateData(data[dataIndex]);
+    setUpdateData(filteredData[dataIndex]);
     setUpdateFormOpen(true);
     console.log('dataIndex',dataIndex )
   };
@@ -396,7 +396,7 @@ const handleFindClick = () => {
                     <button   className="btn_view_users" onClick={() => handleOpenDialog(item)}  >
                         <BsCardList/>
                       </button>
-                      <button   className="btn_update_users"  onClick={() => handleOpenUpdateForm(data, index, page)}>
+                      <button   className="btn_update_users"  onClick={() => handleOpenUpdateForm(filteredData, index, page)}>
                         <FaRegEdit />
                       </button>
                       <button className="btn_delete_users" onClick={(event) => handleDelete(item.id, item.username, event)}>

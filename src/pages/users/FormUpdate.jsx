@@ -32,6 +32,8 @@ export default function FormUpdate({ data, apiEndpoint, csrfToken, onClose  }) {
       },
     });
 
+
+    console.log("form data user", formData)
     
 
 

@@ -22,7 +22,7 @@ import FormAdd from "./FormAdd";
 import FormUpdate from "./FormUpdate";
 import { FaFileCsv } from "react-icons/fa";
 import { SiMicrosoftexcel } from "react-icons/si";
-import { BsFiletypePdf } from "react-icons/bs";
+import PDFGenerator from "./PDFGenerate";
 
 const baseUrl = import.meta.env.VITE_URL;
 const parallelEndpoint = `${baseUrl}/api/parallel_group/`;
@@ -540,24 +540,24 @@ const handleDeleteCancelled = () => {
             {renderTableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, index) => (
               <TableRow key={index} style={{ cursor: "pointer" }}>
                   <TableCell><span>{item.name ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.reg_type ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.reg_type_data?.desc ?? "---"}</span></TableCell>
                   <TableCell><span>{item.reg_date ?? "---"}</span></TableCell>
                   <TableCell><span>{item.reg_number ?? "---"}</span></TableCell>
                   <TableCell><span>{item.application_date ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.memship_type ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.memship_status ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.memship_type_data?.desc ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.memship_status_data?.desc ?? "---"}</span></TableCell>
                   <TableCell><span>{item.approved_date ?? "---"}</span></TableCell>
                   <TableCell><span>{item.closed_date ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.grp_type ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.grp_type_data?.desc ?? "---"}</span></TableCell>
                   <TableCell><span>{item.affiliation ?? "---"}</span></TableCell>
                   <TableCell>
                     <img src={`${baseUrl}${item.logo}`} alt="" className="table_logo" />
                   </TableCell>
-                  <TableCell><span>{item.region ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.province ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.region_data?.desc ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.province_data?.desc ?? "---"}</span></TableCell>
                   <TableCell><span>{item.district ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.municipality ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.barangay ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.municipality_data?.desc ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.barangay_data?.desc ?? "---"}</span></TableCell>
                   <TableCell><span>{item.bldg_name ?? "---"}</span></TableCell>
                   <TableCell><span>{item.street_number ?? "---"}</span></TableCell>
                   <TableCell><span>{item.street_name ?? "---"}</span></TableCell>
@@ -569,7 +569,6 @@ const handleDeleteCancelled = () => {
                       <button className="btn_update_users" onClick={() => handleOpenUpdateDialog(data, index, page)}>
                       <FaRegEdit />
                     </button>
-
                     <button className="btn_delete_users" onClick={(event) => handleDelete(item.id, event)}>
                   <RiDeleteBack2Line />
                 </button>
@@ -598,7 +597,7 @@ const handleDeleteCancelled = () => {
         <button className="btn_excel" onClick={handleExportExcel}>
           <SiMicrosoftexcel />
         </button>
-      <button disabled className="btn_pdf opacity-10"><BsFiletypePdf /></button>
+      <PDFGenerator data={data} />
      
       </div>
     </div>

@@ -12,8 +12,7 @@ import { GrGroup } from "react-icons/gr";
 import { TbUsersGroup } from "react-icons/tb";
 import { RiAdminLine } from "react-icons/ri";
 import { PiPerson } from "react-icons/pi";
-const baseUrl = import.meta.env.VITE_URL;
-const myAccount = `${baseUrl}/api/my_account/`;
+import { apiAccount } from '../../api/api';
 
 const originalMenuItem = [
     {
@@ -81,7 +80,7 @@ const Sidebar = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const dataResponse = await axios.get(myAccount);
+                const dataResponse = await axios.get(apiAccount);
 
                 setData(dataResponse.data.success);
 

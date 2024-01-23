@@ -24,32 +24,30 @@ import { Menu } from '@mui/icons-material';
 import { random } from 'lodash';
 import Snackbar from '@mui/material/Snackbar';
 import SnackbarContent from '@mui/material/SnackbarContent';
+import { useCsrfToken } from '../../../context/CsrfTokenContext';
+import {
+  loginUrl,
+  signupUrl,
+  getPrefix,
+  getSuffix,
+  getOccupation,
+  getRegions,
+  getProvince,
+  getMunicipality,
+  getBrgy,
+  getMembershipType,
+  getMembershipStatus,
+  getPosition,
+  getParallelGroup
+} from '../../../api/api';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 
-const baseUrl = import.meta.env.VITE_URL;
-const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
-const loginUrl = `${baseUrl}/api/login/`;
-const signupUrl = `${baseUrl}/api/signup/`;
-
-const getPrefix = `${baseUrl}/api/user_prefix/`
-const getSuffix = `${baseUrl}/api/user_suffix/`
-const getOccupation = `${baseUrl}/api/user_occupation/`
-const getRegions = `${baseUrl}/api/region/`
-const getProvince = `${baseUrl}/api/province/`
-const getMunicipality = `${baseUrl}/api/municipality/`
-const getBrgy = `${baseUrl}/api/barangay/`
-const getMembershipType = `${baseUrl}/api/user_membership_type/`
-const getPosition = `${baseUrl}/api/position/`
-const getMembershipStatus = `${baseUrl}/api/parallel_group_membership_status/`
-
-const getParallelGroup = `${baseUrl}/api/parallel_group/`
-
-
 export default function Login() {
+  const {csrfToken} = useCsrfToken();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [errorSignup, setErrorSignup] = useState('');
@@ -61,7 +59,6 @@ export default function Login() {
 
 
 
-  const [csrfToken, setCsrfToken] = useState('');
   const [open, setOpen] = React.useState(false);
 
   const [prefixOptions, setPrefixOptions] = useState([]);
@@ -398,18 +395,6 @@ export default function Login() {
  
 
 
-  useEffect(() => {
-    const getTheCsrfToken = async () => {
-      try {
-        const response = await axios.get(getCsrfTokenUrl);
-        setCsrfToken(response.data['csrf-token']);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getTheCsrfToken();
-  }, []);
 
   const navigate = useNavigate();
 

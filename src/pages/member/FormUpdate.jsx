@@ -12,10 +12,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-
-const baseUrl = import.meta.env.VITE_URL;
-const getParallelGroup = `${baseUrl}/api/parallel_group/`
-
+import { getParallelGroup } from '../../api/api';
 
 // eslint-disable-next-line no-unused-vars
 export default function FormUpdate({ data, apiEndpoint, csrfToken, onClose  }) {

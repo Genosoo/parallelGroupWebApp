@@ -23,14 +23,11 @@ import FormUpdate from "./FormUpdate";
 import { FaFileCsv } from "react-icons/fa";
 import { SiMicrosoftexcel } from "react-icons/si";
 import PDFGenerator from "./PDFGenerate";
-
-const baseUrl = import.meta.env.VITE_URL;
-const parallelEndpoint = `${baseUrl}/api/parallel_group/`;
-const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
-const getFileCsv = `${baseUrl}/api/parallel_group/export/csv/`;
-const getFileExcel = `${baseUrl}/api/parallel_group/export/excel/`;
+import { useCsrfToken } from "../../context/CsrfTokenContext";
+import { getParallelGroup, getFileCsv, getFileExcel, baseUrl } from "../../api/api";
 
 export default function ParallelGroups() {
+  const {csrfToken} = useCsrfToken();
   const [data, setData] = useState([]);
   const [updateData, setUpdateData] = useState(null);
   const [page, setPage] = useState(0);
@@ -45,21 +42,9 @@ export default function ParallelGroups() {
   const [deleteConfirmationDialogOpen, setDeleteConfirmationDialogOpen] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [deleteSuccessMessage, setDeleteSuccessMessage] = useState("");
-  const [csrfToken, setCsrfToken] = useState('');
 
 
-  useEffect(() => {
-    const getTheCsrfToken = async () => {
-      try {
-        const response = await axios.get(getCsrfTokenUrl);
-        setCsrfToken(response.data['csrf-token']);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getTheCsrfToken();
-  }, []);
+ 
 
 
   useEffect(() => {
@@ -99,7 +84,7 @@ const handleDelete = (id, event) => {
 const handleDeleteConfirmed = async () => {
   try {
     // Make an API request to delete the item with CSRF token in the header
-    await axios.delete(parallelEndpoint, {
+    await axios.delete(getParallelGroup, {
       data: { id: deleteId },
       headers: {
         'X-CSRFToken': csrfToken,
@@ -154,7 +139,7 @@ const handleDeleteCancelled = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dataResponse = await axios.get(parallelEndpoint);
+        const dataResponse = await axios.get(getParallelGroup);
         setData(dataResponse.data.success);
         console.log("Parallel Groups", dataResponse.data);
       } catch (error) {
@@ -326,7 +311,7 @@ const handleDeleteCancelled = () => {
         {updateData && (
           <div>
             <FormUpdate 
-            apiEndpoint={parallelEndpoint} 
+            apiEndpoint={getParallelGroup} 
             data={updateData} 
             csrfToken={csrfToken}
             />

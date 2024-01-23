@@ -1,17 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
+import { useCsrfToken} from '../../context/CsrfTokenContext';
+import { apiAccount } from "../../api/api";
 
-const baseUrl = import.meta.env.VITE_URL;
-const myAccount = `${baseUrl}/api/my_account/`;
-const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
 
 export default function Account() {
-  const [csrfToken, setCsrfToken] = useState("");
+  const {csrfToken} = useCsrfToken();
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
@@ -28,18 +27,6 @@ export default function Account() {
 
 
 
-  useEffect(() => {
-    const getTheCsrfToken = async () => {
-      try {
-        const response = await axios.get(getCsrfTokenUrl);
-        setCsrfToken(response.data['csrf-token']);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getTheCsrfToken();
-  }, []);
 
 
 
@@ -54,7 +41,7 @@ export default function Account() {
   
 
       const changePasswordResponse = await axios.post(
-        myAccount,  // Replace with the actual endpoint for changing password
+        apiAccount,  // Replace with the actual endpoint for changing password
         changePassData,
         {
           headers: {

@@ -6,12 +6,12 @@ import { BiImageAdd } from "react-icons/bi";
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import ChangePassword from './ChangePassword'
+import { useCsrfToken} from '../../context/CsrfTokenContext';
+import { apiAccount, baseUrl } from "../../api/api";
 
-const baseUrl = import.meta.env.VITE_URL;
-const myAccount = `${baseUrl}/api/my_account/`;
-const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
 
 export default function Account() {
+  const {csrfToken} = useCsrfToken();
   const [data, setData] = useState([]);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -23,7 +23,6 @@ export default function Account() {
   const [gender, setGender] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [csrfToken, setCsrfToken] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -58,23 +57,11 @@ export default function Account() {
 
 
 
-  useEffect(() => {
-    const getTheCsrfToken = async () => {
-      try {
-        const response = await axios.get(getCsrfTokenUrl);
-        setCsrfToken(response.data['csrf-token']);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getTheCsrfToken();
-  }, []);
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dataResponse = await axios.get(myAccount);
+        const dataResponse = await axios.get(apiAccount);
         setData(dataResponse.data.success);
         setUsername(dataResponse.data.success.username);
         setFirstName(dataResponse.data.success.individual.first_name);
@@ -125,7 +112,7 @@ export default function Account() {
       
       // Send the update request
       const updateResponse = await axios.put(
-        myAccount,
+        apiAccount,
         updateData,
         {
           headers: {
@@ -158,7 +145,7 @@ export default function Account() {
   
       // Send the update request
       const updateResponse = await axios.put(
-        myAccount,
+        apiAccount,
         updateData,
         {
           headers: {

@@ -9,27 +9,15 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
+// import { useCsrfToken } from '../../context/CsrfTokenContext';
 
 const baseUrl = import.meta.env.VITE_URL;
 const getPrefix = `${baseUrl}/api/user_prefix/`;
-const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
 
 export default function Prefix() {
   const [data, setData] = useState([]);
-  const [csrfToken, setCsrfToken] = useState('');
+  // const {csrfToken} = useCsrfToken();
 
-  useEffect(() => {
-    const getTheCsrfToken = async () => {
-      try {
-        const response = await axios.get(getCsrfTokenUrl);
-        setCsrfToken(response.data['csrf-token']);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getTheCsrfToken();
-  }, []);
 
   useEffect(() => {
     const fetchData = async () => {

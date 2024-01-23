@@ -8,30 +8,27 @@ import { useAuth } from '../../authContext/AuthContext';
 import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
 import { BiImageAdd } from "react-icons/bi";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { random } from 'lodash';
 import Snackbar from '@mui/material/Snackbar';
 import SnackbarContent from '@mui/material/SnackbarContent';
-
-
-const baseUrl = import.meta.env.VITE_URL;
-const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
-const loginUrl = `${baseUrl}/api/login/`;
-const signupUrl = `${baseUrl}/api/signup/`;
-const getParallelGroup = `${baseUrl}/api/parallel_group/`
-const getRegions = `${baseUrl}/api/region/`
+import { useCsrfToken } from '../../../context/CsrfTokenContext';
+import {
+  signupUrl,
+  getParallelGroup,
+  getRegions
+} from '../../../api/api';
 
 
 export default function Login() {
+  const { csrfToken } = useCsrfToken();
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [errorSignup, setErrorSignup] = useState('');
   const { authState, dispatch } = useAuth();
 
 
-  const [csrfToken, setCsrfToken] = useState('');
   const [open, setOpen] = React.useState(false);
   const [parallelGroupOptions, setParallelGroupOptions] = useState([])
   const [regionsOptions, setRegionsOptions] = useState([]);
@@ -299,25 +296,8 @@ export default function Login() {
   };
   
   
-  
-
  
 
-
-  useEffect(() => {
-    const getTheCsrfToken = async () => {
-      try {
-        const response = await axios.get(getCsrfTokenUrl);
-        setCsrfToken(response.data['csrf-token']);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getTheCsrfToken();
-  }, []);
-
-  const navigate = useNavigate();
 
 
 
@@ -483,7 +463,7 @@ export default function Login() {
           </div>
 
 
-<div>
+        <div> 
           <div {...getRootProps()} className={isDragActive ? 'dropzone-active' : 'dropzone'}>
             <input {...getInputProps()} id="file-input" />
             {selectedImage ? (

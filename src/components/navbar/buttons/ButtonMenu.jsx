@@ -7,10 +7,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ButtonLogout from './ButtonLogout';
-
-
-const baseUrl = import.meta.env.VITE_URL;
-const getAccount = `${baseUrl}/api/my_account/`;
+import { apiAccount,baseUrl } from '../../../api/api';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -74,7 +71,7 @@ export default function CustomizedMenus() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dataResponse = await axios.get(getAccount);
+        const dataResponse = await axios.get(apiAccount);
         setData(dataResponse.data.success);
         setRoles(dataResponse.data.success.roles[0]);
         console.log("my account nav", dataResponse.data.success);

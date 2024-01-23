@@ -24,13 +24,14 @@ import FormUpdate from "./FormUpdate";
 import { FaFileCsv } from "react-icons/fa";
 import { SiMicrosoftexcel } from "react-icons/si";
 import PDFGenerator from "./PDFGenerate";
-const baseUrl = import.meta.env.VITE_URL;
-const individualEnpoint = `${baseUrl}/api/individual/`;
-const getFileCsv = `${baseUrl}/api/individual/export/csv/`;
-const getFileExcel = `${baseUrl}/api/individual/export/excel/`;
-const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
+import { useCsrfToken } from "../../context/CsrfTokenContext";
+import { apiUser, baseUrl, getFileCsv, getFileExcel  } from "../../api/api";
+
 
 export default function Users() {
+
+  
+  const {csrfToken} = useCsrfToken();
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -39,7 +40,6 @@ export default function Users() {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState("");
-  const [csrfToken, setCsrfToken] = useState('');
   const [deleteConfirmationDialogOpen, setDeleteConfirmationDialogOpen] = useState(false);
   const [deleteUserId, setDeleteUserId] = useState(null);
   const [deleteUsername, setDeleteUsername] = useState(null);
@@ -92,23 +92,11 @@ export default function Users() {
   }, [deleteSuccessMessage, error]);
 
 
-  useEffect(() => {
-    const getTheCsrfToken = async () => {
-      try {
-        const response = await axios.get(getCsrfTokenUrl);
-        setCsrfToken(response.data['csrf-token']);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getTheCsrfToken();
-  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dataResponse = await axios.get(individualEnpoint);
+        const dataResponse = await axios.get(apiUser);
         setData(dataResponse.data.success);
         console.log("Users", dataResponse.data);
 
@@ -311,7 +299,7 @@ const handleFindClick = () => {
         {/* Pass the necessary props to the FormUpdate component */}
         <FormUpdate  
           onClose={handleCloseUpdateForm} 
-          apiEndpoint={individualEnpoint} 
+          apiEndpoint={apiUser} 
           data={updateData} 
           csrfToken={csrfToken}
        />

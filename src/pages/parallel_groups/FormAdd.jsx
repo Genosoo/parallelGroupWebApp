@@ -4,20 +4,23 @@ import { TextField, Button, FormControl, Select, MenuItem,  Snackbar,  SnackbarC
 import { useDropzone } from 'react-dropzone';
 import { BiImageAdd } from "react-icons/bi";
 import { random } from 'lodash';
+import { useCsrfToken } from '../../context/CsrfTokenContext';
+import { 
+  getParallelGroup, 
+  getMembershipType,
+  getMembershipStatus,
+  getparallerGroupType,
+  getRegions,
+  getProvince,
+  getMunicipality,
+  getBrgy,
+  getRegType
 
-const baseUrl = import.meta.env.VITE_URL;
-const endpoint = `${baseUrl}/api/parallel_group/`;
-const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
-const getMemType = `${baseUrl}/api/user_membership_type/`;
-const getMemStatus = `${baseUrl}/api/user_membership_status/`;
-const getparallerGroupType = `${baseUrl}/api/parallel_group_type/`;
-const getRegions = `${baseUrl}/api/region/`
-const getProvince = `${baseUrl}/api/province/`
-const getMunicipality = `${baseUrl}/api/municipality/`
-const getBrgy = `${baseUrl}/api/barangay/`
-const getRegType =`${baseUrl}/api/parallel_group_registration_type/`
+ } from '../../api/api';
+
 
 const MyFormComponent = () => {
+  const {csrfToken} = useCsrfToken();
   const [formData, setFormData] = useState({
     number: null,
     name: '',
@@ -39,7 +42,6 @@ const MyFormComponent = () => {
       street_number:'',
       street_name:'',
   });
-  const [csrfToken, setCsrfToken] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false);
@@ -87,27 +89,15 @@ const MyFormComponent = () => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
-  useEffect(() => {
-    const getTheCsrfToken = async () => {
-      try {
-        const response = await axios.get(getCsrfTokenUrl);
-        setCsrfToken(response.data['csrf-token']);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getTheCsrfToken();
-  }, []);
-
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const memTypeResponse = await axios.get(getMemType);
+        const memTypeResponse = await axios.get(getMembershipType);
         setMemTypeOptions(memTypeResponse.data.success);
         console.log('Test MemType', memTypeResponse.data.success);
 
-        const memStatusResponse = await axios.get(getMemStatus);
+        const memStatusResponse = await axios.get(getMembershipStatus);
         setMemStatusOptions(memStatusResponse.data.success);
         console.log('Test MemStatus', memStatusResponse.data.success);
 
@@ -214,7 +204,7 @@ const MyFormComponent = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(endpoint, formData, {
+      const response = await axios.post(getParallelGroup, formData, {
         headers: {
           'X-CSRFToken': csrfToken,
         },

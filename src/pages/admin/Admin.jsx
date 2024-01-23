@@ -22,12 +22,11 @@ import Slide from '@mui/material/Slide';
 import FormAdd from "./FormAdd";
 import { BsCardList } from "react-icons/bs";
 import FormUpdate from "./FormUpdate";
-
-const baseUrl = import.meta.env.VITE_URL;
-const userEndpoint = `${baseUrl}/api/individual/`;
-const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
+import { useCsrfToken } from '../../context/CsrfTokenContext';
+import { apiUser, baseUrl } from "../../api/api";
 
 export default function Users() {
+  const {csrfToken} = useCsrfToken();
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -36,7 +35,6 @@ export default function Users() {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState("");
-  const [csrfToken, setCsrfToken] = useState('');
   const [deleteConfirmationDialogOpen, setDeleteConfirmationDialogOpen] = useState(false);
   const [deleteUserId, setDeleteUserId] = useState(null);
   const [deleteUsername, setDeleteUsername] = useState(null);
@@ -90,23 +88,11 @@ export default function Users() {
   }, [deleteSuccessMessage, error]);
 
 
-  useEffect(() => {
-    const getTheCsrfToken = async () => {
-      try {
-        const response = await axios.get(getCsrfTokenUrl);
-        setCsrfToken(response.data['csrf-token']);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getTheCsrfToken();
-  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dataResponse = await axios.get(userEndpoint);
+        const dataResponse = await axios.get(apiUser);
         setData(dataResponse.data.success);
         console.log("Users", dataResponse.data);
       } catch (error) {
@@ -154,7 +140,7 @@ const handleDelete = (userId,username, event) => {
 const handleDeleteConfirmed = async () => {
   try {
     // Make an API request to delete the item with CSRF token in the header
-    await axios.delete(`${baseUrl}/api/individual/`, {
+    await axios.delete(apiUser, {
       data: { id: deleteUserId },
       headers: {
         'X-CSRFToken': csrfToken,
@@ -247,7 +233,7 @@ const handleFindClick = () => {
         {/* Pass the necessary props to the FormUpdate component */}
         <FormUpdate  
           onClose={handleCloseUpdateForm} 
-          apiEndpoint={userEndpoint} 
+          apiEndpoint={apiUser} 
           data={updateData} 
           csrfToken={csrfToken}
        />

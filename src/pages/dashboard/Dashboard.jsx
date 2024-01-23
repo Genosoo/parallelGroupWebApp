@@ -2,9 +2,7 @@ import Cards from "./cards/Cards";
 import Graphs from "./graphs/Graphs";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-const baseUrl = import.meta.env.VITE_URL;
-const getData = `${baseUrl}/api/dashboard_summary/`;
+import { apiDashboard } from "../../api/api";
 
 
 export default function Dashboard() {
@@ -14,14 +12,9 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dataResponse = await axios.get(getData);
-
+        const dataResponse = await axios.get(apiDashboard);
         setData(dataResponse.data.success);
- 
-  
         console.log("data", dataResponse.data.success);
- 
-  
       } catch (error) {
         console.log(error);
       }

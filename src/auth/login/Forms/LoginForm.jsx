@@ -3,12 +3,13 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../authContext/AuthContext';
 import axios from 'axios';
+import { useCsrfToken } from '../../../context/CsrfTokenContext';
+import { loginUrl } from '../../../api/api';
 
-const baseUrl = import.meta.env.VITE_URL;
-const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
-const loginUrl = `${baseUrl}/api/login/`;
+
 
 export default function LoginForm() {
+  const {csrfToken} = useCsrfToken();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const { authState, dispatch } = useAuth();
@@ -16,33 +17,10 @@ export default function LoginForm() {
     username: '',
     password: '',
   });
-  const [csrfToken, setCsrfToken] = useState('');
   const [rememberMe, setRememberMe] = useState(false); // Step 1
   const navigate = useNavigate();
 
-  // // Redirect to dashboard if the user is already authenticated
-  // useEffect(() => {
-  //   if (authState.user || localStorage.getItem('token')) {
-  //     navigate('/main');
-  //   }
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [authState.user]);
-
-  useEffect(() => {
-    const getTheCsrfToken = async () => {
-      try {
-        const response = await axios.get(getCsrfTokenUrl);
-        setCsrfToken(response.data['csrf-token']);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getTheCsrfToken();
-  }, []);
-
-
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

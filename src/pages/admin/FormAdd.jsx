@@ -14,9 +14,9 @@ import { useDropzone } from 'react-dropzone';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { useCsrfToken } from '../../context/CsrfTokenContext';
 
 const baseUrl = import.meta.env.VITE_URL;
-const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
 const userEndpoint = `${baseUrl}/api/individual/`;
 const getRoles = `${baseUrl}/api/roles/`;
 const getParallelGroup = `${baseUrl}/api/parallel_group/`
@@ -25,11 +25,11 @@ const myAccount = `${baseUrl}/api/my_account/`;
 
 
 export default function Login({onClose}) {
+  const {csrfToken} = useCsrfToken();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [errorSignup, setErrorSignup] = useState('');
 
-  const [csrfToken, setCsrfToken] = useState('');
   const [rolesOptions, setRolesOptions] = useState([])
   const [selectedRole, setSelectedRole] = useState([]);
   const [account, setAccount] = useState([]);
@@ -253,22 +253,7 @@ export default function Login({onClose}) {
   
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
-
   
-
-
-  useEffect(() => {
-    const getTheCsrfToken = async () => {
-      try {
-        const response = await axios.get(getCsrfTokenUrl);
-        setCsrfToken(response.data['csrf-token']);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getTheCsrfToken();
-  }, []);
 
   useEffect(() => {
     // Calculate age based on the provided birth date

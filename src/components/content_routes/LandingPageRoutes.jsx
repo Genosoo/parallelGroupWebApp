@@ -28,7 +28,6 @@ export default function LandingPageRoutes() {
         <Route path='report-history' element={<ReportHistory/>} />
         <Route path='watch-now' element={<WatchNow/>} />
         <Route path='manage' element={<Manage/>} />
-
     </Routes>
   )
 }

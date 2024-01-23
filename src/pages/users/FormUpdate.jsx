@@ -144,8 +144,12 @@ export default function FormUpdate({ data, apiEndpoint, csrfToken, onClose  }) {
               'X-CSRFToken': csrfToken,
             },
           });
+          setSnackbarOpen(true);
     
           console.log("Update success:", response.data);
+          setTimeout(() => {
+            window.location.reload();
+          },2000)
         }
       } catch (error) {
         console.error("Error updating data:", error);

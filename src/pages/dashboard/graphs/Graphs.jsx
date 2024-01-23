@@ -2,9 +2,7 @@ import BarChart from "./charts/Barchart";
 import DonutChart from "./charts/Donut";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-const baseUrl = import.meta.env.VITE_URL;
-const getData = `${baseUrl}/api/dashboard_summary/`;
+import { apiDashboard } from "../../../api/api";
 
 
 
@@ -16,14 +14,9 @@ export default function Graphs() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dataResponse = await axios.get(getData);
-
+        const dataResponse = await axios.get(apiDashboard);
         setData(dataResponse.data.success);
- 
-  
         console.log("data", dataResponse.data);
- 
-  
       } catch (error) {
         console.log(error);
       }

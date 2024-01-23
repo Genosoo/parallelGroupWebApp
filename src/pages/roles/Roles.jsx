@@ -8,36 +8,23 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import { RiDeleteBack2Line } from "react-icons/ri";
 import { BsPersonPlus } from "react-icons/bs";
 import TextField from '@mui/material/TextField';
+import { useCsrfToken } from '../../context/CsrfTokenContext';
+import { apiRoles } from '../../api/api';
 
-const baseUrl = import.meta.env.VITE_URL;
-const endpoint = `${baseUrl}/api/roles/`;
-const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
 
 export default function Roles() {
     const [data, setData] = useState([]);
-    const [csrfToken, setCsrfToken] = useState('');
     const [newRoleName, setNewRoleName] = useState('');
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
     const [isNewDialogOpen, setIsNewDialogOpen] = useState(false);
     const [roleToDelete, setRoleToDelete] = useState(null);
-  
-    useEffect(() => {
-      const getTheCsrfToken = async () => {
-        try {
-          const response = await axios.get(getCsrfTokenUrl);
-          setCsrfToken(response.data['csrf-token']);
-        } catch (error) {
-          console.error('Error getting CSRF token:', error);
-        }
-      };
-  
-      getTheCsrfToken();
-    }, [data]);
+    const {csrfToken} = useCsrfToken();
+
   
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get(endpoint);
+          const response = await axios.get(apiRoles);
           setData(response.data.success);
           console.log('Roles', response.data.success);
         } catch (error) {
@@ -50,7 +37,7 @@ export default function Roles() {
   
     const handleAddRole = async () => {
       try {
-        const response = await axios.post(endpoint, { name: newRoleName }, {
+        const response = await axios.post(apiRoles, { name: newRoleName }, {
           headers: {
             'X-CSRFToken': csrfToken,
           },
@@ -66,7 +53,7 @@ export default function Roles() {
   
     const handleDeleteRole = async () => {
       try {
-        const response = await axios.delete(`${endpoint}`, {
+        const response = await axios.delete(apiRoles, {
           data: { id: roleToDelete },
           headers: {
             'X-CSRFToken': csrfToken,

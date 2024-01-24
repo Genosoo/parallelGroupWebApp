@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import axios from 'axios';
-import ImageDropzone from './ImageDropzone';
+import ImageDropzone from '../dialogs/ImageDropzone';
 import { useCsrfToken } from '../../../../context/CsrfTokenContext';
 import { apiBlog } from '../../../../api/api';
 

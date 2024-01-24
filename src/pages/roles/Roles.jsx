@@ -1,15 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { RiDeleteBack2Line } from "react-icons/ri";
 import { BsPersonPlus } from "react-icons/bs";
-import TextField from '@mui/material/TextField';
 import { useCsrfToken } from '../../context/CsrfTokenContext';
 import { apiRoles } from '../../api/api';
+import { AddRoleDialog, DeleteRoleDialog } from './RolesDailog';
 
 
 export default function Roles() {
@@ -96,7 +92,6 @@ export default function Roles() {
           <Table>
             <TableHead>
               <TableRow>
-              
                 <TableCell>
                 <div className="users_table_header">Role Name</div>
                 </TableCell>
@@ -120,49 +115,17 @@ export default function Roles() {
           </Table>
         </TableContainer>
   
-        {/* Add Role Dialog */}
-        <Dialog
-          open={isNewDialogOpen}
-          onClose={closeNewDialog}
-          aria-labelledby="new-dialog-title"
-          aria-describedby="new-dialog-description"
-        >
-          <DialogContent>
-            <TextField
-            label="Add Role"
-              type="text"
-              value={newRoleName}
-              onChange={(e) => setNewRoleName(e.target.value)}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button variant='outlined' onClick={closeNewDialog}>Cancel</Button>
-            <Button variant='contained' onClick={handleAddRole} autoFocus>
-              Add Role
-            </Button>
-          </DialogActions>
-        </Dialog>
+      {/* Add Role Dialog */}
+      <AddRoleDialog
+        isOpen={isNewDialogOpen}
+        onClose={closeNewDialog}
+        onAddRole={handleAddRole}
+        newRoleName={newRoleName}
+        onNewRoleNameChange={(e) => setNewRoleName(e.target.value)}
+      />
 
-
-        
-<Dialog
-  open={isDeleteDialogOpen}
-          onClose={closeDeleteDialog}
-  maxWidth="sm"
-  fullWidth
->
-  <div className="dailog_delete_box">
-    <p>Are you sure you want to delete?</p>
-    <div>
-      <button className="yes" onClick={handleDeleteRole} autoFocus>
-        Yes
-      </button>
-      <button className="no" onClick={closeDeleteDialog}>
-        No
-      </button>
-    </div>
-  </div>
-</Dialog>
+      {/* Delete Role Dialog */}
+      <DeleteRoleDialog isOpen={isDeleteDialogOpen} onClose={closeDeleteDialog} onDeleteRole={handleDeleteRole} />
 
       </div>
     );

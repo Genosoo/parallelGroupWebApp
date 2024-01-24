@@ -6,7 +6,7 @@
 
 @layer components{
     .news_container{
-        @apply h-full flex flex-col items-center bg-[#EBF4FD] pt-10
+        @apply  flex flex-col items-center bg-[#EBF4FD] pt-10
     }
 
     .news_wrapper{
@@ -22,7 +22,8 @@
     }
 
     .news_card{
-        @apply w-full lg:w-[48%] gap-5 shadow-lg flex flex-col justify-between font-manrope bg-white p-5 rounded-[20px] 
+        @apply w-full lg:w-[45%] gap-5 flex flex-col
+         justify-between font-manrope bg-white p-5 rounded-[20px] 
     }
 
     .news_image{
@@ -81,7 +82,7 @@
     }
 
     .selected_btn_close{
-        @apply text-[2rem] hover:text-gray-400 duration-200 cursor-pointer
+        @apply sticky top-5 rounded-full bg-white text-[2rem] hover:text-gray-400 duration-200 cursor-pointer
     }
 
     .selected_news_image{
@@ -121,5 +122,86 @@
         background: linear-gradient(93deg, #298BD9 0%, #33C0E4 100%);
         @apply w-full p-3 rounded-[7px] text-white font-semibold
       }
-  
+
+
+      .update_news_form{
+        @apply flex gap-5 flex-col font-manrope w-[600px] p-10 
+      }
+
+      .update_news_form h3{
+        @apply text-[2rem] text-center w-full font-bold text-gray-800
+      }
+
+      .update_input_wrapper{
+        @apply flex flex-col 
+      }
+
+      .update_input_wrapper input{
+        @apply p-4 bg-slate-200 rounded-[10px]
+      }
+
+      .update_input_wrapper textarea{
+        @apply p-4 h-[300px] bg-slate-200 rounded-[10px]
+      }
+
+      .update_btn_wrapper{
+        @apply flex gap-5  bg-white items-center justify-center pt-10
+      }
+
+      .update_btn_wrapper button{
+        @apply w-[50%]  rounded-[10px] p-3 text-white
+        hover:bg-gray-800 duration-200
+      }
+
+      .update_btn_wrapper .update{
+        @apply bg-green-400
+      }
+
+      .update_btn_wrapper .cancel{
+        @apply bg-red-400
+      }
+      
+      .update_input_wrapper span{
+        @apply font-bold
+      }
+
+      .update_notif{
+        @apply sticky top-3 text-center bg-white font-bold
+      }
+
+
+
+      .news_create_btn_navigate{
+        @apply bottom-3 right-3 fixed lg:bottom-5 lg:right-5 bg-[#298BD9]
+        flex items-center gap-3 p-3 text-[1.5rem] text-white rounded-[10px]
+        shadow-lg hover:bg-slate-900 duration-200 z-40
+      }
+
+      .add_news_container{
+        @apply flex items-center font-manrope flex-col justify-center
+      }
+
+      .add_news_title{
+        @apply text-[2rem] font-bold py-5 text-gray-800
+      }
+
+      .add_news_notif{
+        @apply sticky top-3
+      }
+
+      .add_news_form{
+        @apply flex flex-col p-10 w-full gap-3
+      }
+
+      .add_news_input_box{
+        @apply flex flex-col
+      }
+
+      .add_news_input_box .input{
+        @apply p-3 rounded-[10px] bg-gray-200
+      }
+
+      .add_news_input_box span{
+        @apply font-bold 
+      }
 }

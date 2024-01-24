@@ -1,21 +1,20 @@
+/* eslint-disable react/prop-types */
+import { Dialog } from '@mui/material';
 import { useState, useCallback } from 'react';
 import axios from 'axios';
 import ImageDropzone from './ImageDropzone';
 import { useCsrfToken } from '../../../../context/CsrfTokenContext';
 import { apiBlog } from '../../../../api/api';
 
-export default function Add_NewAndArticles() {
-
+const AddNewsDialog = ({ open, onClose }) => {
+    
 
   const { csrfToken } = useCsrfToken();
   const [formData, setFormData] = useState({
     title: '',
     author:'',
     content:'',
-    header_image: {
-      data: '', // Base64 string will be stored here
-      filename: '', // Filename will be stored here
-    },
+  
   });
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
@@ -59,10 +58,7 @@ export default function Add_NewAndArticles() {
         author: '',
         content: '',
         type:'',
-        header_image: {
-          data: '', // Base64 string will be stored here
-          filename: '', // Filename will be stored here
-        },
+      
       });
 
       setLoading(false);
@@ -77,6 +73,7 @@ export default function Add_NewAndArticles() {
       console.error('Add news error:', error);
       setErrorMessage('Failed to create news. Please try again.');
       setSuccessMessage('');
+      setLoading(false);
     }
   };
 
@@ -111,18 +108,20 @@ export default function Add_NewAndArticles() {
   }, [setFormData]);
   
 
-
   return (
-    <div className='flex items-center font-manrope flex-col justify-center'>
-      <h2 className='text-[2rem] font-bold py-5 text-gray-800'>Create News and Articles</h2>
-       {successMessage && <p className='text-green-500'>{successMessage}</p>}
-       {errorMessage && <p className='text-red-500'>{errorMessage}</p>}
-      <form action="" onSubmit={handleAdd} className='flex flex-col w-[50%] gap-3'>
+    <Dialog fullWidth open={open} onClose={onClose}>
+         <div className='add_news_container'>
+      <h2 className='add_news_title'>Create News and Articles</h2>
+        <div className="add_news_notif">
+            {successMessage && <p className='text-green-500'>{successMessage}</p>}
+          {errorMessage && <p className='text-red-500'>{errorMessage}</p>}
+        </div>
+      <form action="" onSubmit={handleAdd} className='add_news_form'>
      
-       <div className='flex flex-col'>
-        <label>Type:</label>
+       <div className='add_news_input_box'>
+        <span>Type:</span>
        <select 
-          className='p-3 rounded-[10px]'
+          className='input'
           name="type"
           value={formData.type} 
           onChange={handleChange}
@@ -134,11 +133,11 @@ export default function Add_NewAndArticles() {
           </select>
        </div>
 
-      <div className="flex flex-col">
-        <label>Title:</label>
+      <div className="add_news_input_box">
+        <span>Title:</span>
         <input 
           type="text" 
-          className='p-3 rounded-[10px]'
+          className='input'
           placeholder='Enter News Title...'
           required name="title"
           value={formData.title} 
@@ -146,11 +145,11 @@ export default function Add_NewAndArticles() {
         />
       </div>
 
-      <div className="flex flex-col">
-        <label>Author:</label>
+      <div className="add_news_input_box">
+        <span>Author:</span>
         <input 
           type="text"
-          className='p-3 rounded-[10px]'
+          className='input'
           name="author"
           placeholder='Enter News Author...'
           value={formData.author}
@@ -158,12 +157,12 @@ export default function Add_NewAndArticles() {
         />
         </div>
      
-        <div className="flex flex-col">
-          <label>Description:</label>
+        <div className="add_news_input_box">
+          <span>Description:</span>
           <textarea  
             placeholder='Enter News Description...'
             name="content"
-            className='h-[200px] p-3 rounded-[10px]'
+            className='h-[200px] input'
             value={formData.content}
             onChange={handleChange} 
           />
@@ -177,5 +176,8 @@ export default function Add_NewAndArticles() {
         </button>
       </form>
     </div>
+    </Dialog>
   );
-}
+};
+
+export default AddNewsDialog;

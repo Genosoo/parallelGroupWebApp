@@ -9,6 +9,7 @@ import './css/blog.css';
 import './css/map.css';
 import './css/landing.css';
 import './css/news.css';
+import './css/loader.css';
 import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './auth/authContext/AuthContext.jsx'
 import { CsrfTokenProvider } from './context/CsrfTokenContext.jsx';

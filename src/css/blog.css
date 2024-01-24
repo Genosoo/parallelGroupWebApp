@@ -10,7 +10,7 @@
     }
 
     .blog_card_wrapper{
-        @apply flex flex-col items-center  w-[80%] pt-20
+        @apply flex flex-col  w-[80%] pt-20
     }
 
     .blog_card_wrapper .title{
@@ -18,17 +18,17 @@
     }
 
     .blog_card_box{
-        @apply flex flex-wrap gap-10 items-center justify-center
+        @apply flex flex-wrap gap-10  
     }
 
     .blog_card{
-        @apply lg:w-[31%]  bg-white flex flex-col p-5 rounded-[20px] gap-3
+        @apply  lg:w-[480px]   bg-white flex flex-col p-5 rounded-[20px] gap-3
         shadow-xl font-manrope
     }
     
     
     .blog_card img{
-        @apply rounded-[20px]
+        @apply rounded-[20px] h-[200px]
     }
 
     .blog_title{
@@ -40,6 +40,8 @@
     }
 
     .blog_readmore{
-        @apply font-semibold text-base text-[#298BD9]
+        @apply font-semibold text-base text-[#298BD9] cursor-pointer
     }
+
+   
 }

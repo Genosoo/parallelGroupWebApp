@@ -279,7 +279,7 @@ export default function Login({onClose}) {
           {errorSignup && <p className='text shadow-lg bg-[#fff] z-20 p-5 rounded-md text-red-500 sticky top-0 text-center'>{errorSignup}</p>}
 
      
-          <h2 className='text-[2rem] font-semibold font-manrope'>Add User</h2>
+          <h2 className='text-[2rem] font-semibold font-manrope'>Add Administrator</h2>
           <form className='flex flex-col gap-3 w-full font-manrope' onSubmit={handleRegisterSubmit}>
           {passwordValidationError && <p style={{ color: 'red' }}>{passwordValidationError}</p>}
 
@@ -412,22 +412,22 @@ export default function Login({onClose}) {
            
              <div className="flex flex-col">
             <span>Roles:</span>
-            <select
+            <Select
               className='p-3 border rounded-[5px]'
               id="role"
               name="roles"
               value={selectedRole || ""}
               onChange={handleRoleChange}
             >
-              <option value="">User</option>
+              <MenuItem value="">User</MenuItem>
               {rolesOptions
                 .filter((role) => !(account === "Parallel Group Administrator" && role.name === "Administrator"))
                 .map((role) => (
-                  <option key={role.id} value={role.name}>
+                  <MenuItem key={role.id} value={role.name}>
                     {role.name}
-                  </option>
+                  </MenuItem>
                 ))}
-            </select>
+            </Select>
           </div>
           
           

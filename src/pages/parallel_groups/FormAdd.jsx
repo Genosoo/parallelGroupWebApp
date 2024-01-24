@@ -5,22 +5,24 @@ import { useDropzone } from 'react-dropzone';
 import { BiImageAdd } from "react-icons/bi";
 import { random } from 'lodash';
 import { useCsrfToken } from '../../context/CsrfTokenContext';
-import { 
-  getParallelGroup, 
-  getMembershipType,
-  getMembershipStatus,
-  getparallerGroupType,
-  getRegions,
-  getProvince,
-  getMunicipality,
-  getBrgy,
-  getRegType
-
- } from '../../api/api';
+import { apiParallelGroup } from '../../api/api';
+import useFormDataOptions from '../../formdata/useFormDataOptions';
 
 
 const MyFormComponent = () => {
   const {csrfToken} = useCsrfToken();
+  const {
+    memTypeOptions,
+    memStatusOptions,
+    parallelGroupTypeOptions,
+    regionsOptions,
+    provinceOptions,
+    municipalityOptions,
+    brgyOptions,
+    regTypeOptions,
+  } = useFormDataOptions();
+
+
   const [formData, setFormData] = useState({
     number: null,
     name: '',
@@ -46,19 +48,8 @@ const MyFormComponent = () => {
   const [error, setError] = useState(null);
   const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false);
 
-  const [regionsOptions, setRegionsOptions] = useState([]);
-  const [provinceOptions, setProvinceOptions] = useState([]);
-  const [municipalityOptions, setMunicipalityOptions] = useState([]);
-  const [brgyOptions, setBrgyOptions] = useState([]);
-  const [memTypeOptions, setMemTypeOptions] = useState([]);
-  const [memStatusOptions, setMemStatusOptions] = useState([]);
-  const [regTypeOptions, setRegTypeOptions] = useState([]);
-
-
   const [selectedProvince, setSelectedProvince] = useState('');
   const [selectedMunicipality, setSelectedMunicipality] = useState('');
-
-  const [parallelGroupTypeOptions, setParallerGroupTypeOptions] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -89,49 +80,7 @@ const MyFormComponent = () => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
- 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const memTypeResponse = await axios.get(getMembershipType);
-        setMemTypeOptions(memTypeResponse.data.success);
-        console.log('Test MemType', memTypeResponse.data.success);
 
-        const memStatusResponse = await axios.get(getMembershipStatus);
-        setMemStatusOptions(memStatusResponse.data.success);
-        console.log('Test MemStatus', memStatusResponse.data.success);
-
-        const parallelGroupTypeResponse = await axios.get(getparallerGroupType);
-        setParallerGroupTypeOptions(parallelGroupTypeResponse.data.success);
-        console.log('Test Parallel Group Type', parallelGroupTypeResponse.data.success);
-
-        const regionsResponse = await axios.get(getRegions);
-        setRegionsOptions(regionsResponse.data.success);
-        console.log('Test Regions', regionsResponse.data.success)
-
-        const provinceResponse = await axios.get(getProvince);
-        setProvinceOptions(provinceResponse.data.success);
-        console.log('Test Province', provinceResponse.data.success)
-
-        const municipalityResponse = await axios.get(getMunicipality);
-        setMunicipalityOptions(municipalityResponse.data.success);
-        console.log('Test Municipality', municipalityResponse.data.success)
-
-          const brgyResponse = await axios.get(getBrgy);
-        setBrgyOptions(brgyResponse.data.success);
-        console.log('Test Brgy', brgyResponse.data.success)
-
-        const regTypeResponse = await axios.get(getRegType);
-        setRegTypeOptions(regTypeResponse.data.success);
-        console.log('Test Reg type', regTypeResponse.data.success)
-    
-      } catch (error) {
-        console.error('Error fetching options:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -204,7 +153,7 @@ const MyFormComponent = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(getParallelGroup, formData, {
+      const response = await axios.post(apiParallelGroup, formData, {
         headers: {
           'X-CSRFToken': csrfToken,
         },

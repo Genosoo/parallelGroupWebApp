@@ -339,7 +339,7 @@ export default function Login({onClose}) {
             <span>Gender:</span>
             <Select
               name="individual.gender"
-              value={registerFormData.individual.gender}
+              value={registerFormData.individual.gender || ""}
               required
               onChange={handleRegisterChange}
             >
@@ -356,7 +356,7 @@ export default function Login({onClose}) {
             <span>Region:</span>
           <Select
                 name="individual.region"
-                value={registerFormData.individual.region}
+                value={registerFormData.individual.region || ""}
                 required
                 onChange={handleRegisterChange}
                 
@@ -443,22 +443,23 @@ export default function Login({onClose}) {
            
              <div className="flex flex-col">
             <span>Roles:</span>
-            <select
+            <Select
               className='p-3 border rounded-[5px]'
               id="role"
               name="roles"
               value={selectedRole || ""}
               onChange={handleRoleChange}
+
             >
-              <option value="">User</option>
+              <MenuItem value="">User</MenuItem>
               {rolesOptions
                 .filter((role) => !(account === "Parallel Group Administrator" && role.name === "Administrator"))
                 .map((role) => (
-                  <option key={role.id} value={role.name}>
+                  <MenuItem key={role.id} value={role.name}>
                     {role.name}
-                  </option>
+                  </MenuItem>
                 ))}
-            </select>
+            </Select>
           </div>
           
           

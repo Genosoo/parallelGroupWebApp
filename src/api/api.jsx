@@ -12,6 +12,7 @@ export const apiDashboard = `${baseUrl}/api/dashboard_summary/`;
 export const apiRoles = `${baseUrl}/api/roles/`;
 
 export const apiBlog = `${baseUrl}/api/blogs/`;
+export const apiAds= `${baseUrl}/api/ads/`;
 
 export const getFileCsv = `${baseUrl}/api/individual/export/csv/`;
 export const getFileExcel = `${baseUrl}/api/individual/export/excel/`;

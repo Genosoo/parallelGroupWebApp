@@ -104,7 +104,7 @@ export default function CustomizedMenus() {
           <div className="flex gap-5 items-center   font-montserrat ">
           <Avatar alt={data.individual?.first_name}   sx={{ width: 35, height: 35 }}  src={`${baseUrl}${data.individual?.photo}`} />
                 <div className=" flex flex-col items-start   text-black">
-                    <p className='font-bold text-[12px] leading-3'>
+                    <p className='font-bold xl:flex lg:hidden text-[12px] leading-3'>
                     {data.individual?.first_name} {data.individual?.last_name}
                     </p>
                     <span className='hidden md:block text-[10px] text-start'>{data?.roles}</span>
@@ -121,8 +121,10 @@ export default function CustomizedMenus() {
         onClose={handleClose}
       >
 
-     <div className='p-2 flex flex-col gap-1'>
-          
+     <div className='p-2  flex flex-col gap-1'>
+     <p className='font-bold hidden  xl:hidden lg:flex text-center p-4 leading-3'>
+                    {data.individual?.first_name} {data.individual?.last_name}
+                    </p>
       {/* Conditionally render Dashboard link based on role */}
       {roles === 'Administrator' || roles === 'Parallel Group Administrator' ? (
           <Link to={'/main/dashboard'}>
@@ -187,6 +189,7 @@ export default function CustomizedMenus() {
              </div>
         </Link> 
 
+        {roles === 'Administrator'  ? (
         <Link to={'/parallel-groups/manage/'}>
         <div className="flex flex-col w-full gap-1" onClick={handleClose}>
              <span className='flex  items-center  font-montserrat  
@@ -195,7 +198,7 @@ export default function CustomizedMenus() {
             <div className='h-[1px] bg-[#298ad949] w-full'></div>
              </div>
         </Link> 
-
+        ) : null }
           <ButtonLogout />
      </div>
       </StyledMenu>

@@ -1,17 +1,63 @@
-import image1  from '../../../../assets/ads/image1.jpg'
-import image2  from '../../../../assets/ads/image2.jpg'
-import image3  from '../../../../assets/ads/image3.jpg'
-import image4  from '../../../../assets/ads/image4.jpg'
-import image5  from '../../../../assets/ads/image5.jpg'
+
+import { apiAds, baseUrl } from '../../../../api/api';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function Ads() {
+  const [adsData, setAdsData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+       const adsResponse = await axios.get(apiAds);
+       setAdsData(adsResponse.data.success);
+       console.log(adsResponse.data.success);
+      } catch (error) {
+        console.error('Failed to fetch data', error)
+      }
+    }
+
+    fetchData();
+  },[])
+
+
+  const filteredAds = adsData.filter((item) => item.type === 'slider_ads')
+  
+
   return (
     <div className="h-[30vh] bg-white overflow-hidden flex items-center justify-center gap-2 p-2">
-        <img className='h-full w-[20%]' src={image1} alt="" />
-        <img className='h-full w-[20%]' src={image2} alt="" />
-        <img className='h-full w-[20%]' src={image3} alt="" />
-        <img className='h-full w-[20%]' src={image4} alt="" />
-        <img className='h-full w-[20%]' src={image5} alt="" />
+        {/* {adsData.map((item,index) => (
+          <a  className='h-full w-full border'  key={index} href={item.url}>
+            <img className='h-full w-full' src={`${baseUrl}${item.image}`} alt="" />
+          </a>
+        ))} */}
+
+<div className="ads">
+       {filteredAds.map((item,index) => (
+      <div key={index} className="ads-slide">
+        
+        <a  className='h-full w-full border' target='blank'   key={index} href={item.url}>
+         <img className='h-full w-[400px] p-1' src={`${baseUrl}${item.image}`} alt="" />
+        </a>
+
+      </div>
+       ))} 
+      {filteredAds.map((item,index) => (
+      <div key={index} className="ads-slide">
+        <a  className='h-full w-full border'  target='blank'  key={index} href={item.url}>
+          <img className='h-full w-[400px] p-1' src={`${baseUrl}${item.image}`} alt="" />
+        </a>
+      </div>
+       ))} 
+
+{filteredAds.map((item,index) => (
+      <div key={index} className="ads-slide">
+        <a  className='h-full w-full border'  target='blank'  key={index} href={item.url}>
+          <img className='h-full w-[400px] p-1' src={`${baseUrl}${item.image}`} alt="" />
+        </a>
+      </div>
+       ))} 
+    </div>
     </div>
   )
 }

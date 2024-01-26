@@ -35,13 +35,13 @@ const Navbar = () => {
           <img src={logo} alt="" />
         </div>
        
-        <div className={`lg:flex lg:space-x-5 hidden`}>
+        <div className={`lg:flex lg:space-x-2 hidden`}>
           {navLinks.map((link, index) => (
             <Link
               key={index}
               to={link.to}
               onClick={closeMenu}
-              className={`text-[#298BD9] text-sm px-5 py-1 rounded uppercase ${
+              className={`text-[#298BD9] text-center font-semibold text-sm px-3 py-1 rounded uppercase ${
                 location.pathname === link.to  ? 'active-link' : ''
               }`}
             >
@@ -51,8 +51,8 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-5">
-          <div className='hidden lg:flex items-center shadow  rounded-full overflow-hidden px-4'>
-           <input type="search" placeholder='Search...' className='p-3 rounded-full outline-none' />
+          <div className='hidden lg:flex items-center w-[200px] shadow  rounded-full overflow-hidden px-4'>
+           <input type="search" placeholder='Search...' className='w-[90%] p-3 rounded-full outline-none' />
            <IoSearchOutline />
           </div>
 

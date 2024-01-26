@@ -10,6 +10,7 @@ import './css/map.css';
 import './css/landing.css';
 import './css/news.css';
 import './css/loader.css';
+import './css/ads.css';
 import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './auth/authContext/AuthContext.jsx'
 import { CsrfTokenProvider } from './context/CsrfTokenContext.jsx';
@@ -22,7 +23,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       </BrowserRouter>
    </AuthProvider>
    </CsrfTokenProvider>
-
-  
   ,
 )

@@ -57,8 +57,8 @@ export default function LabTabs() {
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChangeTabs} aria-label="lab API tabs example">
             {/* <Tab label="Add About" value="1" /> */}
-            <Tab label="Add News & Articles" value="2" />
-            <Tab label="Add Advertisement" value="3" />
+            <Tab label="News & Articles" value="2" />
+            <Tab label="Advertisement" value="3" />
           </TabList>
         </Box>
         {/* <TabPanel value="1">

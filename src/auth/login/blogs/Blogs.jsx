@@ -1,72 +1,82 @@
-import blog1 from '../../../assets/login/blog1.jpg'
-import blog2 from '../../../assets/login/blog2.jpg'
-import blog3 from '../../../assets/login/blog3.jpg'
-import blog4 from '../../../assets/login/blog4.jpg'
-import blog5 from '../../../assets/login/blog5.jpg'
-import blog6 from '../../../assets/login/blog6.jpg'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import SelectedNewsDialog from './SelectedNewsDialog';
+import { apiBlog, baseUrl } from '../../../api/api';
+import noImage from '../../../assets/landing/no-image.png';
 
 export default function Blogs() {
+  const [blogData, setBlogData] = useState([]);
+  const [selectedNews, setSelectedNews] = useState(null);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleOpenDialog = (item) => {
+    setSelectedNews(item);
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const BlogResponse = await axios.get(apiBlog);
+        setBlogData(BlogResponse.data.success);
+        console.log('Blog Data List', BlogResponse.data.success);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Helper function to truncate content to a specified word limit
+  const truncateContent = (content, limit) => {
+    const words = content.split(' ');
+    const truncatedWords = words.slice(0, limit);
+    return truncatedWords.join(' ');
+  };
+
+  const filteredBlogData = blogData.filter((item) => item.type === 'home');
+
   return (
     <div className="blog_container">
-        <div className="blog_card_wrapper">
+      <div className="blog_card_wrapper">
         <h1 className="title">News/Articles</h1>
-           <div className="blog_card_box">
-           <div className="blog_card">
-              <img src={blog1} alt="" />
-              <h3 className='blog_title'>Title Here</h3>
-              <p className='blog_desc'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Vestibulum magna enim, volutpat a pellentesque quis, molestie  
-                ut dui. Nam accumsan lobortis augue.</p>
-              <span className='blog_readmore'>Read More</span>
-            </div>
-
-            <div className="blog_card">
-              <img src={blog2} alt="" />
-              <h3 className='blog_title'>Title Here</h3>
-              <p className='blog_desc'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Vestibulum magna enim, volutpat a pellentesque quis, molestie  
-                ut dui. Nam accumsan lobortis augue.</p>
-              <span className='blog_readmore'>Read More</span>
-            </div>
-
-            <div className="blog_card">
-              <img src={blog3} alt="" />
-              <h3 className='blog_title'>Title Here</h3>
-              <p className='blog_desc'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Vestibulum magna enim, volutpat a pellentesque quis, molestie  
-                ut dui. Nam accumsan lobortis augue.</p>
-              <span className='blog_readmore'>Read More</span>
-            </div>
-
-            <div className="blog_card">
-              <img src={blog4} alt="" />
-              <h3 className='blog_title'>Title Here</h3>
-              <p className='blog_desc'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Vestibulum magna enim, volutpat a pellentesque quis, molestie  
-                ut dui. Nam accumsan lobortis augue.</p>
-              <span className='blog_readmore'>Read More</span>
-            </div>
-
-            <div className="blog_card">
-              <img src={blog5} alt="" />
-              <h3 className='blog_title'>Title Here</h3>
-              <p className='blog_desc'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Vestibulum magna enim, volutpat a pellentesque quis, molestie  
-                ut dui. Nam accumsan lobortis augue.</p>
-              <span className='blog_readmore'>Read More</span>
-            </div>
-
-            <div className="blog_card">
-              <img src={blog6} alt="" />
-              <h3 className='blog_title'>Title Here</h3>
-              <p className='blog_desc'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Vestibulum magna enim, volutpat a pellentesque quis, molestie  
-                ut dui. Nam accumsan lobortis augue.</p>
-              <span className='blog_readmore'>Read More</span>
-            </div>
-
-           </div>
+        <div className="blog_card_box">
+          {filteredBlogData.length > 0 ? (
+            filteredBlogData.map((item, index) => (
+              <div key={index} className="blog_card">
+                <img
+                  className="selected_news_image"
+                  src={`${baseUrl}${item.header_image || noImage}`}
+                  alt=""
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = noImage;
+                  }}
+                />
+                <h3 className="blog_title">{item.title}</h3>
+                <p className="blog_desc">{truncateContent(item.content, 50)}</p>
+                <span className="blog_readmore" onClick={() => handleOpenDialog(item)}>
+                  Read More
+                </span>
+              </div>
+            ))
+          ) : (
+            <p className='text-[1.5rem] pl-32 text-gray-500'>No available news or articles.</p>
+          )}
         </div>
+      </div>
+
+      <SelectedNewsDialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        selectedNews={selectedNews}
+        baseUrl={baseUrl}
+      />
     </div>
-  )
+  );
 }

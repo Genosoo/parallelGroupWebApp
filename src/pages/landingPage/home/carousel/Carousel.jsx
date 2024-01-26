@@ -1,8 +1,32 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 import { SlArrowRight, SlArrowLeft } from 'react-icons/sl';
+import { baseUrl, apiAds } from '../../../../api/api';
+import axios from 'axios';
 
-const Carousel = ({ images }) => {
+const Carousel = () => {
+  const [adsData, setAdsData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+       const adsResponse = await axios.get(apiAds);
+       setAdsData(adsResponse.data.success);
+       console.log(adsResponse.data.success);
+      } catch (error) {
+        console.error('Failed to fetch data', error)
+      }
+    }
+
+    fetchData();
+  },[])
+
+
+  const filteredCarouselAds = adsData.filter((item) => item.type === "carousel_ads")
+
+  const images = filteredCarouselAds
+
+
   const [activeIndex, setActiveIndex] = useState(0);
 
   const goToPreviousSlide = () => {
@@ -24,15 +48,21 @@ const Carousel = ({ images }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeIndex]);
 
+
+
+
   return (
     <div className="h-[70vh]">
       <div className="carousel-slides">
         {images.map((item, index) => (
-          <div
-            key={index}
-            className={`slide${index === activeIndex ? ' active' : ''}`}
-            style={{ backgroundImage: `url(${item.src})` }}
-          ></div>
+         <a
+         key={index}
+         href={item.url}  // Replace with the desired link
+         target="_blank"  // Open the link in a new tab/window
+         rel="noopener noreferrer"
+         className={`slide${index === activeIndex ? ' active' : ''}`}
+         style={{ backgroundImage: `url(${baseUrl}${item.image})` }}
+       ></a>
         ))}
       </div>
       <div className="carousel-indicators-2">

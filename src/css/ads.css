@@ -1,0 +1,44 @@
+@keyframes slide {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-500%);
+    }
+  }
+  
+  .ads {
+    overflow: hidden;
+    padding: 60px 0;
+    background: white;
+    white-space: nowrap;
+    position: relative;
+  }
+  
+  .ads:before,
+  .ads:after {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    content: "";
+    z-index: 2;
+  }
+  
+  .ads:before {
+    left: 0;
+  }
+  
+  .ads:after {
+    right: 0;
+  }
+  
+  .ads:hover .ads-slide {
+    animation-play-state: paused;
+  }
+  
+  .ads-slide {
+    display: inline-block;
+    animation: 20s slide infinite linear;
+  }
+  

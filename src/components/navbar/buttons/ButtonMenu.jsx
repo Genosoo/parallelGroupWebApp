@@ -124,7 +124,7 @@ export default function CustomizedMenus() {
           
       {/* Conditionally render Dashboard link based on role */}
       {roles === 'Administrator' || roles === 'Parallel Group Administrator' ? (
-          <Link to={'/parallel-groups/home'}>
+          <Link to={'/parallel-groups'}>
              <div className="flex flex-col w-full gap-1">
              <span className='flex  items-center  font-montserrat  
                bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px]

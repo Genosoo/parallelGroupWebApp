@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer components{
+    .blogContainer{
+        @apply bg-[#EBF4FD] flex items-center justify-center pb-20
+    }
+
+    .blogCardWrapper{
+        @apply flex flex-col  w-[80%] pt-20
+    }
+
+    .blogCardWrapper .title{
+        @apply text-[2rem] lg:w-full pl-3 font-bold font-manrope pb-6
+    }
+
+    .blogCardBox{
+        @apply flex flex-wrap gap-10  
+    }
+
+    .blogCard{
+        @apply w-full  lg:w-[30%]   bg-white flex flex-col p-5 rounded-[20px] gap-3
+        shadow-xl font-manrope
+    }
+    
+    
+    .blogCard img{
+        @apply rounded-[20px] h-[200px]
+    }
+
+    .blogTitle{
+        @apply font-semibold text-xl
+    }
+
+    .blogDesc{
+        @apply text-sm font-medium
+    }
+
+    .blogReadmore{
+        @apply font-semibold text-base text-[#298BD9] cursor-pointer
+    }
+
+   
+}

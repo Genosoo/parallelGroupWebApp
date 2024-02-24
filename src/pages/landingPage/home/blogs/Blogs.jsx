@@ -42,13 +42,13 @@ export default function Blogs() {
   const filteredBlogData = blogData.filter((item) => item.type === 'home');
 
   return (
-    <div className="blog_container">
-      <div className="blog_card_wrapper">
+    <div className="blogContainer">
+      <div className="blogCardWrapper">
         <h1 className="title">News/Articles</h1>
-        <div className="blog_card_box">
+        <div className="blogCardBox">
           {filteredBlogData.length > 0 ? (
             filteredBlogData.map((item, index) => (
-              <div key={index} className="blog_card">
+              <div key={index} className="blogCard">
                 <img
                   className="selected_news_image"
                   src={`${baseUrl}${item.header_image || noImage}`}
@@ -58,9 +58,9 @@ export default function Blogs() {
                     e.target.src = noImage;
                   }}
                 />
-                <h3 className="blog_title">{item.title}</h3>
-                <p className="blog_desc">{truncateContent(item.content, 50)}</p>
-                <span className="blog_readmore" onClick={() => handleOpenDialog(item)}>
+                <h3 className="blogTitle">{item.title}</h3>
+                <p className="blogDesc">{truncateContent(item.content, 50)}</p>
+                <span className="blogReadmore" onClick={() => handleOpenDialog(item)}>
                   Read More
                 </span>
               </div>

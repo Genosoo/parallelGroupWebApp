@@ -6,6 +6,7 @@ import { IoClose } from "react-icons/io5";
 import { FaBars } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
 import { GoBell } from "react-icons/go";
+import './NavbarStyle.css'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,19 +30,17 @@ const Navbar = () => {
   const location = useLocation();
 
   return (
-    <nav className=" sticky top-0 z-[1000]">
-        <div className='p-3 font-manrope shadow flex items-center justify-between bg-white'>
-        <div className="flex justify-between items-center">
-          <img src={logo} alt="" />
-        </div>
+    <nav className="navbarContainer">
+        <div className='navbarWrapper'>
+          <img src={logo} alt=""  className='navbarLogo'/>
        
-        <div className={`lg:flex lg:space-x-2 hidden`}>
+        <div className='navbarLinkBox'>
           {navLinks.map((link, index) => (
             <Link
               key={index}
               to={link.to}
               onClick={closeMenu}
-              className={`text-[#298BD9] text-center font-semibold text-sm px-3 py-1 rounded uppercase ${
+              className={`navbarLink ${
                 location.pathname === link.to  ? 'active-link' : ''
               }`}
             >
@@ -50,21 +49,20 @@ const Navbar = () => {
           ))}
         </div>
 
-        <div className="flex items-center gap-5">
-          <div className='hidden lg:flex items-center w-[200px] shadow  rounded-full overflow-hidden px-4'>
-           <input type="search" placeholder='Search...' className='w-[90%] p-3 rounded-full outline-none' />
+        <div className="navbarRightBox">
+          <div className='searchBox'>
+           <input type="search" placeholder='Search...' className='searchInput' />
            <IoSearchOutline />
           </div>
 
-          <div className='bg-white shadow p-3 rounded-full'>
+          <div className='bellBox'>
            <GoBell />
-        </div>
-     
+          </div>
           <ButtonMenu />
         </div>
 
-        <div className="flex space-x-5 lg:hidden">
-            <button onClick={toggleMenu} className="text-[#000000] text-xl">
+        <div className="menuBtn">
+            <button onClick={toggleMenu}>
               {isMenuOpen ? <IoClose/> : <FaBars />}
             </button>
           </div>
@@ -72,13 +70,13 @@ const Navbar = () => {
        
         </div>
         {isMenuOpen ?
-      <div className={`flex flex-col items-center  p-10 gap-5 bg-white shadow lg:hidden`}>
+      <div className='mobileLinkBox'>
       {navLinks.map((link, index) => (
         <Link
           key={index}
           to={link.to}
           onClick={closeMenu}
-          className={`text-[#298BD9] flex justify-center bg-slate-100 rounded-[10px] font-semibold font-manrope  p-3 text-sm w-full   uppercase ${
+          className={`mobileLink ${
             location.pathname === link.to ? 'active-link-mobile' : ''
           }`}
         >

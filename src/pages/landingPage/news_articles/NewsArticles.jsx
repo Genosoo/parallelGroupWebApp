@@ -3,18 +3,17 @@ import { useState, useEffect, useCallback } from "react";
 import axios from 'axios';
 import { HiDotsVertical } from "react-icons/hi";
 import noImage from '../../../assets/landing/no-image.png';
-import { useCsrfToken } from '../../../context/CsrfTokenContext';
-import { apiBlog, baseUrl, apiAccount } from "../../../api/api";
+import { apiBlog, baseUrl, apiAccount, getCsrfTokenUrl } from "../../../api/api";
 import DeleteDialog from "./dialogs/DeleteDialog";
 import SelectedNewsDialog from "./dialogs/SelectedNewsDialog";
 import UpdateNewsDialog from "./dialogs/UpdateNewsDialog";
 import AddNewsDialog from "./dialogs/AddNewsDialog";
 import { BiEdit } from "react-icons/bi";
 import Loader from "../../../loader/Loader";
-
+import "./NewStyle.css"
 
 export default function About() {
-  const { csrfToken } = useCsrfToken();
+  
   const [rolesData, setRolesData] = useState([]);
   const [blogData, setBlogData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,6 +34,21 @@ export default function About() {
 
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
+  const [csrfToken, setCsrfToken] = useState('');
+
+  useEffect(() => {
+    const getTheCsrfToken = async () => {
+      try {
+        const response = await axios.get(getCsrfTokenUrl);
+        setCsrfToken(response.data['csrf-token']);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getTheCsrfToken();
+  }, [getCsrfTokenUrl]);
 
 
   const handleToggleActions = (item) => {

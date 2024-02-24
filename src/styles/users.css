@@ -1,0 +1,231 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer components{
+    .users_table_wrapper{
+        @apply mr-20 bg-white h-[75vh] rounded-[10px] 
+      }
+
+      
+      .users_table_container {
+        overflow-y: auto;
+        scrollbar-width: thin; /* Firefox */
+        scrollbar-color: #888 #f0f0f0; /* Firefox */
+        box-shadow: none !important;
+        height:100%;
+      }
+      
+        /* WebKit (Chrome, Safari) */
+      .users_table_container::-webkit-scrollbar {
+          width: 10px;
+          height:10px;
+        }
+      
+      .users_table_container::-webkit-scrollbar-thumb {
+          background-color: #a9cef4;
+        }
+      
+      .users_table_container::-webkit-scrollbar-track {
+          background-color: #ffffff;
+          border-radius: 6px; 
+        }
+
+      .users_table_container span{
+        @apply font-manrope text-xs font-medium
+      }
+
+      .users_table_header{
+        @apply w-[210px] font-bold text-sm font-manrope
+      }
+
+      .users_table_logo{
+        @apply w-[50px]
+      }
+
+
+      .users_header_container{
+        @apply w-[95%]  flex
+      }
+
+      .users_header_container .search_box{
+        @apply w-[90%] bg-white  rounded-[10px] flex items-center gap-4 pr-3
+      }
+
+      .users_header_container .search_box input{
+        @apply w-[100%] bg-white h-full p-4  rounded-[10px] outline-none
+      }
+
+      .users_btn_search svg{
+        @apply text-[#298BD9] text-[25px] 
+      }
+
+      .users_btn_clear{
+        @apply bg-[#e0e0e080] p-2 rounded-[10px] hover:bg-slate-600
+         hover:text-white  duration-300 text-[#298BD9]
+      }
+
+      .users_btn_clear svg{
+        @apply  text-[25px]  
+      }
+
+    .btn_add_users{
+      @apply bg-[#298BD9] rounded-[10px] flex items-center justify-center
+       text-white font-manrope text-xs px-2 ml-3 font-semibold gap-2
+       w-[150px]  hover:bg-slate-600   duration-300
+    }
+
+    .btn_add_users svg{
+      @apply text-base
+    }
+
+    .action_btn_wrapper{
+        @apply flex gap-3
+    }
+
+    .btn_update_users{
+        @apply bg-[#298BD9] text-white p-2 rounded-full hover:bg-gray-700
+        duration-300
+    }
+
+    .btn_view_users{
+      @apply bg-[#29d9a1] text-white p-2 rounded-full hover:bg-gray-700
+      duration-300
+  }
+
+
+    .btn_delete_users{
+        @apply bg-[#FF7979] text-white p-2 rounded-full hover:bg-gray-700
+        duration-300
+    }
+
+    .dailog_delete_box{
+        @apply bg-white h-[200px]  flex flex-col justify-around items-center
+    }
+
+    .dailog_delete_box p{
+        @apply font-manrope font-medium
+    }
+
+    .dailog_delete_box button{
+        @apply p-2 text-white m-2 w-[100px] rounded-[5px] 
+        hover:bg-gray-700
+        duration-300
+    }
+
+    .dailog_delete_box .yes{
+        @apply p-2 bg-[#298BD9] 
+    }
+
+
+    .dailog_delete_box .no{
+        @apply p-2  bg-[#FF7979]
+    }
+
+    .message_success{
+        @apply bg-[#9FBB73] text-center  font-manrope  p-2 text-white
+    }
+
+    .message_error{
+        @apply bg-[#FF7979]  text-center  text-white font-manrope p-2
+    }
+
+
+    .user_dialog_container{
+      @apply flex p-7 font-manrope gap-5
+    }
+    .user_box_wrapper1{
+      @apply w-[50%]
+    }
+
+    .user_box_wrapper2{
+      @apply w-[50%] 
+    }
+
+    .user_flex{
+      @apply flex gap-5  mb-5
+    }
+
+
+    .user_box_1{
+      @apply flex flex-col gap-1 items-center  w-[260px] 
+    }
+
+    .user_box_1 span{
+      @apply text-[#298BD9] text-xs
+    }
+    
+    .user_box_1 h3{
+      @apply bg-[#EBF4FD] w-full p-2 text-center rounded-[7px]
+      font-bold text-sm
+    }
+
+    .user_box_1 img{
+      @apply w-[150px] border-2 border-[#001529]  rounded-[15px] 
+    }
+
+    .user_box_2{
+      @apply flex  bg-[#EBF4FD] w-full rounded-[10px]  gap-10 p-4
+    }
+
+    .user_box_2 span{
+      @apply text-sm flex  flex-col gap-3
+    }
+
+
+    .user_box_2 .span1{
+      @apply text-[#298BD9] font-medium
+    }
+
+    .user_box_3{
+      @apply flex  bg-[#EBF4FD] w-full rounded-[10px]  gap-10 p-4
+    }
+
+    .user_box_3 span{
+      @apply text-sm flex  flex-col gap-3
+    }
+
+
+    .user_box_3 .span1{
+      @apply text-[#298BD9] font-medium
+    }
+
+    .user_box_4{
+      @apply flex  bg-[#EBF4FD] w-full rounded-[10px]  gap-10 p-4 mb-5
+    }
+
+
+    .user_box_4 span{
+      @apply text-sm flex  flex-col gap-3
+    }
+
+
+    .user_box_4 .span1{
+      @apply text-[#298BD9] font-medium
+    }
+
+
+
+    .user_box_5{
+      @apply flex  bg-[#EBF4FD] w-full rounded-[10px]  gap-10 p-4
+    }
+
+    
+    .user_box_5 span{
+      @apply text-sm flex  flex-col gap-3
+    }
+
+
+    .user_box_5 .span1{
+      @apply text-[#298BD9] font-medium
+    }
+
+    .user_dailog_btn_close{
+      background: linear-gradient(93deg, #298BD9 0%, #33C0E4 100%);
+      @apply w-full mt-20 p-3 text-white rounded-[7px]
+    }
+
+}
+

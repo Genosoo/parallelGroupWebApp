@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useAuth } from '../../../auth/authContext/AuthContext';
+import { useAuth } from '../../../context/authContext/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useCsrfToken } from '../../../context/CsrfTokenContext';
+import { useCsrfToken } from '../../../context/csrftoken/CsrfTokenContext';
 import { logoutUrl } from '../../../api/api';
 
 // eslint-disable-next-line react/prop-types, no-unused-vars
@@ -22,7 +22,7 @@ export default function ButtonLogout({isOpen}) {
       
           await axios.get(logoutUrl, null, { headers });
           dispatch({ type: 'LOGOUT' });
-          navigate('/login');
+          navigate('/main');
         } catch (error) {
           console.error('Logout error:', error);
         }

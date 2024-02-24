@@ -4,7 +4,7 @@ import { TextField, Button, FormControl, Select, MenuItem,  Snackbar,  SnackbarC
 import { useDropzone } from 'react-dropzone';
 import { BiImageAdd } from "react-icons/bi";
 import { random } from 'lodash';
-import { useCsrfToken } from '../../context/CsrfTokenContext';
+import { useCsrfToken } from '../../context/csrftoken/CsrfTokenContext';
 import { apiParallelGroup } from '../../api/api';
 import useFormDataOptions from '../../formdata/useFormDataOptions';
 

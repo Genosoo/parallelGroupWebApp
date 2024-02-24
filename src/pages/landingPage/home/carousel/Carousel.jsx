@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { SlArrowRight, SlArrowLeft } from 'react-icons/sl';
 import { baseUrl, apiAds } from '../../../../api/api';
 import axios from 'axios';
+import './CarouselStyle.css'
 
 const Carousel = () => {
   const [adsData, setAdsData] = useState([]);
@@ -52,8 +53,8 @@ const Carousel = () => {
 
 
   return (
-    <div className="h-[70vh]">
-      <div className="carousel-slides">
+    <div className="carouselContainer">
+      <div className="carouselSlides">
         {images.map((item, index) => (
          <a
          key={index}
@@ -65,17 +66,17 @@ const Carousel = () => {
        ></a>
         ))}
       </div>
-      <div className="carousel-indicators-2">
+      <div className="carouselIndicatorBox">
         {images.map((_, index) => (
           <div
             key={index}
-            className={`indicator${index === activeIndex ? ' active' : ''}`}
+            className={`carouselIndicator${index === activeIndex ? ' active' : ''}`}
             onClick={() => goToSlide(index)}
           ></div>
         ))}
       </div>
 
-      <div className="carousel_button">
+      <div className="carouselButton">
         <button className="prev-button " onClick={goToPreviousSlide}>
           <SlArrowLeft />
         </button>

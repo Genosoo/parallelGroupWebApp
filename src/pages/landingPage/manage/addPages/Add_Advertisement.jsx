@@ -1,14 +1,13 @@
-import { useState, useCallback } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useCallback, useEffect } from 'react';
 import axios from 'axios';
 import ImageDropzone from './ImageDropzone';
-import { useCsrfToken } from '../../../../context/CsrfTokenContext';
-import { apiAds } from '../../../../api/api';
+import { apiAds, getCsrfTokenUrl } from '../../../../api/api';
 import AdsList from '../ads/AdsList';
 
 export default function Add_NewAndArticles() {
 
 
-  const { csrfToken } = useCsrfToken();
   const [formData, setFormData] = useState({
     type:'',
     name: '',
@@ -22,7 +21,21 @@ export default function Add_NewAndArticles() {
   const [errorMessage, setErrorMessage] = useState('');
 
   const [selectedImage, setSelectedImage] = useState(null);
-  
+  const [csrfToken, setCsrfToken] = useState('');
+
+  useEffect(() => {
+    const getTheCsrfToken = async () => {
+      try {
+        const response = await axios.get(getCsrfTokenUrl);
+        setCsrfToken(response.data['csrf-token']);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getTheCsrfToken();
+  }, [getCsrfTokenUrl]);
+
 
 
 

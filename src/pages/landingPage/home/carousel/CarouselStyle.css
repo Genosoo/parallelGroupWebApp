@@ -1,0 +1,51 @@
+@tailwind components;
+
+@layer components{
+    .carouselContainer{
+        @apply h-[70vh]
+    }
+
+    .carouselSlides {
+        @apply relative w-full h-full
+    }
+
+      
+   .slide {
+    transition: opacity 0.5s;
+    background-size: cover;
+    background-position: center;
+    @apply absolute opacity-0 w-full h-full
+  }
+
+  .slide.active {
+    opacity: 1;
+  }
+ 
+   .carouselIndicators {
+     @apply flex justify-center w-full absolute z-50 bottom-24 
+   }
+ 
+   .carouselIndicatorBox {
+     @apply flex justify-center w-full absolute z-50 -mt-10
+   }
+   
+   .carouselIndicator {
+     @apply w-[15px] h-[15px] rounded-full bg-white m-2 cursor-pointer
+   }
+   
+   .carouselIndicator.active {
+     @apply bg-[#298BD9]
+   }
+   
+  .carouselButton{
+    @apply flex gap-5 absolute bottom-[50%] justify-between w-full px-10
+  }
+
+  .carouselButton button{
+    box-shadow:0 0 10px #0000005d;
+    @apply border-[#ffffff] bg-[#0000003f] border p-5 rounded-full text-[#ffffff] 
+    duration-300 hover:bg-[#298BD9] hover:text-white 
+  }
+   
+   
+}

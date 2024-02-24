@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { RiDeleteBack2Line } from "react-icons/ri";
 import { BsPersonPlus } from "react-icons/bs";
-import { useCsrfToken } from '../../context/CsrfTokenContext';
+import { useCsrfToken } from '../../context/csrftoken/CsrfTokenContext';
 import { apiRoles } from '../../api/api';
 import { AddRoleDialog, DeleteRoleDialog } from './RolesDailog';
 

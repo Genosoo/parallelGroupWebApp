@@ -1,7 +1,7 @@
 import { apiAds, baseUrl } from '../../../../api/api';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useCsrfToken } from '../../../../context/CsrfTokenContext';
+import { useCsrfToken } from '../../../../context/csrftoken/CsrfTokenContext';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';

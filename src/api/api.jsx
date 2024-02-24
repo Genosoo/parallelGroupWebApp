@@ -4,6 +4,7 @@ export const baseUrl = import.meta.env.VITE_URL;
 export const loginUrl = `${baseUrl}/api/login/`;
 export const logoutUrl = `${baseUrl}/api/logout/`;
 export const signupUrl = `${baseUrl}/api/signup/`;
+export const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
 
 export const apiAccount = `${baseUrl}/api/my_account/`;
 export const apiUser = `${baseUrl}/api/individual/`;

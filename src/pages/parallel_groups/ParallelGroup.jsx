@@ -23,7 +23,7 @@ import FormUpdate from "./FormUpdate";
 import { FaFileCsv } from "react-icons/fa";
 import { SiMicrosoftexcel } from "react-icons/si";
 import PDFGenerator from "./PDFGenerate";
-import { useCsrfToken } from "../../context/CsrfTokenContext";
+import { useCsrfToken } from "../../context/csrftoken/CsrfTokenContext";
 import { getParallelGroup, getFileCsv, getFileExcel, baseUrl } from "../../api/api";
 
 export default function ParallelGroups() {

@@ -1,3 +1,4 @@
+import './LoaderStyle.css'
 export default function Loader() {
   return (
     <section className="dots-container">

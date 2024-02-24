@@ -13,9 +13,10 @@ const SelectedNewsDialog = ({ open, onClose, selectedNews, baseUrl }) => {
   const { header_image, title, content } = selectedNews;
 
   return (
-    <Dialog fullScreen open={open} onClose={onClose}>
-      <div className="selected_news_container">
+    <Dialog maxWidth='md' open={open} onClose={onClose}>
         <AiFillCloseCircle className="selected_btn_close" onClick={onClose} />
+
+      <div className="selected_news_container">
         <img
           className="selected_news_image"
           src={`${baseUrl}${header_image || noImage}`}

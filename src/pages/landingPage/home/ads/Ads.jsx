@@ -2,6 +2,7 @@
 import { apiAds, baseUrl } from '../../../../api/api';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import './AdsStyle.css'
 
 export default function Ads() {
   const [adsData, setAdsData] = useState([]);
@@ -37,7 +38,7 @@ export default function Ads() {
       <div key={index} className="ads-slide">
         
         <a  className='h-full w-full border' target='blank'   key={index} href={item.url}>
-         <img className='h-full w-[400px] p-1' src={`${baseUrl}${item.image}`} alt="" />
+         <img className='h-[280px] w-[400px] p-1' src={`${baseUrl}${item.image}`} alt="" />
         </a>
 
       </div>
@@ -45,7 +46,7 @@ export default function Ads() {
       {filteredAds.map((item,index) => (
       <div key={index} className="ads-slide">
         <a  className='h-full w-full border'  target='blank'  key={index} href={item.url}>
-          <img className='h-full w-[400px] p-1' src={`${baseUrl}${item.image}`} alt="" />
+          <img className='h-[280px] w-[400px] p-1' src={`${baseUrl}${item.image}`} alt="" />
         </a>
       </div>
        ))} 
@@ -53,7 +54,7 @@ export default function Ads() {
 {filteredAds.map((item,index) => (
       <div key={index} className="ads-slide">
         <a  className='h-full w-full border'  target='blank'  key={index} href={item.url}>
-          <img className='h-full w-[400px] p-1' src={`${baseUrl}${item.image}`} alt="" />
+          <img className='h-[280px] w-[400px] p-1' src={`${baseUrl}${item.image}`} alt="" />
         </a>
       </div>
        ))} 

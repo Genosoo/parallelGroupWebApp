@@ -101,7 +101,7 @@ export default function CustomizedMenus() {
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon sx={{color:"#000"}} />}
       >
-          <div className="flex gap-5 items-center   font-montserrat ">
+          <div className="avatarBox">
           <Avatar alt={data.individual?.first_name}   sx={{ width: 35, height: 35 }}  src={`${baseUrl}${data.individual?.photo}`} />
                 <div className=" flex flex-col items-start   text-black">
                     <p className='font-bold xl:flex lg:hidden text-[12px] leading-3'>
@@ -121,81 +121,71 @@ export default function CustomizedMenus() {
         onClose={handleClose}
       >
 
-     <div className='p-2  flex flex-col gap-1'>
-     <p className='font-bold hidden  xl:hidden lg:flex text-center p-4 leading-3'>
-                    {data.individual?.first_name} {data.individual?.last_name}
-                    </p>
+     <div className='menuBox'>
       {/* Conditionally render Dashboard link based on role */}
       {roles === 'Administrator' || roles === 'Parallel Group Administrator' ? (
           <Link to={'/main/dashboard'}>
-             <div className="flex flex-col w-full gap-1">
-             <span className='flex  items-center  font-montserrat  
-               bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px] hover:bg-gray-800 hover:text-white duration-200'>Dashboard</span>
-            <div className='h-[1px] bg-[#298ad949] w-full'></div>
+             <div className="linkBoxSpan  border-b pb-2 border-[#298ad949]">
+             <span className='linkText'>Dashboard</span>
              </div>
           </Link >
         ) : null}
        
         <Link to={'/parallel-groups/command-center/'}>
-        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
-             <span className='flex  items-center  font-montserrat  
-               bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px]
-               hover:bg-gray-800 hover:text-white duration-200'>Command Center</span>
-            <div className='h-[1px] bg-[#298ad949] w-full'></div>
+        <div className="linkBoxSpan" onClick={handleClose}>
+             <span className='linkText'>Command Center</span>
         </div>
         </Link> 
 
-        <Link to={'/parallel-groups/new-report/'}>
-        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
-             <span className='flex  items-center  font-montserrat  
-               bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px]
-                 duration-200 hover:bg-gray-800 hover:text-white'>New Report</span>
-            <div className='h-[1px] bg-[#298ad949] w-full'></div>
+         <div className='flex flex-col gap-2 py-4 border-y mb-2 border-[#298ad949]'>
+         <Link to={'/parallel-groups/new-report/'}>
+        <div className="linkBoxSpan" onClick={handleClose}>
+             <span className='linkText'>New Report</span>
              </div>
         </Link> 
 
         <Link to={'/parallel-groups/report-tracker/'}>
-        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
-             <span className='flex  items-center  font-montserrat  
-               bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px]
-                 duration-200 hover:bg-gray-800 hover:text-white'>Report Tracker</span>
-            <div className='h-[1px] bg-[#298ad949] w-full'></div>
+        <div className="linkBoxSpan" onClick={handleClose}>
+             <span className='linkText'>Report Tracker</span>
              </div>
         </Link> 
 
-        <Link to={'/parallel-groups/report-history/'}>
-        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
-             <span className='flex  items-center  font-montserrat  
-               bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px]
-                duration-200 hover:bg-gray-800 hover:text-white'>Report History</span>
-            <div className='h-[1px] bg-[#298ad949] w-full'></div>
+          <Link to={'/parallel-groups/report-history/'}>
+          <div className="linkBoxSpan" onClick={handleClose}>
+              <span className='linkText'>Report History</span>
+              </div>
+          </Link> 
+         </div>
+
+
+         <Link to={'/parallel-groups/watch-now/'}>
+        <div className="linkBoxSpan border-b py-2 border-[#298ad949]" onClick={handleClose}>
+             <span className='linkText'>Activity</span>
              </div>
         </Link> 
 
         <Link to={'/parallel-groups/watch-now/'}>
-        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
-             <span className='flex  items-center  font-montserrat  
-               bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px]
-                duration-200 hover:bg-gray-800 hover:text-white'>Watch Now</span>
-            <div className='h-[1px] bg-[#298ad949] w-full'></div>
+        <div className="linkBoxSpan  border-b py-3 border-[#298ad949]" onClick={handleClose}>
+             <span className='linkText'>Watch Now</span>
              </div>
         </Link> 
 
         <Link to={'/parallel-groups/account/'}>
-        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
-             <span className='flex  items-center  font-montserrat  
-               bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px] hover:bg-gray-800 hover:text-white duration-200'>My Profile</span>
-            <div className='h-[1px] bg-[#298ad949] w-full'></div>
+        <div className="linkBoxSpan " onClick={handleClose}>
+             <span className='linkText'>My Profile</span>
+             </div>
+        </Link> 
+
+        <Link to={'/parallel-groups/account/'}>
+        <div className="linkBoxSpan " onClick={handleClose}>
+             <span className='linkText'>QR code</span>
              </div>
         </Link> 
 
         {roles === 'Administrator'  ? (
         <Link to={'/parallel-groups/manage/'}>
-        <div className="flex flex-col w-full gap-1" onClick={handleClose}>
-             <span className='flex  items-center  font-montserrat  
-               bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px]
-                duration-200 hover:bg-gray-800 hover:text-white'>Manage</span>
-            <div className='h-[1px] bg-[#298ad949] w-full'></div>
+        <div className="linkBoxSpan border-b pb-2 border-[#298ad949]" onClick={handleClose}>
+             <span className='linkText'>Manage</span>
              </div>
         </Link> 
         ) : null }

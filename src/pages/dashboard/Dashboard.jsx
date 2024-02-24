@@ -3,6 +3,7 @@ import Graphs from "./graphs/Graphs";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { apiDashboard } from "../../api/api";
+import './DashboardStyle.css'
 
 
 export default function Dashboard() {

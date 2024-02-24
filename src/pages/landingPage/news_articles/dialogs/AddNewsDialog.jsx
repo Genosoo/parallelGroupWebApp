@@ -3,7 +3,7 @@ import { Dialog } from '@mui/material';
 import { useState, useCallback } from 'react';
 import axios from 'axios';
 import ImageDropzone from './ImageDropzone';
-import { useCsrfToken } from '../../../../context/CsrfTokenContext';
+import { useCsrfToken } from '../../../../context/csrftoken/CsrfTokenContext';
 import { apiBlog } from '../../../../api/api';
 
 const AddNewsDialog = ({ open, onClose }) => {

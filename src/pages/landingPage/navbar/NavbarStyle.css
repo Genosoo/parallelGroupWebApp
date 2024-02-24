@@ -1,0 +1,76 @@
+@tailwind components;
+
+@layer components{
+    .navbarContainer{
+        @apply sticky top-0 z-[1000]
+    }
+
+    .navbarWrapper{
+        @apply p-3 font-manrope shadow flex items-center justify-between bg-white
+    }
+
+    .navbarLogo{
+        @apply w-[80px]
+    }
+
+    .navbarLinkBox{
+        @apply lg:flex lg:space-x-2 hidden
+    }
+
+    .navbarLink{
+        @apply text-[#298BD9] text-center font-semibold text-sm px-3 py-1 rounded uppercase
+    }
+
+
+    .navbarRightBox{
+        @apply flex items-center gap-5
+    }
+
+    .searchBox{
+        @apply hidden lg:flex items-center w-[200px] shadow  rounded-full overflow-hidden px-4
+    }
+
+    .searchInput{
+        @apply w-[90%] p-3 rounded-full outline-none
+    }
+
+    .bellBox{
+        @apply bg-white shadow p-3 rounded-full
+    }
+
+    .menuBtn{
+        @apply flex space-x-5 lg:hidden
+    }
+
+    .menuBtn button{
+        @apply text-[#000000] text-xl
+    }
+
+    .mobileLinkBox{
+        @apply flex flex-col items-center  p-10 gap-5 bg-white shadow lg:hidden
+    }
+
+    .mobileLink{
+        @apply text-[#298BD9] flex justify-center bg-slate-100 rounded-[10px] font-semibold font-manrope  p-3 text-sm w-full   uppercase 
+    }
+
+
+    .avatarBox{
+        @apply flex gap-5 items-center  font-montserrat 
+    }
+
+    .menuBox{
+        @apply p-2  flex flex-col gap-1
+    }
+    
+    .linkBoxSpan{
+        @apply flex flex-col w-full gap-1
+    }
+
+    .linkText{
+        @apply flex  items-center  font-montserrat  
+        bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px] hover:bg-gray-800 hover:text-white duration-200
+    }
+
+    
+}

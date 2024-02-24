@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-import { useCsrfToken} from '../../context/CsrfTokenContext';
+import { useCsrfToken} from '../../context/csrftoken/CsrfTokenContext';
 import { apiAccount } from "../../api/api";
 
 
@@ -63,9 +63,9 @@ export default function Account() {
 
   return (
     <>
-     <span className="cursor-pointer text-xs text-blue-500 hover:font-bold duration-200"  onClick={handleOpenChangePasswordDialog}>
+     <button   onClick={handleOpenChangePasswordDialog}>
          Change Password
-      </span>
+      </button>
 
       <Dialog open={openChangePasswordDialog} onClose={handleCloseChangePasswordDialog}>
       <h2 className="text-center font-manrope pt-2 font-bold text-lg">Change Password</h2>

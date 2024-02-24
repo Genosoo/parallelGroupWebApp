@@ -1,75 +1,12 @@
-import { AiOutlineAlignLeft } from 'react-icons/ai';
-import Logo from '../../assets/sidebar/logo-1.png';
 import { NavLink } from 'react-router-dom';
-import { CgProfile } from 'react-icons/cg';
-import { BsGrid} from 'react-icons/bs';
-import { IoMapOutline } from 'react-icons/io5';
-// import ButtonLogout from './ButtonLogout';
-import { CiSettings } from 'react-icons/ci';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { GrGroup } from "react-icons/gr";
-import { TbUsersGroup } from "react-icons/tb";
-import { RiAdminLine } from "react-icons/ri";
-import { PiPerson } from "react-icons/pi";
 import { apiAccount } from '../../api/api';
+import { links1, links2 } from './Links'; 
+import { AiOutlineAlignLeft } from 'react-icons/ai';
 
-const originalMenuItem = [
-    {
-        path: '/main/dashboard',
-        name: 'Dashboard',
-        icon: <BsGrid />,
-    },
-    {
-        path: '/main/roles',
-        name: 'Roles',
-        icon: <PiPerson />,
-    },
-    {
-        path: '/main/users',
-        name: 'Users',
-        icon: <CgProfile />,
-    },
-    
-    {
-        path: '/main/administrators',
-        name: 'Administrators',
-        icon: <RiAdminLine />,
-    },
-    {
-        path: '/main/members',
-        name: 'Members',
-        icon: <GrGroup />,
-    },
-    {
-        path: '/main/parallel-groups',
-        name: 'Parallel Groups',
-        icon: <TbUsersGroup />,
-        subItems: [
-            {
-                path: '/main/parallel-groups/group1',
-                name: 'Group 1',
-            },
-            {
-                path: '/main/parallel-groups/group2',
-                name: 'Group 2',
-            },
-        ],
-    },
-    {
-        path: '/main/map',
-        name: 'Map',
-        icon: <IoMapOutline />,
-    },
-];
-
-const menuItem2 = [
-    {
-        path: '/main/settings',
-        name: 'Settings',
-        icon: <CiSettings />,
-    },
-];
+import axios from 'axios';
+import Logo from '../../assets/sidebar/logo-1.png';
+// import ButtonLogout from './ButtonLogout';
 
 const Sidebar = () => {
     const [data, setData] = useState([]);
@@ -93,7 +30,7 @@ const Sidebar = () => {
         fetchData();
     }, []);
 
-    const filteredMenuItem = originalMenuItem.filter((item) => {
+    const filteredMenuItem = links1.filter((item) => {
         if (data && data.roles) {
             if (data.roles.includes('Administrator')) {
                 // Show all menu items for administrators
@@ -144,7 +81,7 @@ const Sidebar = () => {
                 </div>
 
                 <div className="link_wrapper2">
-                    {menuItem2.map((item, index) => (
+                    {links2.map((item, index) => (
                         <NavLink
                             to={item.path}
                             key={index}

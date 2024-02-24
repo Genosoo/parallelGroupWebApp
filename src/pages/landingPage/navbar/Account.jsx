@@ -6,7 +6,7 @@ import { BiImageAdd } from "react-icons/bi";
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import ChangePassword from './ChangePassword'
-import { useCsrfToken } from '../../../context/CsrfTokenContext';
+import { useCsrfToken } from '../../../context/csrftoken/CsrfTokenContext';
 import { apiAccount, baseUrl } from "../../../api/api";
 
 

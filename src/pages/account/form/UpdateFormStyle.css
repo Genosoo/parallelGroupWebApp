@@ -1,0 +1,67 @@
+@tailwind components;
+
+
+@layer components{
+    .updateFormContainer{
+        @apply flex flex-col gap-5  w-[500px] items-center font-manrope
+    }
+
+    .messageSuccess{
+        @apply text-green-500 absolute  bg-white
+    }
+
+    .messageFailed{
+        @apply text-red-500  absolute  bg-white
+    }
+
+    .updateInputBox{
+        @apply flex flex-col  bg-[#EBF4FD]  rounded-[10px] p-1 pl-2 font-manrope w-full
+    }
+
+    .updateInputBox span{
+        @apply text-xs text-[#8E8E8E]
+    }
+
+    .updateInput{
+        @apply   bg-[#fff0] text-lg
+
+    }
+
+    .updateImageBox{
+        @apply relative flex items-center justify-center
+    }
+
+    .updateImageBox img{
+        @apply w-[150px] h-[150px]
+    }
+
+    .updateImageBtn{
+        @apply absolute bg-[#000000a4] text-[2rem] w-[60px] h-[60px] text-white rounded-full
+        flex items-center justify-center hover:bg-[#298BD9] duration-200
+    }
+
+    .updateTitle{
+        @apply text-[#298BD9] text-[1.3rem] font-bold
+    }
+
+    .updateBtn{
+        @apply flex gap-5 w-full
+    }
+
+    .updateBtn button{
+        @apply hover:bg-gray-800
+    }
+
+
+    .updateBtnSave{
+        background: linear-gradient(93deg, #298BD9 0%, #33C0E4 100%);
+        @apply w-full p-3 rounded-[10px] text-white font-medium
+    }
+
+    .updateBtnCancel{
+        @apply w-full p-3 rounded-[10px] font-medium border-[#33C0E4] border
+        text-[#33C0E4]
+    }
+
+
+}

@@ -1,0 +1,334 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer components{
+    *{
+        box-sizing:border-box;
+        margin:0;
+        padding:0;
+      }
+    
+      .main_container{
+        @apply flex  md:flex-row bg-[#EBF4FD] h-[100vh] overflow-auto 
+      }
+    
+      .content_container{
+        @apply flex flex-col gap-5 h-[100vh] w-[100%] overflow-y-auto 
+        }
+
+        
+
+        .sidebar_container{
+          @apply flex
+        }
+      
+        .sidebar{
+          @apply bg-[#EBF4FD] transition-all duration-500
+           text-[#3C3C3C] w-[200px] flex flex-col items-center z-[1000] 
+             pb-20 p-5 justify-between 
+        }
+
+      .link_wrapper{
+        @apply flex flex-col gap-2 w-full
+      }
+
+      .link_wrapper span{
+        @apply uppercase p-2 text-[14px] tracking-wider mt-5 
+         font-bold font-manrope
+      }
+
+      .link_wrapper2{
+        @apply flex flex-col gap-2 w-full border-t-2
+         border-[#BEBEBE] pt-5
+      }
+
+      .link_wrapper2 span{
+        @apply uppercase p-2 text-[14px] tracking-wider mt-5 
+         font-bold font-manrope
+      }
+
+
+      .sidebar .top_section{
+        @apply flex items-center justify-center 
+      }
+
+      .sidebar .logo_box{
+        @apply bg-white rounded-[15px] flex items-center justify-center p-5
+      }
+
+
+      .toggle_bar{
+        @apply flex text-[20px] ml-[50px] mt-[25px]
+      }
+      .sidebar .link{
+        @apply flex items-center text-[#3C3C3C] p-2 rounded-[10px] gap-5
+        transition-all duration-500  font-bold font-manrope  text-[14px]
+      }
+
+      .sidebar .btn_logout{
+        @apply flex items-center text-[#3C3C3C] p-2 rounded-[10px] gap-5
+        transition-all duration-500  font-bold font-manrope  text-[14px] 
+        hover:bg-red-400 hover:text-white
+      }
+
+      a{
+        text-decoration: none !important;
+      }
+
+      .active{
+        color: #fff !important;
+        @apply bg-[#001529] 
+      }
+      .sidebar .icon, .link_text{
+        @apply text-[14px]
+      }
+
+
+      .table_wrapper{
+        @apply mr-20 bg-white h-[75vh] rounded-[10px] 
+      }
+
+      
+      .table_container {
+        overflow-y: auto;
+        scrollbar-width: thin; /* Firefox */
+        scrollbar-color: #888 #f0f0f0; /* Firefox */
+        box-shadow: none !important;
+        height:100%;
+      }
+      
+        /* WebKit (Chrome, Safari) */
+      .table_container::-webkit-scrollbar {
+          width: 10px;
+          height:10px;
+        }
+      
+      .table_container::-webkit-scrollbar-thumb {
+          background-color: #a9cef4;
+        }
+      
+      .table_container::-webkit-scrollbar-track {
+          background-color: #ffffff;
+          border-radius: 6px; 
+        }
+
+      .table_container span{
+        @apply font-manrope text-xs font-medium
+      }
+
+      .table_header{
+        @apply w-[190px] font-bold text-sm font-manrope
+      }
+
+      .table_logo{
+        @apply w-[50px]
+      }
+
+
+      .box_wrapper_container{
+        @apply flex flex-col md:flex-row
+      }
+    
+
+      .box_wrapper1{
+        @apply flex gap-3 
+      }
+
+      .box_left{
+        @apply flex flex-col  p-6 lg:w-[60%] 
+      }
+
+      .box_wrapper1 {
+        @apply font-manrope w-full flex flex-col md:flex-row
+      }
+
+      .box_wrapper1 .box{
+        @apply  bg-[#EBF4FD] rounded-[20px]    h-full
+      }
+
+      .box_wrapper1 .box1{
+        @apply  w-[200px] h-[150px]
+      }
+
+
+      .box_wrapper1 .box2{
+        @apply px-3  flex flex-col h-[150px] w-full
+      }
+
+      .box_wrapper1 .box img{
+        @apply w-[100%]   h-full  border-2 border-black rounded-[20px]
+         object-contain
+      }
+
+      .box_wrapper1 .box2{
+        @apply flex gap-5 items-center justify-center
+      }
+    
+
+      .box_wrapper1 .box span {
+        @apply text-[12px] font-manrope  flex 
+      }
+
+      .box_wrapper1 .box .p1{
+        @apply text-[#298BD9] font-bold
+      }
+      
+      .box_wrapper1 .box p{
+        @apply  w-[150px] xl:w-[230px]
+      }
+      .box_wrapper1 .box3 {
+        @apply w-full p-5 flex flex-col gap-5
+      }
+
+      .box_wrapper1 .box3 span{
+       @apply flex gap-5
+      }
+
+      .box_right{
+        @apply  lg:w-[40%]    p-6
+      }
+
+      .box_wrapper2{
+        @apply flex flex-col justify-between h-[87%]
+      }
+
+     
+
+
+      .box_wrapper2 .box4{
+        @apply flex gap-5 items-center justify-center  bg-[#EBF4FD] rounded-[15px]
+      }
+    
+
+      .box_wrapper2 .box4 span {
+        @apply text-[12px] font-manrope  flex pl-5
+      }
+
+      .box_wrapper2 .box4 .p1{
+        @apply text-[#298BD9] font-bold
+      }
+      
+      .box_wrapper2 .box4 p{
+        @apply w-[150px] md:w-[100px] xl:w-[200px]
+      }
+      .box_wrapper2 .box4 {
+        @apply w-full p-5 flex flex-col gap-5
+      }
+
+      .box_wrapper2 .box4 span{
+       @apply flex gap-5 
+      }
+
+      .dailog_btn_close{
+        background: linear-gradient(93deg, #298BD9 0%, #33C0E4 100%);
+        @apply w-full p-3 rounded-[10px] text-white font-manrope font-semibold 
+      }
+
+      .dailog_btn_close:hover{
+        background: linear-gradient(93deg, #1d2b36 0%, #121c1e 100%);
+      }
+
+
+      .pg_header_container{
+        @apply w-[95%]  flex
+      }
+
+      .pg_header_container .search_box{
+        @apply w-[90%] bg-white  rounded-[10px] flex items-center gap-4 pr-3
+      }
+
+      .pg_header_container .search_box input{
+        @apply w-[100%] bg-white h-full p-4  rounded-[10px] outline-none
+      }
+
+      .btn_search svg{
+        @apply text-[#298BD9] text-[25px] 
+      }
+
+      .btn_clear{
+        @apply bg-[#e0e0e080] p-2 rounded-[10px] hover:bg-slate-600
+         hover:text-white  duration-300 text-[#298BD9]
+      }
+
+      .btn_clear svg{
+        @apply  text-[25px]  
+      }
+
+    .btn_add_pl{
+      @apply bg-[#298BD9] rounded-[10px] flex items-center justify-center
+       text-white font-manrope text-xs px-2 ml-3 font-semibold gap-2
+       w-[150px]  hover:bg-slate-600   duration-300
+    }
+
+    .btn_add_pl svg{
+      @apply text-base
+    }
+
+    .update_form{
+      @apply flex flex-col p-10
+    }
+
+    .update_form button{
+      background: linear-gradient(93deg, #298BD9 0%, #33C0E4 100%);
+      @apply w-full p-3 rounded-[10px] text-white font-manrope font-semibold 
+    }
+
+    .account_container .title{
+      @apply text-base font-manrope  font-bold pb-3
+    }
+
+    .account_container .form{
+      @apply flex flex-col gap-5 p-10   rounded-[10px] font-manrope w-[50%]
+    }
+
+    .account_container .form .input_box{
+      @apply flex flex-col 
+    }
+    .account_container .form .input_box input{
+      @apply p-3 rounded-[10px]
+    }
+
+    .account_container .form .input_box select{
+      @apply p-3 rounded-[10px]
+    }
+
+    .export_box{
+      @apply flex flex-col mt-2 absolute bg-[#000000a5]
+      text-white  p-3 items-center gap-2  right-24 rounded-[10px] bottom-32 
+      font-manrope
+    }
+
+    .export_box .btn_csv{
+      @apply text-[15px] hover:bg-black duration-300 bg-blue-500 p-2 rounded-full
+    }
+
+     .export_box .btn_excel{
+      @apply text-[15px] hover:bg-black duration-300 bg-green-600 p-2 rounded-full
+    }
+    .export_box .btn_pdf{
+      @apply text-[15px] hover:bg-black duration-300 bg-red-500 p-2 rounded-full
+    }
+
+    .dropzone{
+      @apply border flex flex-col items-center p-10 rounded-[20px]
+    }
+
+}
+
+
+
+
+.active-link{
+  background: #298BD9 !important;
+  border-radius:30px !important;
+  color: #fff !important;
+}
+
+.active-link-mobile{
+  background: #298ad96e !important;
+  border-radius:10px !important;
+  color: #298BD9 !important;
+}

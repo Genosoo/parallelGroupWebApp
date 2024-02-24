@@ -1,0 +1,28 @@
+@tailwind components;
+
+
+@layer components{
+    .navbar{
+        @apply p-3 flex items-center justify-between px-10
+         sticky top-0 z-[500] bg-white
+      }
+  
+      .navbarBtn{
+        @apply flex gap-5
+      }
+      
+      .navbarBtn button{
+        @apply flex border p-3 w-[150px] rounded-[10px] font-manrope 
+        items-center justify-center text-white font-semibold
+      }
+      
+      .navbarBtn .btn1{
+        background: linear-gradient(93deg, #298BD9 0%, #33C0E4 100%);
+        
+      }
+  
+      .navbarBtn .btn2{
+        @apply text-[#298BD9] border border-[#298BD9] hover:bg-gray-800 duration-300
+      }
+  
+}

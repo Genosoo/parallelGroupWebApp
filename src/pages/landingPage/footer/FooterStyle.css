@@ -1,0 +1,25 @@
+@tailwind components;
+
+
+@layer components{
+    .footerContainer{
+        @apply bg-[#001529] text-white font-manrope text-center  mt-20 
+        flex flex-col items-center justify-center py-10 gap-10
+    }
+
+    .footerContainer img{
+        @apply w-[150px]
+    }
+
+    .footerContainer h2{
+        @apply text-base font-light
+    }
+
+    .linkWrapper{
+        @apply flex items-center justify-center border-b w-[80%] 
+    }
+
+    .linkBox{
+        @apply flex flex-col md:flex-row gap-5 md:gap-20  pb-10 uppercase text-sm font-light
+    }
+}

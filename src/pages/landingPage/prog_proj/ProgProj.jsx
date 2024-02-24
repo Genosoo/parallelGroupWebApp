@@ -1,6 +1,15 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
+export default function Page() {
+    // Extracts pathname property(key) from an object
+ const { pathname } = useLocation();
 
-export default function About() {
+ // Automatically scrolls to top whenever pathname changes
+ useEffect(() => {
+   window.scrollTo(0, 0);
+ }, [pathname]);
+ 
   return (
     <div className="h-full flex flex-col items-center font-montserrat  bg-[#EBF4FD] pt-10">
       <div className="w-[80%] px-5">

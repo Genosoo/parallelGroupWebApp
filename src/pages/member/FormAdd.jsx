@@ -23,7 +23,7 @@ import { Menu } from '@mui/icons-material';
 import { random } from 'lodash';
 import Snackbar from '@mui/material/Snackbar';
 import SnackbarContent from '@mui/material/SnackbarContent';
-import { useCsrfToken } from '../../context/CsrfTokenContext';
+import { useCsrfToken } from '../../context/csrftoken/CsrfTokenContext';
 import {
   getPrefix,
   getSuffix,

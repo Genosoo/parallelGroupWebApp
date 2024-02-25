@@ -1,0 +1,93 @@
+@tailwind components;
+
+
+@layer components{
+    .aboutContainer{
+        @apply h-full flex flex-col items-center font-montserrat  bg-[#EBF4FD] pt-10
+    }
+
+    .aboutWrapper{
+        @apply w-full lg:w-[80%] flex flex-col gap-10 items-center lg:items-start
+    }
+
+    .title{
+        @apply text-[#298BD9] text-[2rem] font-bold text-center lg:text-start
+    }
+
+    .aboutContent1{
+        @apply flex flex-col items-center justify-center w-full  gap-10
+    }
+
+    .aboutContent1 p{
+        @apply font-manrope text-sm px-10 lg:px-0 lg:text-base text-justify 
+    }
+
+    
+    .aboutLogoBox{
+        @apply flex items-center  justify-center
+    }
+
+    .aboutLogoBox img{
+        @apply w-[70%] lg:w-[40%]
+    }
+
+    .aboutContent2{
+        @apply flex mt-10 justify-between flex-col items-center gap-10 lg:gap-0 lg:flex-row
+    }
+
+    .aboutProfileImage{
+        @apply w-[300px] lg:w-[500px]
+    }
+
+    .aboutContent2 p{
+        @apply w-full px-10 lg:px-0 lg:w-[65%] text-justify text-sm lg:text-base
+    }
+
+    .aboutContent3{
+        @apply my-16
+    }
+
+    .aboutContent3 p{
+        @apply w-full px-10 lg:px-0 text-sm lg:text-base text-justify 
+    }
+
+    .aboutBoxWrapper{
+        @apply flex flex-col items-center justify-center mt-20
+    }
+
+    .aboutBoxTitle{
+        @apply text-[#298BD9] font-bold text-lg
+    }
+
+    .aboutBox{
+        @apply flex flex-col lg:flex-row gap-5 mt-14 items-center
+    }
+
+    .aboutCard{
+        background-image: url("../../../assets/landing/about/background.png"); 
+        background-size: cover;
+        @apply w-[80%] lg:w-[50%] h-[400px] lg:h-[500px]  rounded-[20px] relative text-white font-montserrat 
+        flex items-center
+    }
+
+    .aboutCard img{
+        @apply w-[60px] absolute right-10 top-10
+    }
+
+    .aboutCard span{
+        @apply px-5 lg:px-14 h-[70%] lg:h-[40%] flex flex-col gap-5 lg:gap-10
+    }
+
+    .aboutCard span h3{
+        @apply font-medium text-xl
+    }
+
+    .aboutCard span p{
+        @apply text-sm text-justify lg:text-base
+    }
+
+    .aboutCard span p b{
+        @apply font-medium
+    }
+    
+}

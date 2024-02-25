@@ -1,0 +1,210 @@
+@tailwind components;
+
+
+@layer components{
+    .accountContainer{
+        @apply flex items-center bg-[#EBF4FD] p-10  justify-center
+    flex-col h-[100vh]   font-manrope   
+    }
+
+    .accountWrapper{
+        @apply w-[80%] flex  flex-col gap-5
+    }
+
+    .accountTitle{
+        @apply text-[#298BD9] font-extrabold text-[2rem]
+    }
+
+    .headerBox{
+        @apply flex justify-between w-full items-center
+    }
+
+    .headerBtn{
+        @apply  text-[#298BD9] flex gap-3 
+    }
+
+    .headerBtn button{
+        @apply border-[#298BD9] border p-2 rounded-md bg-white text-xs font-medium
+        hover:text-white hover:bg-[#298BD9] duration-200 w-[150px]
+    }
+
+    
+    .profileWrapper{
+        @apply font-manrope w-full
+    }
+
+   
+
+    .profileContent1{
+        @apply flex gap-5 
+    }
+
+  
+
+    .profileBox1{
+        @apply  flex flex-col w-full
+    }
+
+    .profileTitle{
+        @apply text-[#298BD9] font-bold  text-[1.2rem]
+    }
+
+    .profileBox{
+        @apply flex  p-5 justify-between  bg-white rounded-[10px]
+    }
+
+    .flexBox{
+        @apply flex items-center w-[70%] gap-5
+    }
+
+    .profileImage{
+        box-shadow: 0px 5px 10px #0000002a;
+        @apply w-[200px] h-[200px] rounded-full border-white border-2 object-cover
+    }
+
+    .profileDetail{
+        @apply flex flex-col w-[40%]
+    }
+
+    .name{
+        @apply text-[2rem] capitalize font-bold
+    }
+
+    .username{
+        @apply text-[1.5rem] text-[#8E8E8E] 
+    }
+
+    .socMedBox{
+        @apply flex items-center gap-2 pt-4
+    }
+
+    .socMedBox .socMedTitle{
+        @apply text-xs text-[#8E8E8E]
+    }
+
+    .socMedBox .icon{
+        @apply  text-[#298BD9] border-[#298BD9] border w-[35px] h-[35px] rounded-full
+        flex items-center justify-center hover:text-white hover:bg-[#298BD9] duration-200
+    }
+
+    .pointBox{
+        @apply bg-[#DFECF7] flex  text-[#298BD9] items-center justify-center
+         gap-1 p-3 rounded-[7px] mt-5
+    }
+
+    .pointBox span{
+        @apply capitalize text-base
+    }
+
+    .pointBox p{
+        @apply font-bold text-base
+    }
+
+    .parallelGroupBox{
+        @apply border-l-4 border-[#BEBEBE] text-sm font-bold flex flex-col items-center justify-center 
+        gap-2 w-[30%]
+    }
+
+    .parallelGroupBox img{
+        box-shadow: 0px 5px 10px #0000002a;
+        @apply w-[150px] h-[150px] rounded-full  object-contain border-white border-2
+    }
+
+   
+    .profileBox2{
+        @apply bg-white w-[25%] flex flex-col 
+    }
+
+    .qrcodeImage{
+        @apply border shadow-lg rounded-md overflow-hidden object-contain
+    }
+
+    
+    .profileContent2{
+        @apply mt-5 w-full
+    }
+
+    .profileBox3{
+        @apply flex flex-col  gap-4
+    }
+
+    .userInfoBox{
+        @apply flex   font-manrope  items-center
+    }
+
+    .userInfoTitle{
+        @apply text-[#8E8E8E] text-[1rem] w-[200px]
+    }
+
+    .userInfoBox span{
+        @apply  bg-[#298ad911] w-full p-3 rounded-md text-[1rem] font-bold
+    }
+
+    .userInfoFlex{
+        @apply flex  items-center  justify-start gap-10
+    }
+
+    .userInfoTitle1{
+        @apply text-[#8E8E8E] text-[1rem] w-[185px]
+    }
+    .userInfoTitle2{
+        @apply text-[#8E8E8E] text-[1rem] w-[50px]
+    }
+
+    .userInfoBox1{
+        @apply flex gap-10   font-manrope  items-center w-[50%]
+    }
+
+    .userInfoBox2{
+        @apply flex gap-10   font-manrope  items-center  w-[50%]
+    }
+
+    .userInfoBox1 span{
+        @apply  bg-[#298ad911] w-full p-3 rounded-md text-[1rem] font-bold
+    }
+
+    .userInfoBox2 span{
+        @apply  bg-[#298ad911] w-full p-3 rounded-md text-[1rem] font-bold
+    }
+
+
+    .qrWrapper{
+        @apply flex flex-col items-center w-[500px] font-manrope p-5 gap-5
+    }
+
+    .qrTitle{
+        @apply text-[#298BD9] font-bold  text-[1rem]
+    }
+   
+    .qrCodeProPic{
+        @apply w-[120px] border-white border-2 shadow-lg rounded-full
+    }
+    
+    .qrWrapper h3{
+        @apply font-bold text-xl capitalize 
+    }
+
+    .qrWrapper p{
+        @apply -mt-5 text-[#8E8E8E]
+    }
+   
+    .qrCodeImage{
+        @apply shadow-md
+    }
+
+    .qrCodeImage img{
+        @apply w-[300px]
+    }
+
+   .qrWrapper button{
+    background: linear-gradient(93deg, #298BD9 0%, #33C0E4 100%);
+    @apply  p-2 rounded-[10px] text-white font-medium   w-[250px]
+   }
+
+   .qrWrapper button:hover{
+    background: linear-gradient(93deg, #191f26 0%, #272727 100%);
+}
+
+  
+
+}

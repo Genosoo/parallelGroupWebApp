@@ -22,7 +22,7 @@ const PDFGenerator = ({ data }) => {
       },
     });
 
-    doc.save('table.pdf');
+    doc.save('member.pdf');
   };
 
   return (

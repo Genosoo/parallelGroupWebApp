@@ -1,0 +1,11 @@
+@tailwind components;
+
+
+@layer components {
+    .commandCenterContainer{
+        @apply flex items-center justify-center flex-col font-montserrat
+    }
+    .title{
+        @apply  text-[#298BD9] text-left w-[70%] text-[2rem] font-bold py-10
+    }
+}

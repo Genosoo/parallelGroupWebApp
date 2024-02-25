@@ -6,7 +6,7 @@ import About from '../../pages/landingPage/about/About';
 import ProgProj from '../../pages/landingPage/prog_proj/ProgProj';
 import NewsArticles from '../../pages/landingPage/news_articles/NewsArticles';
 import Contact from '../../pages/landingPage/contact/Contact';
-import Account from '../../pages/landingPage/navbar/Account';
+import Account from '../../pages/landingPage/navbar/account/Account';
 import CommandCenter from '../../pages/landingPage/command_center/CommandCenter';
 import NewReport from '../../pages/landingPage/report/NewReport';
 import ReportTracker from '../../pages/landingPage/report/ReportTracker';

@@ -24,9 +24,7 @@ export default function App() {
 
       <Route element={<LayoutLandingPage />}>
         <Route path={"/parallel-groups/*"} element={
-          <PrivateRoute>
             <RoutesLandingPage />
-          </PrivateRoute>
         } />
       </Route>
       

@@ -2,6 +2,13 @@
 import { Dialog } from '@mui/material';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import noImage from '../../../../assets/landing/no-image.png';
+import styled from 'styled-components';
+
+const StyledDialog = styled(Dialog)`
+   .MuiDialog-paper {
+    border-radius:30px;
+  }
+`
 
 const SelectedNewsDialog = ({ open, onClose, selectedNews, baseUrl }) => {
   if (!selectedNews) {
@@ -10,10 +17,22 @@ const SelectedNewsDialog = ({ open, onClose, selectedNews, baseUrl }) => {
     return null;
   }
 
-  const { header_image, title, content } = selectedNews;
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = new Date(dateString).toLocaleDateString(undefined, options);
+    return formattedDate;
+  };
+  
+  const formatTime = (dateString) => {
+    const options = { hour: 'numeric', minute: 'numeric', second: 'numeric' };
+    const formattedTime = new Date(dateString).toLocaleTimeString(undefined, options);
+    return formattedTime;
+  };
+
+  const { header_image, author, content } = selectedNews;
 
   return (
-    <Dialog maxWidth="md" open={open} onClose={onClose}>
+    <StyledDialog maxWidth="lg" open={open} onClose={onClose}>
         <AiFillCloseCircle className="selected_btn_close" onClick={onClose} />
 
       <div className="selected_news_container">
@@ -26,14 +45,15 @@ const SelectedNewsDialog = ({ open, onClose, selectedNews, baseUrl }) => {
             e.target.src = noImage;
           }}
         />
-        <div>
-          <h3 className="selected_news_title">{title}</h3>
+        <div className='selected_news_box'>
+          <span>Author:{author}</span>
+         <span className="">Date Created: {formatDate(selectedNews.created_at)} {formatTime(selectedNews.created_at)}</span>
           <div className="selected_news_desc">
             <p>{content}</p>
           </div>
         </div>
       </div>
-    </Dialog>
+    </StyledDialog>
   );
 };
 

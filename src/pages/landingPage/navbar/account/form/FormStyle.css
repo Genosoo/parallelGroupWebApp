@@ -1,0 +1,102 @@
+@tailwind components;
+
+
+@layer components{
+    .updateFormContainer{
+        @apply flex flex-col gap-5  w-[500px] items-center font-manrope
+    }
+
+    .messageSuccess{
+        @apply text-green-500 absolute  bg-white font-manrope w-full text-center p-4
+    }
+
+    .messageFailed{
+        @apply text-red-500  absolute  bg-white font-manrope  w-full text-center p-4
+    }
+
+    .updateInputBox{
+        @apply flex flex-col  bg-[#EBF4FD]  rounded-[10px] p-1 pl-2 font-manrope w-full
+    }
+
+    .updateInputBox span{
+        @apply text-xs text-[#8E8E8E]
+    }
+
+    .updateInput{
+        @apply   bg-[#fff0] text-lg
+
+    }
+
+    .updateImageBox{
+        @apply relative flex items-center justify-center
+    }
+
+    .updateImageBox img{
+        @apply w-[150px] h-[150px]
+    }
+
+    .updateImageBtn{
+        @apply absolute bg-[#000000a4] text-[2rem] w-[60px] h-[60px] text-white rounded-full
+        flex items-center justify-center hover:bg-[#298BD9] duration-200
+    }
+
+    .updateTitle{
+        @apply text-[#298BD9] text-[1.3rem] font-bold
+    }
+
+    .updateBtn{
+        @apply flex gap-5 w-full
+    }
+
+   
+
+    .updateBtnSave{
+        background: linear-gradient(93deg, #298BD9 0%, #33C0E4 100%);
+        @apply w-full p-3 rounded-[10px] text-white font-medium duration-200
+    }
+
+    .updateBtnSave:hover{
+        background: linear-gradient(93deg, #191f26 0%, #272727 100%);
+    }
+
+    .updateBtnCancel{
+        @apply w-full p-3 rounded-[10px] font-medium border-[#33C0E4] border
+        text-[#33C0E4] hover:bg-gray-800 duration-200
+    }
+
+    .changePassBox{
+        @apply flex flex-col gap-6 font-manrope p-10 w-[600px] relative
+    }
+
+
+    .changePassTitle{
+        @apply text-center font-manrope font-bold text-lg text-[#298BD9]
+        pt-5
+    }
+
+
+    .changePassBtn{
+        @apply flex gap-5 w-full
+    }
+
+
+  
+
+    .changePassBtnSave{
+        background: linear-gradient(93deg, #298BD9 0%, #33C0E4 100%);
+        @apply w-full p-3 rounded-[10px] text-white font-medium 
+    }
+
+    .changePassBtnSave:hover{
+        background: linear-gradient(93deg, #191f26 0%, #272727 100%);
+    }
+
+
+    .changePassBtnCancel{
+        @apply w-full p-3 rounded-[10px] font-medium border-[#33C0E4] border
+        text-[#33C0E4] hover:bg-gray-800 duration-200
+    }
+
+
+}
+

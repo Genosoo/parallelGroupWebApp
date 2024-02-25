@@ -227,5 +227,30 @@
       @apply w-full mt-20 p-3 text-white rounded-[7px]
     }
 
+    .statusBox{
+      @apply w-[100px] text-center font-manrope text-gray-800 font-bold p-2 rounded-[5px] 
+    }
+
+    .statusMessage{
+      @apply absolute bg-green-500 text-white rounded-md p-3 m-10 left-[40%] top-0 z-50
+    }
+
+    .statusBox option{
+      @apply font-bold bg-white
+    }
+
+.pending-status {
+  @apply bg-yellow-400 
+}
+
+.inactive-status {
+  @apply  bg-red-400 
+}
+
+.active-status {
+ @apply bg-green-400
+}
+
+
 }
 

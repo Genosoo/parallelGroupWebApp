@@ -82,7 +82,7 @@
 
 
     .selected_news_container{
-        @apply flex flex-col gap-10 p-5 font-manrope h-[700px] overflow-y-auto
+        @apply flex  gap-10 p-5 font-manrope h-[700px] overflow-y-auto
     }
 
     .selected_btn_close{

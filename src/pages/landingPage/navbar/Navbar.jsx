@@ -7,10 +7,49 @@ import { FaBars } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
 import { GoBell } from "react-icons/go";
 import './NavbarStyle.css'
+import Cookies from 'js-cookie'; 
+import {  Dialog} from '@mui/material';
+import styled from 'styled-components';
+import LoginForm from './Forms/loginForm/LoginForm';
+import RegisterForm from './Forms/registerForm/RegisterForm';
+
+const StyledLoginDialog = styled(Dialog)`
+  /* Your custom styles for the dialog go here */
+  .MuiDialog-paper {
+    background:none;
+    border-radius:30px;
+  }
+`;
+
+const StyledRegisterDialog = styled(Dialog)`
+  /* Your custom styles for the dialog go here */
+  .MuiDialog-paper {
+    background:none;
+    border-radius:30px;
+  }
+`;
+
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openDialogLogin, setOpenDialogLogin] = useState(false);
+  const [openDialogRegister, setOpenDialogRegister] = useState(false);
 
+  const handleDialogOpenLogin = () => {
+    setOpenDialogLogin(true);
+  };
+
+  const handleDialogCloseLogin = () => {
+    setOpenDialogLogin(false);
+  };
+
+  const handleDialogOpenRegister = () => {
+    setOpenDialogRegister(true);
+  };
+
+  const handleDialogCloseRegister = () => {
+    setOpenDialogRegister(false);
+  };
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -28,6 +67,7 @@ const Navbar = () => {
   ];
 
   const location = useLocation();
+  const hasSessionId = Cookies.get('sessionid'); // Check if sessionid cookie exists
 
   return (
     <nav className="navbarContainer">
@@ -54,11 +94,29 @@ const Navbar = () => {
            <input type="search" placeholder='Search...' className='searchInput' />
            <IoSearchOutline />
           </div>
-
-          <div className='bellBox'>
-           <GoBell />
-          </div>
+          {hasSessionId&& 
+          <>
+           <div className='bellBox'><GoBell /></div> 
           <ButtonMenu />
+          </>}
+
+          {!hasSessionId && 
+            <>
+            <div className='navbarBtn'>
+            <button className='btn1' onClick={handleDialogOpenLogin}>Sign In</button>
+            <button className='btn2' onClick={handleDialogOpenRegister}>Register</button>
+          </div>
+    
+         
+          <StyledLoginDialog open={openDialogLogin} onClose={handleDialogCloseLogin}>
+            <LoginForm />
+          </StyledLoginDialog>
+    
+          <StyledRegisterDialog  open={openDialogRegister} onClose={handleDialogCloseRegister}>
+              <RegisterForm  setOpenDialogRegister={setOpenDialogRegister}/>
+          </StyledRegisterDialog>
+            </>
+          }
         </div>
 
         <div className="menuBtn">

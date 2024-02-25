@@ -1,10 +1,8 @@
 /* eslint-disable react/prop-types */
-// import { useAuth } from "../authContext/AuthContext";
 import { Navigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 
 const PrivateRouteComponent = ({ children }) => {
-  // const auth = useAuth();
   const sessionId = Cookies.get('sessionid'); 
   console.log('sessionId', sessionId)
   

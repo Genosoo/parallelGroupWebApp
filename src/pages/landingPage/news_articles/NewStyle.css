@@ -6,25 +6,25 @@
 
 @layer components{
     .news_container{
-        @apply  flex flex-col items-center bg-[#EBF4FD] pt-10
+        @apply  flex flex-col items-center bg-[#EBF4FD] pt-20 px-10 md:px-0
     }
 
     .news_wrapper{
-        @apply w-full xl:w-[70%] px-5 
+        @apply w-full lg:w-[80%] 
     }
 
     .news_title{
-        @apply md:pl-20 xl:pl-0  text-[#298BD9] 
-        text-[2rem] font-extrabold 
+        @apply  text-[#298BD9] 
+        text-[2rem] font-bold
     }
 
     .news_card_container{
-        @apply flex flex-wrap justify-center gap-6 pt-10 
+        @apply flex flex-wrap  gap-6 pt-10 
     }
 
     .news_card{
-        @apply md:w-[80%] lg:w-[400px] gap-2 flex flex-col
-         justify-between font-manrope bg-white p-3 rounded-[20px] 
+        @apply lg:w-[31%]  gap-2 flex flex-col
+         justify-between font-manrope bg-white p-3  rounded-[20px] 
     }
 
     .news_image{
@@ -38,23 +38,23 @@
 
     .news_card_desc{
         @apply text-justify font-manrope text-sm mt-2 font-medium 
-        text-gray-700 px-2
+        text-black  px-3
     }
 
     .news_card_bottom{
-        @apply flex justify-between items-end pt-5 px-3
+        @apply flex items-end justify-end 
     }
 
     .news_card_author{
-        @apply font-semibold text-gray-500 text-[13px] w-[80%]
+        @apply font-normal text-[#8E8E8E] text-[13px] w-[80%] px-3
     }
 
     .news_card_date_created{
-        @apply font-semibold text-gray-500 text-xs w-[80%]
+        @apply font-normal text-[#8E8E8E] text-xs w-[80%] px-3
     }
 
     .news_card_btn_readmore{
-        @apply text-[#298BD9] text-sm font-bold w-[100px]
+        @apply text-[#298BD9] text-base font-bold w-[100px]
     }
 
     .news_card_btn_actionToggle{
@@ -82,32 +82,40 @@
 
 
     .selected_news_container{
-        @apply flex flex-col gap-10 p-5 font-manrope h-[700px] overflow-y-auto
+        @apply flex gap-10 p-5 font-manrope h-[500px] 
     }
 
     .selected_btn_close{
-        @apply sticky top-5 left-5 rounded-full
-         bg-white text-[2rem] hover:text-gray-400 duration-200 cursor-pointer
+        @apply absolute right-5 top-5 rounded-full 
+         text-[#298BD9] text-[2.5rem] hover:text-gray-400 duration-200 cursor-pointer
     }
 
     .selected_news_image{
-        @apply h-[400px] object-cover rounded-[10px]
+        @apply h-full object-cover rounded-[20px]   w-[500px]
     }
 
     .selected_news_title{
         @apply text-[1.6rem] font-bold bg-slate-100 p-4 rounded-[10px] px-5
     }
 
+    .selected_news_box{
+      @apply pt-10 flex flex-col
+    }
+
+    .selected_news_box span{
+      @apply text-[#8E8E8E] font-light text-xs
+    }
+
     .selected_news_desc{
-        @apply h-[400px] overflow-y-auto p-5 shadow mt-5
+        @apply  overflow-y-auto  mt-5 pr-16
     }
 
     .selected_news_desc p{
-        @apply text-justify
+        @apply text-justify text-black text-sm
     }
 
     .selected_news_delete{
-        @apply p-5 flex flex-col gap-4 
+        @apply p-5 flex flex-col gap-4  
     }
 
     .selected_news_delete button{

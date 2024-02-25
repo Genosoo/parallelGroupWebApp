@@ -2,7 +2,7 @@
 
 @layer components{
     .navbarContainer{
-        @apply sticky top-0 z-[1000]
+        @apply sticky top-0 z-40
     }
 
     .navbarWrapper{
@@ -71,6 +71,24 @@
         @apply flex  items-center  font-montserrat  
         bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px] hover:bg-gray-800 hover:text-white duration-200
     }
+
+    .navbarBtn{
+        @apply flex gap-5
+      }
+      
+      .navbarBtn button{
+        @apply flex border p-2 w-[100px] rounded-[10px] font-manrope 
+        items-center justify-center text-white font-semibold
+      }
+      
+      .navbarBtn .btn1{
+        background: linear-gradient(93deg, #298BD9 0%, #33C0E4 100%);
+        
+      }
+  
+      .navbarBtn .btn2{
+        @apply text-[#298BD9] border border-[#298BD9] hover:bg-gray-800 duration-300
+      }
 
     
 }

@@ -9,7 +9,7 @@ import {
   TableRow,
   Paper,
   TablePagination,
-  Dialog,
+  Dialog
 } from "@mui/material";
 import testImage from '../../assets/test_logo.png';
 import { FiSearch } from "react-icons/fi";
@@ -21,15 +21,18 @@ import Slide from '@mui/material/Slide';
 import FormAdd from "./FormAdd";
 import { BsCardList } from "react-icons/bs";
 import FormUpdate from "./FormUpdate";
-import { useCsrfToken } from "../../context/csrftoken/CsrfTokenContext";
 import {
   baseUrl,
-  apiUser
+  apiUser,
+  getMemberStatus,
+  getCsrfTokenUrl
 } from '../../api/api';
 
+
 export default function Users() {
-  const {csrfToken} = useCsrfToken()
+  const [csrfToken, setCsrfToken] = useState('');
   const [data, setData] = useState([]);
+  const [status, setStatus] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -44,7 +47,23 @@ export default function Users() {
   const [addUsersDialogOpen, setAddUsersDialogOpen] = useState(false);
   const [updateFormOpen, setUpdateFormOpen] = useState(false);
   const [updateData, setUpdateData] = useState(null);
+  const [statusMessage, setStatusMessage] = useState(null)
+
+  useEffect(() => {
+    const getTheCsrfToken = async () => {
+      try {
+        const response = await axios.get(getCsrfTokenUrl);
+        setCsrfToken(response.data['csrf-token']);
+      } catch (error) {
+        console.log(error);
+      }
+    };
   
+    getTheCsrfToken();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getCsrfTokenUrl]);
+
+
 
   const handleCloseUpdateForm = () => {
     setUpdateFormOpen(false);
@@ -116,8 +135,20 @@ export default function Users() {
         console.log(error);
       }
     };
+
+    const fetchMembeStatus = async () => {
+      try {
+        const statusResponse = await axios.get(getMemberStatus);
+  
+        setStatus(statusResponse.data.success);
+        console.log("status", statusResponse);
+      } catch (error) {
+        console.log(error);
+      }
+    };
   
     fetchData();
+    fetchMembeStatus();
   }, []);
   
 
@@ -205,7 +236,7 @@ const handleFindClick = () => {
         } else {
           // If it's a primitive value, check it directly
           return value.toString().toLowerCase().includes(searchInput.toLowerCase());
-        }
+        } 
       }
       return false;
     });
@@ -219,7 +250,7 @@ const handleFindClick = () => {
   if (results.length === 0) {
     setError("No results found.");
   } else {
-    setError("");
+    setError(""); 
   }
 };
 
@@ -232,12 +263,67 @@ const handleFindClick = () => {
 
   const renderTableData = searchResults.length > 0 ? searchResults : data;
 
+
+  const getStatusColorClass = (status) => {
+    switch (status) {
+      case 1:
+        return "active-status";
+      case 2:
+        return "inactive-status";
+      case '':
+      default:
+        return "pending-status";
+    }
+  };
+  
+  const handleStatusChange = async (userId, newStatus) => {
+    try {
+      // Make an API request to update the status with CSRF token in the header
+      await axios.put(apiUser, {
+        individual:{
+          user_id: userId,
+           memship_status: newStatus
+        },
+      }, {
+        headers: {
+          'X-CSRFToken': csrfToken,
+        },
+      });
+  
+      // Update the status in the state
+      const updatedData = data.map(item => {
+        if (item.id === userId) {
+          return {
+            ...item,
+            individual: {
+              ...item.individual,
+              memship_status: {
+                ...item.individual.memship_status,
+                desc: newStatus
+              }
+            }
+          };
+        }
+        return item;
+      });
+      setData(updatedData);
+      if (newStatus !== "") {
+        setStatusMessage('Successfully Status Changed!');
+        setTimeout(() => {
+          window.location.reload();
+          setStatusMessage(null);
+        }, 1000);
+      }
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+  
+
   return (
    <>
-   
-
+  
     <div className="users_header_container">
-
     <Dialog
         open={updateFormOpen}
         onClose={handleCloseUpdateForm}
@@ -357,6 +443,8 @@ const handleFindClick = () => {
     <p>{deleteSuccessMessage}</p>
   </div>
 )}
+
+{statusMessage && <p className="statusMessage">{statusMessage}</p>}
       <TableContainer component={Paper} className="users_table_container">
         <Table>
           <TableHead >
@@ -373,11 +461,10 @@ const handleFindClick = () => {
               <TableCell>
                 <div className="users_table_header">Email Address</div>
               </TableCell>
-              <TableCell  sx={{
-                position:"sticky", 
-                right:0, 
-                bgcolor:"#f5f5f5cd",
-                }}>
+              <TableCell>
+                <div className="users_table_header">Status</div>
+              </TableCell>
+              <TableCell >
                 <div className="users_table_header ">Action</div>
               </TableCell>
             </TableRow>
@@ -389,8 +476,26 @@ const handleFindClick = () => {
                   <TableCell><span>{item.individual?.first_name ?? "---"}</span></TableCell>
                   <TableCell><span>{item.individual?.last_name ?? "---"}</span></TableCell>
                   <TableCell><span>{item.individual?.email ?? "---"}</span></TableCell>
+                  <TableCell>
 
-                  <TableCell sx={{position:"sticky", right:0,  bgcolor:"#f5f5f5cd",}}>
+                     <select
+                        value={item.individual?.memship_status || ""}
+                        onChange={(e) => handleStatusChange(item.id, e.target.value)}
+                       className={`statusBox ${getStatusColorClass(item.individual?.memship_status)}`}
+                      
+                    >
+                                <option value={""} >Pending</option>
+                       {status.map((item, index) => (
+                                <option value={item.id} key={index}>{item.desc}</option>
+                            ))}
+                        
+                    </select>
+                  </TableCell>
+
+               
+
+                 
+                  <TableCell>
                     <div className="action_btn_wrapper ">
                     <button   className="btn_view_users" onClick={() => handleOpenDialog(item)}  >
                         <BsCardList/>

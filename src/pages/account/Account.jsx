@@ -1,15 +1,19 @@
 import { useState, useEffect} from "react";
 import axios from "axios";
 import DialogContent from '@mui/material/DialogContent';
-import ChangePassword from './ChangePassword'
-import { apiAccount, baseUrl } from "../../api/api";
+import ChangePassword from './form/ChangePassword'
+import { apiAccount, baseUrl, getPoints } from "../../api/api";
 import './AccountStyle.css'
 import { FaFacebookF } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import qrCode from '../../assets/qrcode.png'
-import Activity from "./activity/Activity";
+// import Activity from "./activity/Activity";
 import UpdateForm from "./form/UpdateForm";
 import { StyledUpdateDialog } from "./StyledComponent";
+import Qrcode from "./qrcode/Qrcode";
+
+
+
 
 export default function Account() {
   const [data, setData] = useState([]);
@@ -21,6 +25,10 @@ export default function Account() {
   const [birthDate, setBirthDate] = useState("");
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
+
+  const [formUpdate, setFormUpdate] = useState(false);
+  const [qrCodeDialog, setQRCodeDialog] = useState(false);
+  const [points, setPoints] = useState([])
 
   useEffect(() => {
     // Calculate birthDate and age
@@ -66,16 +74,24 @@ export default function Account() {
       }
     };
 
+    const fetchPoints = async () => {
+      try {
+        const pointsResponse = await axios.get(getPoints);
+        setPoints( pointsResponse.data);
+
+        console.log("my Points", pointsResponse.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+
     fetchData();
+    fetchPoints()
   }, []);
 
 
 
-
-  
-
-
-  const [formUpdate, setFormUpdate] = useState(false);
 
   
   const handleFormUpdateOpen = () => {
@@ -87,6 +103,14 @@ export default function Account() {
   };
 
 
+  const handleQRCodeOpen = () => {
+    setQRCodeDialog(true);
+  };
+
+  const handleQRcodeClose = () => {
+    setQRCodeDialog(false);
+  };
+
 
   return (
     <div className="accountContainer">
@@ -96,7 +120,7 @@ export default function Account() {
               <button className="" onClick={handleFormUpdateOpen}>
                 Edit Profile
               </button>
-                <ChangePassword />
+                <ChangePassword  />
           </div>
       </div>
 
@@ -122,7 +146,9 @@ export default function Account() {
                         </span>
                         <div className="pointBox">
                            <span>points:</span>
-                           <p>314</p>
+                           <p>
+                            {points?.total_user_points ?? 0}
+                           </p>
                         </div>
                       </span>
                    </div>
@@ -133,11 +159,11 @@ export default function Account() {
                </div>
              </div>
 
-             <div className="profileBox2 profileBox">
+             <div className="profileBox2 profileBox" >
                <span className="profileTitle">
                    QR Code
                </span>
-               <img src={qrCode} alt="qr code" className="qrcodeImage" />
+               <img src={qrCode} alt="qr code" className="qrcodeImage" onClick={handleQRCodeOpen}/>
              </div>
 
          </div>
@@ -179,11 +205,18 @@ export default function Account() {
         <StyledUpdateDialog
            open={formUpdate} >
                 <DialogContent>
-                   <UpdateForm handleFormUpdateClose={handleFormUpdateClose} />
+                   <UpdateForm handleFormUpdateClose={handleFormUpdateClose}  />
                 </DialogContent>
               </StyledUpdateDialog>
 
-       <Activity />
+              <StyledUpdateDialog 
+           open={qrCodeDialog}>
+               <div>
+                   <Qrcode  data={data} handleQRcodeClose={handleQRcodeClose}/>
+               </div>
+              </StyledUpdateDialog>
+
+       {/* <Activity /> */}
     
 
     </div>

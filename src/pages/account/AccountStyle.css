@@ -4,7 +4,7 @@
 @layer components{
     .accountContainer{
         @apply flex items-start bg-[#EBF4FD] p-10 
-        flex-col h-[100vh]  gap-6 font-manrope  xl:pr-40
+        flex-col h-[100vh]  gap-6 font-manrope  xl:pr-40 
     }
 
     .accountTitle{
@@ -162,13 +162,44 @@
     .userInfoBox2 span{
         @apply  bg-[#298ad911] w-full p-3 rounded-md text-[1rem] font-bold
     }
+
+
+    .qrWrapper{
+        @apply flex flex-col items-center w-[500px] font-manrope p-5 gap-5
+    }
+
+    .qrTitle{
+        @apply text-[#298BD9] font-bold  text-[1rem]
+    }
    
+    .qrCodeProPic{
+        @apply w-[120px] border-white border-2 shadow-lg rounded-full
+    }
     
-   
+    .qrWrapper h3{
+        @apply font-bold text-xl capitalize 
+    }
 
+    .qrWrapper p{
+        @apply -mt-5 text-[#8E8E8E]
+    }
    
+    .qrCodeImage{
+        @apply shadow-md
+    }
 
-   
+    .qrCodeImage img{
+        @apply w-[300px]
+    }
+
+   .qrWrapper button{
+    background: linear-gradient(93deg, #298BD9 0%, #33C0E4 100%);
+    @apply  p-2 rounded-[10px] text-white font-medium   w-[250px]
+   }
+
+   .qrWrapper button:hover{
+    background: linear-gradient(93deg, #191f26 0%, #272727 100%);
+}
 
   
 

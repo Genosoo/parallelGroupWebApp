@@ -24,14 +24,12 @@ import FormUpdate from "./FormUpdate";
 import { FaFileCsv } from "react-icons/fa";
 import { SiMicrosoftexcel } from "react-icons/si";
 import PDFGenerator from "./PDFGenerate";
-import { useCsrfToken } from "../../context/csrftoken/CsrfTokenContext";
-import { apiUser, baseUrl, getFileCsv, getFileExcel  } from "../../api/api";
+import { apiUser, baseUrl, getFileCsvMember, getFileExcelMember, getMemberStatus,
+  getCsrfTokenUrl  } from "../../api/api";
 
 
 export default function Users() {
-
-  
-  const {csrfToken} = useCsrfToken();
+  const [csrfToken, setCsrfToken] = useState('');
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -48,6 +46,27 @@ export default function Users() {
   const [updateFormOpen, setUpdateFormOpen] = useState(false);
   const [updateData, setUpdateData] = useState(null);
 
+  const [status, setStatus] = useState([]);
+  const [statusMessage, setStatusMessage] = useState(null)
+  
+  useEffect(() => {
+    const getTheCsrfToken = async () => {
+      try {
+        const response = await axios.get(getCsrfTokenUrl);
+        setCsrfToken(response.data['csrf-token']);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    getTheCsrfToken();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getCsrfTokenUrl]);
+
+
+
+
+  
   const handleOpenUpdateForm = (data, index, page) => {
     
     const dataIndex = (page * rowsPerPage) + index
@@ -97,15 +116,40 @@ export default function Users() {
     const fetchData = async () => {
       try {
         const dataResponse = await axios.get(apiUser);
-        setData(dataResponse.data.success);
-        console.log("Users", dataResponse.data);
-
+        const filteredData = dataResponse.data.success.filter((user) => {
+          // Check if the user has the role "Parallel Group Administrator"
+          return (
+            !user.roles.some((role) =>
+              role.toLowerCase() === "parallel group administrator"
+            )
+          );
+        });
+  
+        // Sort the data by date created in descending order
+        const sortedData = filteredData.sort((a, b) =>
+          new Date(b.date_created) - new Date(a.date_created)
+        );
+  
+        setData(sortedData);
+        console.log("Users", sortedData);
       } catch (error) {
         console.log(error);
       }
     };
 
+    const fetchMemberStatus = async () => {
+      try {
+        const statusResponse = await axios.get(getMemberStatus);
+  
+        setStatus(statusResponse.data.success);
+        console.log("status", statusResponse);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
     fetchData();
+    fetchMemberStatus();
   }, []);
 
   const handleOpenDialog = (item) => {
@@ -220,7 +264,7 @@ const handleFindClick = () => {
   const handleExportCsv = async () => {
     try {
       // Make an API request to get the CSV file
-      const response = await axios.get(getFileCsv, {
+      const response = await axios.get(getFileCsvMember, {
         responseType: 'blob', // Set responseType to blob to handle binary data
       });
 
@@ -228,7 +272,7 @@ const handleFindClick = () => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', 'data.csv');
+      link.setAttribute('download', 'member.csv');
       document.body.appendChild(link);
       link.click();
 
@@ -243,7 +287,7 @@ const handleFindClick = () => {
   const handleExportExcel = async () => {
     try {
       // Make an API request to get the Excel file
-      const response = await axios.get(getFileExcel, {
+      const response = await axios.get(getFileExcelMember, {
         responseType: 'blob', // Set responseType to blob to handle binary data
       });
 
@@ -251,7 +295,7 @@ const handleFindClick = () => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', 'data.xlsx');
+      link.setAttribute('download', 'member.xlsx');
       document.body.appendChild(link);
       link.click();
 
@@ -265,6 +309,60 @@ const handleFindClick = () => {
 
 
   const renderTableData = searchResults.length > 0 ? searchResults : data;
+
+  const getStatusColorClass = (status) => {
+    switch (status) {
+      case 1:
+        return "active-status";
+      case 2:
+        return "inactive-status";
+      case '':
+      default:
+        return "pending-status";
+    }
+  };
+  
+  const handleStatusChange = async (userId, newStatus) => {
+    try {
+      // Make an API request to update the status with CSRF token in the header
+      await axios.put(apiUser, {
+        individual:{
+          user_id: userId,
+           memship_status: newStatus
+        },
+      }, {
+        headers: {
+          'X-CSRFToken': csrfToken,
+        },
+      });
+  
+      // Update the status in the state
+      const updatedData = data.map(item => {
+        if (item.id === userId) {
+          return {
+            ...item,
+            individual: {
+              ...item.individual,
+              memship_status: {
+                ...item.individual.memship_status,
+                desc: newStatus
+              }
+            }
+          };
+        }
+        return item;
+      });
+      setData(updatedData);
+        setStatusMessage('Successfully Status Changed!');
+        setTimeout(() => {
+          window.location.reload();
+          setStatusMessage(null);
+        }, 1000);
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+  
 
   return (
    <>
@@ -466,6 +564,7 @@ const handleFindClick = () => {
     <p>{deleteSuccessMessage}</p>
   </div>
 )}
+{statusMessage && <p className="statusMessage">{statusMessage}</p>}
       <TableContainer component={Paper} className="users_table_container">
         <Table>
         <TableHead >
@@ -486,11 +585,12 @@ const handleFindClick = () => {
               <TableCell>
                 <div className="users_table_header">Photo</div>
               </TableCell>
-              <TableCell  sx={{
-                position:"sticky", 
-                right:0, 
-                bgcolor:"#f5f5f5cd",
-                }}>
+
+              <TableCell>
+                <div className="users_table_header">Status</div>
+              </TableCell>
+
+              <TableCell >
                 <div className="users_table_header ">Action</div>
               </TableCell>
             </TableRow>
@@ -514,8 +614,23 @@ const handleFindClick = () => {
                     />
 
                  </TableCell>
+
+                 <TableCell>
+                      <select
+                        value={item.individual?.memship_status || ""}
+                        onChange={(e) => handleStatusChange(item.id, e.target.value)}
+                        className={`statusBox ${getStatusColorClass(item.individual?.memship_status)}`}
+                      
+                      >
+                                <option value={""} >Pending</option>
+                        {status.map((item, index) => (
+                                <option value={item.id} key={index}>{item.desc}</option>
+                            ))}
+                        
+                      </select>
+                      </TableCell>
                 
-                 <TableCell sx={{position:"sticky", right:0,  bgcolor:"#f5f5f5cd",}}>
+                 <TableCell >
                     <div className="action_btn_wrapper ">
                     <button   className="btn_view_users" onClick={() => handleOpenDialog(item)} >
                         <BsCardList/>

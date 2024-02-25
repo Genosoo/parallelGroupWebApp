@@ -15,8 +15,11 @@ export const apiRoles = `${baseUrl}/api/roles/`;
 export const apiBlog = `${baseUrl}/api/blogs/`;
 export const apiAds= `${baseUrl}/api/ads/`;
 
-export const getFileCsv = `${baseUrl}/api/individual/export/csv/`;
-export const getFileExcel = `${baseUrl}/api/individual/export/excel/`;
+export const getFileCsvMember = `${baseUrl}/api/individual/export/csv/`;
+export const getFileExcelMember = `${baseUrl}/api/individual/export/excel/`;
+
+export const getFileCsvParallel = `${baseUrl}/api/parallel_group/export/csv/`;
+export const getFileExcelParallel = `${baseUrl}/api/parallel_group/export/excel/`;
 
 export const getPrefix = `${baseUrl}/api/user_prefix/`;
 export const getSuffix = `${baseUrl}/api/user_suffix/`;
@@ -34,3 +37,7 @@ export const getRegType =`${baseUrl}/api/parallel_group_registration_type/`
 export const getparallerGroupType = `${baseUrl}/api/parallel_group_type/`;
 export const getParallelGroup = `${baseUrl}/api/parallel_group/`;
 export const apiParallelGroup = `${baseUrl}/api/parallel_group/`;
+
+export const getMemberStatus = `${baseUrl}/api/user_membership_status/`
+
+export const getPoints = `${baseUrl}/api/my_activity_points/`

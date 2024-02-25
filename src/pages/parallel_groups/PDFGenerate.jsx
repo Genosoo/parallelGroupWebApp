@@ -48,7 +48,7 @@ const PDFGenerator = ({ data }) => {
       margin: { top: 10 },
     });
 
-    doc.save('table.pdf');
+    doc.save('parallel_group.pdf');
   };
 
   return (

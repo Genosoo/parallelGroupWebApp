@@ -1,14 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useCallback } from "react";
 import { apiAccount, baseUrl } from "../../../api/api";
-import { useCsrfToken} from '../../../context/csrftoken/CsrfTokenContext';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios'
 import { LuImagePlus } from "react-icons/lu";
-import './UpdateFormStyle.css'
+import './FormStyle.css'
+import { getCsrfTokenUrl } from "../../../api/api"; 
 
-export default function UpdateForm({handleFormUpdateClose }) {
-    const {csrfToken} = useCsrfToken();
+export default function UpdateForm({handleFormUpdateClose}) {
     const [data, setData] = useState([]);
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -21,8 +20,21 @@ export default function UpdateForm({handleFormUpdateClose }) {
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [selectedImage, setSelectedImage] = useState(null);
+    const [csrfToken, setCsrfToken] = useState('');
 
-  
+    useEffect(() => {
+      const getTheCsrfToken = async () => {
+        try {
+          const response = await axios.get(getCsrfTokenUrl);
+          setCsrfToken(response.data['csrf-token']);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    
+      getTheCsrfToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [getCsrfTokenUrl]);
      
   useEffect(() => {
     const fetchData = async () => {
@@ -91,16 +103,17 @@ export default function UpdateForm({handleFormUpdateClose }) {
       console.log("update response", updateResponse.data);
       setSuccessMessage("Account updated successfully");
       handleUpdatePhoto()
-     
       setTimeout(() => (
         window.location.reload()
-
-      ),2000)
+       ),2000)
     } catch (error) {
       console.log(error);
       setErrorMessage("Failed to update account. Please try again.");
       setSuccessMessage(""); // Reset success message if any
     }
+    setTimeout(() => (
+     setErrorMessage(null)
+    ),2000)
   };
 
 

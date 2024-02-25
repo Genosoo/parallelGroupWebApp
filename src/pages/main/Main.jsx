@@ -10,7 +10,8 @@ import image1 from '../../assets/login/image4.png';
 import image2 from '../../assets/login/image2.png';
 import image3 from '../../assets/login/image3.png';
 import image4 from '../../assets/login/image4.png';
-import Navbar from './navbar/Navbar';
+import Navbar from '../landingPage/navbar/Navbar';
+import Footer from '../landingPage/footer/Footer';
 
 export default function Login() {
   const navigate = useNavigate(); // useNavigate hook for navigation
@@ -37,6 +38,7 @@ export default function Login() {
       <Navbar />
       <Carousel images={images} />
       <Blogs />
+      <Footer />
     </div>
   );
 }

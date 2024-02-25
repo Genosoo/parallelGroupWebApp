@@ -23,11 +23,10 @@ import FormUpdate from "./FormUpdate";
 import { FaFileCsv } from "react-icons/fa";
 import { SiMicrosoftexcel } from "react-icons/si";
 import PDFGenerator from "./PDFGenerate";
-import { useCsrfToken } from "../../context/csrftoken/CsrfTokenContext";
-import { getParallelGroup, getFileCsv, getFileExcel, baseUrl } from "../../api/api";
+import { getParallelGroup, getFileCsvParallel, getFileExcelParallel, baseUrl, getCsrfTokenUrl } from "../../api/api";
 
 export default function ParallelGroups() {
-  const {csrfToken} = useCsrfToken();
+  const [csrfToken, setCsrfToken] = useState('');
   const [data, setData] = useState([]);
   const [updateData, setUpdateData] = useState(null);
   const [page, setPage] = useState(0);
@@ -44,7 +43,21 @@ export default function ParallelGroups() {
   const [deleteSuccessMessage, setDeleteSuccessMessage] = useState("");
 
 
- 
+  useEffect(() => {
+    const getTheCsrfToken = async () => {
+      try {
+        const response = await axios.get(getCsrfTokenUrl);
+        setCsrfToken(response.data['csrf-token']);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    getTheCsrfToken();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getCsrfTokenUrl]);
+
+
 
 
   useEffect(() => {
@@ -204,7 +217,7 @@ const handleDeleteCancelled = () => {
   const handleExportCsv = async () => {
     try {
       // Make an API request to get the CSV file
-      const response = await axios.get(getFileCsv, {
+      const response = await axios.get(getFileCsvParallel, {
         responseType: 'blob', // Set responseType to blob to handle binary data
       });
 
@@ -212,7 +225,7 @@ const handleDeleteCancelled = () => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', 'data.csv');
+      link.setAttribute('download', 'parallel_group.csv');
       document.body.appendChild(link);
       link.click();
 
@@ -227,7 +240,7 @@ const handleDeleteCancelled = () => {
   const handleExportExcel = async () => {
     try {
       // Make an API request to get the Excel file
-      const response = await axios.get(getFileExcel, {
+      const response = await axios.get(getFileExcelParallel, {
         responseType: 'blob', // Set responseType to blob to handle binary data
       });
 
@@ -235,7 +248,7 @@ const handleDeleteCancelled = () => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', 'data.xlsx');
+      link.setAttribute('download', 'parallel_group.xlsx');
       document.body.appendChild(link);
       link.click();
 

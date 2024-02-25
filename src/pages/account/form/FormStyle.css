@@ -7,11 +7,11 @@
     }
 
     .messageSuccess{
-        @apply text-green-500 absolute  bg-white
+        @apply text-green-500 absolute  bg-white font-manrope w-full text-center p-4
     }
 
     .messageFailed{
-        @apply text-red-500  absolute  bg-white
+        @apply text-red-500  absolute  bg-white font-manrope  w-full text-center p-4
     }
 
     .updateInputBox{
@@ -48,20 +48,55 @@
         @apply flex gap-5 w-full
     }
 
-    .updateBtn button{
-        @apply hover:bg-gray-800
-    }
-
+   
 
     .updateBtnSave{
         background: linear-gradient(93deg, #298BD9 0%, #33C0E4 100%);
-        @apply w-full p-3 rounded-[10px] text-white font-medium
+        @apply w-full p-3 rounded-[10px] text-white font-medium duration-200
+    }
+
+    .updateBtnSave:hover{
+        background: linear-gradient(93deg, #191f26 0%, #272727 100%);
     }
 
     .updateBtnCancel{
         @apply w-full p-3 rounded-[10px] font-medium border-[#33C0E4] border
-        text-[#33C0E4]
+        text-[#33C0E4] hover:bg-gray-800 duration-200
+    }
+
+    .changePassBox{
+        @apply flex flex-col gap-6 font-manrope p-10 w-[600px] relative
+    }
+
+
+    .changePassTitle{
+        @apply text-center font-manrope font-bold text-lg text-[#298BD9]
+        pt-5
+    }
+
+
+    .changePassBtn{
+        @apply flex gap-5 w-full
+    }
+
+
+  
+
+    .changePassBtnSave{
+        background: linear-gradient(93deg, #298BD9 0%, #33C0E4 100%);
+        @apply w-full p-3 rounded-[10px] text-white font-medium 
+    }
+
+    .changePassBtnSave:hover{
+        background: linear-gradient(93deg, #191f26 0%, #272727 100%);
+    }
+
+
+    .changePassBtnCancel{
+        @apply w-full p-3 rounded-[10px] font-medium border-[#33C0E4] border
+        text-[#33C0E4] hover:bg-gray-800 duration-200
     }
 
 
 }
+

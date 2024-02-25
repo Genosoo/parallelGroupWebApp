@@ -266,14 +266,15 @@ const onDrop = useCallback((acceptedFiles) => {
                     src={item.header_image ? `${baseUrl}${item.header_image}` : noImage}
                     alt={item.title || 'No image available'}
                   />
-                  <h3 className="news_card_title">{item.title}</h3>
-                  <p className="news_card_desc">{truncateContent(item.content, 50)}</p>
-                </div>
-               <div className="news_card_bottom">
-                  <div>
+                    <div>
                     <p className="news_card_author">Author: {item.author}</p>
                     <p className="news_card_date_created">Date Created: {formatDate(item.created_at)} {formatTime(item.created_at)}</p>
                   </div>
+                  {/* <h3 className="news_card_title">{item.title}</h3> */}
+                  <p className="news_card_desc">{truncateContent(item.content, 50)}</p>
+                </div>
+               <div className="news_card_bottom">
+                
 
                   <div className="flex items-center gap-2 relative">
                     <button className="news_card_btn_readmore" onClick={() => handleOpenDialog(item)}>Read More</button>

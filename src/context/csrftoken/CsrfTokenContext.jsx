@@ -2,12 +2,11 @@
 // CsrfTokenContext.js
 import  { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { getCsrfTokenUrl } from '../../api/api'
 
 const CsrfTokenContext = createContext();
 
 export const CsrfTokenProvider = ({ children }) => {
-  const baseUrl = import.meta.env.VITE_URL;
-  const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
 
   const [csrfToken, setCsrfToken] = useState('');
 

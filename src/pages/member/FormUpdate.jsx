@@ -12,12 +12,13 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-import { getParallelGroup } from '../../api/api';
+import { getParallelGroup, getCsrfTokenUrl } from '../../api/api';
 
 // eslint-disable-next-line no-unused-vars
-export default function FormUpdate({ data, apiEndpoint, csrfToken, onClose  }) {
+export default function FormUpdate({ data, apiEndpoint, onClose  }) {
     const [loading, setLoading] = useState(false);
     const [errorSignup, setErrorSignup] = useState('');
+    const [csrfToken, setCsrfToken] = useState('');
   
     const [formData, setFormData] = useState({
       individual: {
@@ -45,6 +46,21 @@ export default function FormUpdate({ data, apiEndpoint, csrfToken, onClose  }) {
     const [openPasswordDialog, setOpenPasswordDialog] = useState(false);
     const [errorPasswordChange, setErrorPasswordChange] = useState('');
 
+
+    useEffect(() => {
+      const getTheCsrfToken = async () => {
+        try {
+          const response = await axios.get(getCsrfTokenUrl);
+          setCsrfToken(response.data['csrf-token']);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    
+      getTheCsrfToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [getCsrfTokenUrl]);
+  
 
     const handleOpenPasswordDialog = () => {
       setOpenPasswordDialog(true);

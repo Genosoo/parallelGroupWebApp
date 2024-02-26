@@ -2,14 +2,14 @@ import { useState, useEffect} from "react";
 import axios from "axios";
 import DialogContent from '@mui/material/DialogContent';
 import ChangePassword from './form/ChangePassword'
-import { apiAccount, baseUrl, getCsrfTokenUrl } from "../../../../api/api";
-import './AccountStyle.css'
+import { apiAccount, baseUrl, getCsrfTokenUrl, getPoints, getqrCode } from "../../../../api/api";
+import './AccountStyled.css'
 import { FaFacebookF } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
-import qrCode from '../../../../assets/qrcode.png'
 import UpdateForm from "./form/UpdateForm";
 import { StyledUpdateDialog } from "./StyledComponent";
 import Qrcode from "./qrcode/Qrcode";
+import Activity from "../account/activity/Activity";
 
 
 
@@ -28,6 +28,7 @@ export default function Account() {
 
   const [formUpdate, setFormUpdate] = useState(false);
   const [qrCodeDialog, setQRCodeDialog] = useState(false);
+  const [points, setPoints] = useState([])
 
   useEffect(() => {
     // Calculate birthDate and age
@@ -59,6 +60,7 @@ export default function Account() {
     const fetchData = async () => {
       try {
         const dataResponse = await axios.get(apiAccount);
+        
         setData(dataResponse.data.success);
         setUsername(dataResponse.data.success.username);
         setFirstName(dataResponse.data.success.individual.first_name);
@@ -67,15 +69,22 @@ export default function Account() {
         setMobileNumber(dataResponse.data.success.individual.mobile_number);
         setBirthDate(dataResponse.data.success.individual.birth_date);
         setGender(dataResponse.data.success.individual.gender);
+
+        const pointsResponse = await axios.get(getPoints);
+        setPoints( pointsResponse.data);
+
+
+        console.log("my Points", pointsResponse.data);
         console.log("my account", dataResponse.data.success);
       } catch (error) {
         console.log(error);
       }
     };
 
+
+
     fetchData();
   }, []);
-
 
 
   useEffect(() => {
@@ -149,13 +158,19 @@ export default function Account() {
                         </span>
                         <div className="pointBox">
                            <span>points:</span>
-                           <p>314</p>
+                           {points?.total_user_points ?? 0}
                         </div>
                       </span>
                    </div>
                  <div className="parallelGroupBox">
-                     <img  src={`${baseUrl}${data.individual?.photo}`} alt="parallel group image" />
-                     <span>BBM Youth</span>
+                   {data.individual?.parallel_group_data?.logo ? (
+                          <img src={`${baseUrl}${data.individual.parallel_group_data.logo}`} alt="parallel group image" />
+                        ) : (
+                          <p>No image available</p>
+                        )}
+
+
+                     <span>{data.individual?.parallel_group_data.name}</span>
                  </div>
                </div>
              </div>
@@ -164,7 +179,8 @@ export default function Account() {
                <span className="profileTitle">
                    QR Code
                </span>
-               <img src={qrCode} alt="qr code" className="qrcodeImage" onClick={handleQRCodeOpen}/>
+
+               <img src={getqrCode} alt="qr code" className="qrcodeImage" onClick={handleQRCodeOpen}/>
              </div>
 
          </div>
@@ -194,7 +210,7 @@ export default function Account() {
 
                   <div className="userInfoBox">
                     <p className="userInfoTitle">Gender</p>
-                    <span>{gender}</span>
+                    <span>{gender ? gender : "None"}</span>
                   </div>
 
              </div>
@@ -220,6 +236,7 @@ export default function Account() {
     
       </div>
 
+      <Activity />
     </div>
   );
 }

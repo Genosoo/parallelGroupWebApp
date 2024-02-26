@@ -275,7 +275,6 @@ const onDrop = useCallback((acceptedFiles) => {
                 </div>
                <div className="news_card_bottom">
                 
-
                   <div className="flex items-center gap-2 relative">
                     <button className="news_card_btn_readmore" onClick={() => handleOpenDialog(item)}>Read More</button>
                     

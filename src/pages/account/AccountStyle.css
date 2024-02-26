@@ -4,7 +4,11 @@
 @layer components{
     .accountContainer{
         @apply flex items-start bg-[#EBF4FD] p-10 
-        flex-col h-[100vh]  gap-6 font-manrope  xl:pr-40 
+        flex-col  gap-6 font-manrope  xl:pr-40  w-full
+    }
+
+    .accountWrapper{
+        @apply w-full bg-white
     }
 
     .accountTitle{

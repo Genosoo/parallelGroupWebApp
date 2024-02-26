@@ -10,7 +10,7 @@
         lg:items-start
     }   
 
-    .title{
+    .proContainer .title{
         @apply text-[#298BD9] text-[2rem] font-bold text-center lg:text-start
     }
 
@@ -75,7 +75,7 @@
 
    
     .proContent1{
-        @apply bg-[#DAEFFF] flex items-center justify-center
+        @apply bg-[#DAEFFF] flex items-center justify-center py-20
         
     }
 
@@ -116,7 +116,7 @@
 
     
     .proContent2{
-        @apply bg-[#EBF4FD] flex items-center justify-center
+        @apply bg-[#EBF4FD] flex items-center justify-center py-20
         
     }
 

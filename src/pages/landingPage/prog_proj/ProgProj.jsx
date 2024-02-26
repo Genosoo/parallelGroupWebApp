@@ -28,57 +28,57 @@ export default function Page() {
 
          <div className="proImageWrapper">
              <div className="proImageBox">
-               
-                 <div className="proImageCard proImageCard1">
-                  <img src={backgroundShade} alt="" />
-                    <h3>Training and Livelihood</h3>
-                 </div>
-                 <div className="proImageCard proImageCard2">
+                 <a href="#link1" className='proImageCard proImageCard1'>
+                      <img src={backgroundShade} alt="" />
+                      <h3>Training and Livelihood</h3>
+                  </a>
+
+                 <a href='#link2' className="proImageCard proImageCard2">
                  <img src={backgroundShade} alt="" />
                     <h3>Nation Building Workshops: 
                         Embracing the Vision 
                         of Bagong Pilipinas</h3>
-                 </div>
-                 <div className="proImageCard proImageCard3">
+                 </a>
+                 <a href='#link3' className="proImageCard proImageCard3">
                  <img src={backgroundShade} alt="" />
                    <h3>Blessed Movement Kapihan 
                           Forum: Promoting Dialogue
                           on Current Issues</h3>
-                 </div>
-                 <div className="proImageCard proImageCard4">
+                 </a>
+                 <a href='#link4' className="proImageCard proImageCard4">
                  <img src={backgroundShade} alt="" />
                   <h3>
                   Empowering Blessed
                   Movement Members as 
                   Community Patrollers
                   </h3>
-                 </div>
+                 </a>
 
-                 <div className="proImageCard proImageCard5">
+                 <a href='#link5' className="proImageCard proImageCard5">
                  <img src={backgroundShade} alt="" />
                   <h3>Parallel Groups for
                     Community Development</h3>
-                 </div>
+                 </a>
 
-                 <div className="proImageCard proImageCard6">
+                 <a href='#link6' className="proImageCard proImageCard6">
                  <img src={backgroundShade} alt="" />
                   <h3>
                     Community Outreach to
                       Indigenous Peoples and
                       Mission Areas
                   </h3>
-                 </div>
-                 <div className="proImageCard proImageCard7">
+                 </a>
+                 <a href='#link7' className="proImageCard proImageCard7">
                  <img src={backgroundShade} alt="" />
                   <h3>Member Advocacy
                   Action Team</h3>
-                 </div>
-                 <div className="proImageCard proImageCard8">
+                 </a>
+                 <a href='#link8' className="proImageCard proImageCard8">
                   <img src={backgroundShade} alt="" />
                   <h3>Train the Trainers Workshop: 
                       Enhancing Leadership Skills 
                       for Seminars and Recognition</h3>
-                 </div>
+                 </a>
              </div>
          </div>
 
@@ -87,7 +87,7 @@ export default function Page() {
 
       </div>
 
-      <div className="proContent1">
+      <div className="proContent1" id='link1'>
              <div className="proContentWrapper1">
                 <div className="proContentImage1">
                    <img src={image1} alt="image" className='image1 ' />
@@ -112,7 +112,7 @@ export default function Page() {
          </div>
 
 
-         <div className="proContent2">
+         <div className="proContent2" id='link2'>
              <div className="proContentWrapper2">
                <div className="proDetailBox2">
                     <h3>Nation Building Workshops: <br />
@@ -150,7 +150,7 @@ export default function Page() {
          </div>
 
 
-         <div className="proContent1">
+         <div className="proContent1" id='link3'>
              <div className="proContentWrapper1">
                 <div className="proContentImage1">
                    <img src={image3} alt="image" className='image1 ' />
@@ -181,7 +181,7 @@ export default function Page() {
              </div>
          </div>
 
-         <div className="proContent2">
+         <div className="proContent2" id='link4'>
              <div className="proContentWrapper2">
                <div className="proDetailBox2">
                     <h3>Empowering Blessed Movement <br/>
@@ -211,7 +211,7 @@ export default function Page() {
              </div>
          </div>
 
-         <div className="proContent1">
+         <div className="proContent1" id='link5'>
              <div className="proContentWrapper1">
                 <div className="proContentImage1">
                    <img src={image5} alt="image" className='image1 ' />
@@ -238,7 +238,7 @@ export default function Page() {
              </div>
          </div>
 
-         <div className="proContent2">
+         <div className="proContent2" id='link6'>
              <div className="proContentWrapper2">
                <div className="proDetailBox2">
                     <h3>Community Outreach to <br />
@@ -267,7 +267,7 @@ export default function Page() {
              </div>
          </div>
 
-         <div className="proContent1">
+         <div className="proContent1" id='link7'>
              <div className="proContentWrapper1">
                 <div className="proContentImage1">
                    <img src={image7} alt="image" className='image1 ' />
@@ -295,7 +295,7 @@ export default function Page() {
              </div>
          </div>
 
-         <div className="proContent2">
+         <div className="proContent2" id='link8'>
              <div className="proContentWrapper2">
                <div className="proDetailBox2">
                     <h3>Train the Trainers Workshop:  <br />

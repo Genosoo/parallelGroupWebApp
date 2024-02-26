@@ -11,9 +11,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import AddNewsAricles from '../addPages/Add_NewAndArticles';
 import AddAdvertisement from '../addPages/Add_Advertisement'
 
-const baseUrl = import.meta.env.VITE_URL;
-// const BlogApi = `${baseUrl}/api/blogs/`;
-const AdsApi = `${baseUrl}/api/ads/`;
+import { apiAds } from '../../../../api/api'; 
 
 
 // const getCsrfTokenUrl = `${baseUrl}/api/csrf_cookie/`;
@@ -37,7 +35,7 @@ export default function LabTabs() {
             // setBlogData(BlogReponse.data.success);
             // console.log('Blog Data List', BlogReponse.data.success);
 
-            const AdsReponse = await axios.get(AdsApi);
+            const AdsReponse = await axios.get(apiAds);
             setAdsData(AdsReponse.data.success);
             console.log('Ads Data List', AdsReponse.data.success);
 

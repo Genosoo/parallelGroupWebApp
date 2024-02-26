@@ -14,13 +14,13 @@ import { useDropzone } from 'react-dropzone';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useCsrfToken } from '../../context/csrftoken/CsrfTokenContext';
 import { 
   apiUser, 
   apiRoles, 
   getParallelGroup,
   apiAccount,
-  getRegions
+  getRegions,
+  getCsrfTokenUrl
 } from '../../api/api';
 
 
@@ -28,7 +28,7 @@ import {
 
 
 export default function Login({onClose}) {
-  const {csrfToken} = useCsrfToken();
+  const [csrfToken, setCsrfToken] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [errorSignup, setErrorSignup] = useState('');
@@ -73,6 +73,21 @@ export default function Login({onClose}) {
     }));
   
   };
+
+  useEffect(() => {
+    const getTheCsrfToken = async () => {
+      try {
+        const response = await axios.get(getCsrfTokenUrl);
+        setCsrfToken(response.data['csrf-token']);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    getTheCsrfToken();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getCsrfTokenUrl]);
+
   
   useEffect(() => {
     const fetchData = async () => {

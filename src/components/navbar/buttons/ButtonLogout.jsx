@@ -22,7 +22,7 @@ export default function ButtonLogout({isOpen}) {
       
           await axios.get(logoutUrl, null, { headers });
           dispatch({ type: 'LOGOUT' });
-          navigate('/main');
+          navigate('/');
         } catch (error) {
           console.error('Logout error:', error);
         }

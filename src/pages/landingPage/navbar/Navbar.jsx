@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Link, useLocation } from 'react-router-dom';
-import logo from '../../../assets/logo2.png';
+import {  Dialog} from '@mui/material';
 import ButtonMenu from '../../landingPage/navbar/ButtonMenu';
 import { IoClose } from "react-icons/io5";
 import { FaBars } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
-import { GoBell } from "react-icons/go";
-import './NavbarStyle.css'
 import Cookies from 'js-cookie'; 
-import {  Dialog} from '@mui/material';
 import styled from 'styled-components';
 import LoginForm from './Forms/loginForm/LoginForm';
 import RegisterForm from './Forms/registerForm/RegisterForm';
+import logo from '../../../assets/logo2.png';
+import './NavbarStyle.css'
+import Notification from "./Notification";
 
 const StyledLoginDialog = styled(Dialog)`
   /* Your custom styles for the dialog go here */
@@ -34,6 +34,8 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDialogLogin, setOpenDialogLogin] = useState(false);
   const [openDialogRegister, setOpenDialogRegister] = useState(false);
+
+ 
 
   const handleDialogOpenLogin = () => {
     setOpenDialogLogin(true);
@@ -59,12 +61,16 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { to: '/parallel-groups', text: 'Home' },
-    { to: '/parallel-groups/about', text: 'About' },
-    { to: '/parallel-groups/programs-and-projects', text: 'Programs & Projects' },
-    { to: '/parallel-groups/news-and-articles', text: 'News & Articles' },
-    { to: '/parallel-groups/contact-us', text: 'Contact Us' },
+    { to: '/home', text: 'HOME' },
+    { to: '/about', text: 'ABOUT' },
+    { to: '/programs-and-projects', text: 'PROGRAMS & PROJECTS' },
+    { to: '/news-and-articles', text: 'NEWS & ARTICLES' },
+    { to: '/contact-us', text: 'CONTACT US' },
+    { to: '/faq', text: 'FAQs' },
   ];
+
+
+  
 
   const location = useLocation();
   const hasSessionId = Cookies.get('sessionid'); // Check if sessionid cookie exists
@@ -96,7 +102,7 @@ const Navbar = () => {
           </div>
           {hasSessionId&& 
           <>
-           <div className='bellBox'><GoBell /></div> 
+           <Notification /> 
           <ButtonMenu />
           </>}
 

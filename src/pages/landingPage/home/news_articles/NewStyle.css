@@ -1,0 +1,238 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer components{
+    .news_container{
+        @apply  flex flex-col items-center bg-[#EBF4FD] pt-20 px-10 md:px-0
+    }
+
+    .news_wrapper{
+        @apply w-full lg:w-[80%]  md:px-20 lg:px-0
+    }
+
+    .news_title{
+        @apply  text-[#298BD9] 
+        text-[2rem] font-bold
+    }
+
+    .news_card_container{
+        @apply flex flex-wrap  gap-6 pt-10 
+    }
+
+    .news_card{
+        @apply lg:w-[31%]  gap-2 flex flex-col
+         justify-between font-manrope bg-white p-3  rounded-[20px] 
+    }
+
+    .news_image{
+        @apply h-[200px] object-fill w-full rounded-[20px]
+    }
+
+    .news_card_title{
+        @apply text-[1.5rem] font-manrope font-bold pt-5 
+        text-gray-800 px-2
+    }
+
+    .news_card_desc{
+        @apply text-justify font-manrope text-sm mt-2 font-medium 
+        text-black  px-3
+    }
+
+    .news_card_bottom{
+        @apply flex items-end justify-end 
+    }
+
+    .news_card_author{
+        @apply font-normal text-[#8E8E8E] text-[13px] w-[80%] px-3
+    }
+
+    .news_card_date_created{
+        @apply font-normal text-[#8E8E8E] text-xs w-[80%] px-3
+    }
+
+    .news_card_btn_readmore{
+        @apply text-[#298BD9] text-base font-bold w-[100px]
+    }
+
+    .news_card_btn_actionToggle{
+        @apply bg-gray-200 p-2 rounded-full text-xs
+        hover:bg-[#298BD9] hover:text-white duration-200
+    }
+
+    .news_card_action{
+        @apply absolute flex flex-col rounded-[10px] 
+        mt-40 right-0 bg-white shadow p-3 gap-1 text-sm
+    }
+
+    .news_card_action button{
+        @apply text-white px-3 p-1 rounded-[5px]
+         hover:bg-gray-800 duration-200 text-xs
+    }
+
+    .news_card_btn_delete{
+        @apply bg-red-400 
+    }
+
+    .news_card_btn_update{
+        @apply bg-green-400
+    }
+
+
+    .selected_news_container{
+        @apply flex gap-10 p-5 font-manrope h-[500px] 
+    }
+
+    .selected_btn_close{
+        @apply absolute right-5 top-5 rounded-full 
+         text-[#298BD9] text-[2.5rem] hover:text-gray-400 duration-200 cursor-pointer
+    }
+
+    .selected_news_image{
+        @apply h-full object-cover rounded-[20px]   w-[50%]
+    }
+
+    .selected_news_title{
+        @apply text-[1.6rem] font-bold bg-slate-100 p-4 rounded-[10px] px-5
+    }
+
+    .selected_news_box{
+      @apply pt-10 flex flex-col
+    }
+
+    .selected_news_box span{
+      @apply text-[#8E8E8E] font-light text-xs
+    }
+
+    .selected_news_desc{
+        @apply  overflow-y-auto  mt-5 pr-16 h-[350px] 
+    }
+
+    .selected_news_desc::-webkit-scrollbar {
+      width: 5px; /* Width of the scrollbar */
+      }
+      
+      .selected_news_desc::-webkit-scrollbar-thumb {
+          background-color: #298ad9a9; /* Color of the scrollbar thumb */
+          border-radius: 6px; /* Radius of the scrollbar thumb */
+      }
+      
+      .selected_news_desc::-webkit-scrollbar-thumb:hover {
+          background-color: #555; /* Color of the scrollbar thumb on hover */
+      }
+      
+      .selected_news_desc::-webkit-scrollbar-track {
+          background-color: #f1f1f1; /* Color of the scrollbar track */
+          border-radius: 8px; /* Radius of the scrollbar track */
+      }
+
+    .selected_news_desc p{
+        @apply text-justify text-black text-sm
+    }
+
+    .selected_news_delete{
+        @apply p-5 flex flex-col gap-4  
+    }
+
+    .selected_news_delete button{
+        @apply  text-white p-3 rounded-[10px] hover:bg-gray-800 duration-200
+    }
+
+    .selected_news_delete .yes{
+        @apply bg-green-500
+    }
+
+    .selected_news_delete .cancel{
+        @apply bg-red-500
+    }
+
+    
+    .btn_add_news{
+        background: linear-gradient(93deg, #298BD9 0%, #33C0E4 100%);
+        @apply w-full p-3 rounded-[7px] text-white font-semibold
+      }
+
+
+      .update_news_form{
+        @apply flex gap-5 flex-col font-manrope w-[600px] p-10 
+      }
+
+      .update_news_form h3{
+        @apply text-[2rem] text-center w-full font-bold text-gray-800
+      }
+
+      .update_input_wrapper{
+        @apply flex flex-col 
+      }
+
+      .update_input_wrapper input{
+        @apply p-4 bg-slate-200 rounded-[10px]
+      }
+
+      .update_input_wrapper textarea{
+        @apply p-4 h-[300px] bg-slate-200 rounded-[10px]
+      }
+
+      .update_btn_wrapper{
+        @apply flex gap-5  bg-white items-center justify-center pt-10
+      }
+
+      .update_btn_wrapper button{
+        @apply w-[50%]  rounded-[10px] p-3 text-white
+        hover:bg-gray-800 duration-200
+      }
+
+      .update_btn_wrapper .update{
+        @apply bg-green-400
+      }
+
+      .update_btn_wrapper .cancel{
+        @apply bg-red-400
+      }
+      
+      .update_input_wrapper span{
+        @apply font-bold
+      }
+
+      .update_notif{
+        @apply sticky top-3 text-center bg-white font-bold
+      }
+
+
+
+      .news_create_btn_navigate{
+        @apply bottom-3 right-3 fixed lg:bottom-5 lg:right-5 bg-[#298BD9]
+        flex items-center gap-3 p-3 text-[1.5rem] text-white rounded-[10px]
+        shadow-lg hover:bg-slate-900 duration-200 z-40
+      }
+
+      .add_news_container{
+        @apply flex items-center font-manrope flex-col justify-center
+      }
+
+      .add_news_title{
+        @apply text-[2rem] font-bold py-5 text-gray-800
+      }
+
+      .add_news_notif{
+        @apply sticky top-3
+      }
+
+      .add_news_form{
+        @apply flex flex-col p-10 w-full gap-3
+      }
+
+      .add_news_input_box{
+        @apply flex flex-col
+      }
+
+      .add_news_input_box .input{
+        @apply p-3 rounded-[10px] bg-gray-200
+      }
+
+      .add_news_input_box span{
+        @apply font-bold 
+      }
+}

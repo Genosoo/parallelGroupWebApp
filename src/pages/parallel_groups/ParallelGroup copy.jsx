@@ -12,15 +12,23 @@ import {
   Dialog,
 } from "@mui/material";
 import testImage from '../../assets/test_logo.png';
-import { FiSearch } from "react-icons/fi";
-import { IoRefresh } from "react-icons/io5";
-import { BsPersonPlus } from "react-icons/bs";
 
-const baseUrl = import.meta.env.VITE_URL;
-const getParallelGroupsData = `${baseUrl}/api/parallel_group/`;
+import { BsCardList } from "react-icons/bs";
+import { FaRegEdit } from "react-icons/fa";
+import { RiDeleteBack2Line } from "react-icons/ri";
+import Search from "./Search";
+import ButtonAdd from "./ButtonAdd";
+import FormAdd from "./FormAdd";
+import FormUpdate from "./FormUpdate";
+import { FaFileCsv } from "react-icons/fa";
+import { SiMicrosoftexcel } from "react-icons/si";
+import PDFGenerator from "./PDFGenerate";
+import { getParallelGroup, getFileCsvParallel, getFileExcelParallel, baseUrl, getCsrfTokenUrl, getMemberStatus, apiUser } from "../../api/api";
 
 export default function ParallelGroups() {
+  const [csrfToken, setCsrfToken] = useState('');
   const [data, setData] = useState([]);
+  const [updateData, setUpdateData] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -28,11 +36,125 @@ export default function ParallelGroups() {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState("");
+  const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
+  const [openFormAdd, setOpenFormAdd] = useState(false);
+  const [deleteConfirmationDialogOpen, setDeleteConfirmationDialogOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+  const [deleteSuccessMessage, setDeleteSuccessMessage] = useState("");
+  const [status, setStatus] = useState([]);
+  const [statusMessage, setStatusMessage] = useState(null)
+  
 
+  useEffect(() => {
+    const getTheCsrfToken = async () => {
+      try {
+        const response = await axios.get(getCsrfTokenUrl);
+        setCsrfToken(response.data['csrf-token']);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    getTheCsrfToken();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getCsrfTokenUrl]);
+
+
+
+
+  useEffect(() => {
+    let timeoutId;
+
+    // Reset the success message after 5 seconds
+    if (deleteSuccessMessage) {
+      timeoutId = setTimeout(() => {
+        setDeleteSuccessMessage("");
+      }, 3000);
+    }
+
+       // Reset the success message after 5 seconds
+       if (error) {
+        timeoutId = setTimeout(() => {
+          setError("");
+        }, 3000);
+      }
+
+    return () => {
+      // Clear the timeout when the component unmounts or when success message changes
+      clearTimeout(timeoutId);
+    };
+  }, [deleteSuccessMessage, error]);
+
+  
+// Modify the handleDelete function
+const handleDelete = (id, event) => {
+  // Stop event propagation to prevent opening the dialog
+  event.stopPropagation();
+
+  // Set the idd to be deleted and open the confirmation dialog
+  setDeleteId(id);
+  setDeleteConfirmationDialogOpen(true);
+};
+
+const handleDeleteConfirmed = async () => {
+  try {
+    // Make an API request to delete the item with CSRF token in the header
+    await axios.delete(getParallelGroup, {
+      data: { id: deleteId },
+      headers: {
+        'X-CSRFToken': csrfToken,
+      },
+    });
+
+    // Remove the deleted item from the state
+    const updatedData = data.filter(item => item.id !== deleteId);
+    setData(updatedData);
+
+    // Display success message
+    setDeleteSuccessMessage(`Parallel Group successfully deleted.`);
+
+    // Close the confirmation dialog
+    setDeleteConfirmationDialogOpen(false);
+  } catch (error) {
+    console.error("Error deleting item:", error);
+  }
+};
+
+const handleDeleteCancelled = () => {
+  // Close the confirmation dialog
+  setDeleteConfirmationDialogOpen(false);
+  // Reset the success message
+  setDeleteSuccessMessage("");
+};
+
+  
+  
+
+  const handleOpenFormAdd = () => {
+    setOpenFormAdd(true);
+  };
+  
+  const handleCloseFormAdd = () => {
+    setOpenFormAdd(false);
+  };
+  
+
+  const handleOpenUpdateDialog = (data, index, page) => {
+    const dataIndex = (page * rowsPerPage) + index
+    setOpenUpdateDialog(true);
+    setUpdateData(data[dataIndex]);
+    console.log('dataIndex',dataIndex )
+    
+  };
+  
+  const handleCloseUpdateDialog = () => {
+    setOpenUpdateDialog(false);
+  };
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dataResponse = await axios.get(getParallelGroupsData);
+        const dataResponse = await axios.get(getParallelGroup);
         setData(dataResponse.data.success);
         console.log("Parallel Groups", dataResponse.data);
       } catch (error) {
@@ -40,7 +162,20 @@ export default function ParallelGroups() {
       }
     };
 
+    const fetchMemberStatus = async () => {
+      try {
+        const statusResponse = await axios.get(getMemberStatus);
+  
+        setStatus(statusResponse.data.success);
+        console.log("status", statusResponse);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
     fetchData();
+    fetchMemberStatus();
+
   }, []);
 
   const handleOpenDialog = (item) => {
@@ -90,27 +225,121 @@ export default function ParallelGroups() {
     setError("");
   };
 
+  
+
   const renderTableData = searchResults.length > 0 ? searchResults : data;
+
+  const handleExportCsv = async () => {
+    try {
+      // Make an API request to get the CSV file
+      const response = await axios.get(getFileCsvParallel, {
+        responseType: 'blob', // Set responseType to blob to handle binary data
+      });
+
+      // Create a link element to download the file
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'parallel_group.csv');
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error exporting CSV:", error);
+    }
+  };
+
+  const handleExportExcel = async () => {
+    try {
+      // Make an API request to get the Excel file
+      const response = await axios.get(getFileExcelParallel, {
+        responseType: 'blob', // Set responseType to blob to handle binary data
+      });
+
+      // Create a link element to download the file
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'parallel_group.xlsx');
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error exporting Excel:", error);
+    }
+  };
+
+
+  const getStatusColorClass = (status) => {
+    switch (status) {
+      case 1:
+        return "active-status";
+      case 2:
+        return "inactive-status";
+      case '':
+      default:
+        return "pending-status";
+    }
+  };
+  
+  const handleStatusChange = async (userId, newStatus) => {
+    try {
+      // Make an API request to update the status with CSRF token in the header
+      await axios.put(apiUser, {
+        individual:{
+          user_id: userId,
+           memship_status: newStatus
+        },
+      }, {
+        headers: {
+          'X-CSRFToken': csrfToken,
+        },
+      });
+  
+      // Update the status in the state
+      const updatedData = data.map(item => {
+        if (item.id === userId) {
+          return {
+            ...item,
+            individual: {
+              ...item.individual,
+              memship_status: {
+                ...item.individual.memship_status,
+                desc: newStatus
+              }
+            }
+          };
+        }
+        return item;
+      });
+      setData(updatedData);
+        setStatusMessage('Successfully Status Changed!');
+        setTimeout(() => {
+          window.location.reload();
+          setStatusMessage(null);
+        }, 1000);
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+  
 
   return (
    <>
     <div className="pg_header_container">
-        <div className="search_box">
-            <input
-              value={searchInput}
-              onChange={handleSearchInputChange}
-            />
- <button className="btn_search" onClick={handleFindClick}>
-              <FiSearch />
-          </button>
-       
-          <button className="btn_clear" onClick={handleClearSearch}>
-           <IoRefresh/>
-        </button>
-         
-        </div>
-        <button className="btn_add_pl">
-          <BsPersonPlus/>Add Parallel Group</button>
+      <Search 
+        searchInput={searchInput}
+        handleSearchInputChange={handleSearchInputChange}
+        handleFindClick={handleFindClick}
+        handleClearSearch={handleClearSearch}
+       />
+       <ButtonAdd handleOpenFormAdd={handleOpenFormAdd}/>
       </div>
 
       {error && (
@@ -118,6 +347,58 @@ export default function ParallelGroups() {
           <p>{error}</p>
         </div>
       )}
+      
+      {deleteSuccessMessage && (
+  <div className="message_success">
+    <p>{deleteSuccessMessage}</p>
+  </div>
+)}
+<Dialog
+  open={deleteConfirmationDialogOpen}
+  onClose={handleDeleteCancelled}
+  maxWidth="sm"
+  fullWidth
+>
+  <div className="dailog_delete_box">
+    <p>Are you sure you want to delete?</p>
+    <div>
+      <button className="yes" onClick={handleDeleteConfirmed}>
+        Yes
+      </button>
+      <button className="no" onClick={handleDeleteCancelled}>
+        No
+      </button>
+    </div>
+  </div>
+</Dialog>
+
+
+<Dialog  
+    fullWidth
+    maxWidth="sm"
+    open={openFormAdd}
+    onClose={handleCloseFormAdd}
+  >
+   <FormAdd />
+  </Dialog>
+
+  <Dialog
+        fullWidth
+        maxWidth="sm"
+        open={openUpdateDialog}
+        onClose={handleCloseUpdateDialog}
+      >
+        {updateData && (
+          <div>
+            <FormUpdate 
+            apiEndpoint={getParallelGroup} 
+            data={updateData} 
+            csrfToken={csrfToken}
+            />
+          </div>
+        )}
+      </Dialog>
+
     {selectedItem && (
       <Dialog  
       fullWidth
@@ -128,7 +409,7 @@ export default function ParallelGroups() {
         <div className="box_wrapper1">
           <div className="box box1">
                <img 
-               src={`http://localhost:8000/${selectedItem.logo}`} 
+               src={`${baseUrl}${selectedItem.logo}`} 
                alt=""
                className="table_logo"
                onError={(e) => {
@@ -148,7 +429,7 @@ export default function ParallelGroups() {
              </span>
              <span>
                 <p className="p1">Parallel Group Type</p> 
-                <p className="p2">{selectedItem.req_type ?? "---" }</p>
+                <p className="p2">{selectedItem.reg_type ?? "---" }</p>
              </span>
           </div>
         </div>
@@ -242,16 +523,16 @@ export default function ParallelGroups() {
       </Dialog>
     )}
 
+{statusMessage && <p className="statusMessage">{statusMessage}</p>}
 
 
     <div className="table_wrapper">
+
       <TableContainer component={Paper} className="table_container">
         <Table>
           <TableHead >
             <TableRow >
-              <TableCell >
-                <div className="table_header">Parallel Group Number</div>
-              </TableCell>
+            
               <TableCell>
                 <div className="table_header">Parallel Group Name</div>
               </TableCell>
@@ -312,35 +593,75 @@ export default function ParallelGroups() {
               <TableCell>
                 <div className="table_header">Street Name</div>
               </TableCell>
+
+              <TableCell >
+                <div className="users_table_header ">Action</div>
+              </TableCell>
+
+              <TableCell  sx={{
+                position:"sticky", 
+                right:0, 
+                bgcolor:"#f5f5f5cd",
+                }} >
+                <div className="users_table_header ">Status</div>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {renderTableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, index) => (
-              <TableRow key={index} onClick={() => handleOpenDialog(item)} style={{ cursor: "pointer" }}>
-                  <TableCell><span>{item.number ?? "---"}</span></TableCell>
+              <TableRow key={index} style={{ cursor: "pointer" }}>
                   <TableCell><span>{item.name ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.req_type ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.req_date ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.req_number ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.reg_type_data?.desc ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.reg_date ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.reg_number ?? "---"}</span></TableCell>
                   <TableCell><span>{item.application_date ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.memship_type ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.memship_status ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.memship_type_data?.desc ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.memship_status_data?.desc ?? "---"}</span></TableCell>
                   <TableCell><span>{item.approved_date ?? "---"}</span></TableCell>
                   <TableCell><span>{item.closed_date ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.grp_type ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.grp_type_data?.desc ?? "---"}</span></TableCell>
                   <TableCell><span>{item.affiliation ?? "---"}</span></TableCell>
                   <TableCell>
-                    <img src={`http://localhost:8000/${item.logo}`} alt="" className="table_logo" />
+                    <img src={`${baseUrl}${item.logo}`} alt="" className="table_logo" />
                   </TableCell>
-                  <TableCell><span>{item.region ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.province ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.region_data?.desc ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.province_data?.desc ?? "---"}</span></TableCell>
                   <TableCell><span>{item.district ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.municipality ?? "---"}</span></TableCell>
-                  <TableCell><span>{item.barangay ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.municipality_data?.desc ?? "---"}</span></TableCell>
+                  <TableCell><span>{item.barangay_data?.desc ?? "---"}</span></TableCell>
                   <TableCell><span>{item.bldg_name ?? "---"}</span></TableCell>
                   <TableCell><span>{item.street_number ?? "---"}</span></TableCell>
                   <TableCell><span>{item.street_name ?? "---"}</span></TableCell>
+                  <TableCell >
+                    <div className="action_btn_wrapper ">
+                    <button   className="btn_view_users" onClick={() => handleOpenDialog(item)}  >
+                        <BsCardList/>
+                      </button>
+                      <button className="btn_update_users" onClick={() => handleOpenUpdateDialog(data, index, page)}>
+                      <FaRegEdit />
+                    </button>
+                    <button className="btn_delete_users" onClick={(event) => handleDelete(item.id, event)}>
+                  <RiDeleteBack2Line />
+                </button>
 
+                    </div>
+                  </TableCell>
+
+                  <TableCell sx={{position:"sticky", right:0,  bgcolor:"#f5f5f5cd",}}>
+                      <select
+                        value={item.individual?.memship_status || ""}
+                        onChange={(e) => handleStatusChange(item.id, e.target.value)}
+                        className={`statusBox ${getStatusColorClass(item.individual?.memship_status)}`}
+                      
+                      >
+                                <option value={""} >Pending</option>
+                        {status.map((item, index) => (
+                                <option value={item.id} key={index}>{item.desc}</option>
+                            ))}
+                        
+                      </select>
+                      </TableCell>
+                
               </TableRow>
             ))}
           </TableBody>
@@ -355,6 +676,17 @@ export default function ParallelGroups() {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+        <div className="export_box">
+        <span>Export</span>
+        <button className="btn_csv" onClick={handleExportCsv}>
+          <FaFileCsv />
+        </button>
+        <button className="btn_excel" onClick={handleExportExcel}>
+          <SiMicrosoftexcel />
+        </button>
+      <PDFGenerator data={data} />
+     
+      </div>
     </div>
    </>
   );

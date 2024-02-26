@@ -9,21 +9,12 @@ import LayoutLandingPage from './layouts/Layout_landing_page'
 import PrivateRoute from './auth/privateRoute/PrivateRoute'
 
 
-import Main from './pages/main/Main'
-import Home from './pages/landingPage/home/Home'
-import About from './pages/landingPage/about/About'
-
 
 export default function App() {
   return (
     <Routes>
-      <Route path='' element={<Main />} />
-      <Route path='/main' element={<Main />} />
-      <Route path='/home' element={<Home />} />
-      <Route path='/about' element={<About />} />
-
       <Route element={<LayoutLandingPage />}>
-        <Route path={"/parallel-groups/*"} element={
+        <Route path={"/*"} element={
             <RoutesLandingPage />
         } />
       </Route>

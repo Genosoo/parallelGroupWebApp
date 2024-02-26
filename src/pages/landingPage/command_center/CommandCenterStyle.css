@@ -8,4 +8,44 @@
     .title{
         @apply  text-[#298BD9] text-left w-[70%] text-[2rem] font-bold py-10
     }
+
+    .commandCenterContainer .activityContainer{
+        @apply font-manrope bg-white rounded-[20px] p-10 w-[70%]
+    }
+
+    .activityTitle{
+        @apply text-[#298BD9] font-bold text-xl pb-10
+    }
+
+    .activityWrapper{
+        @apply flex w-full items-start  flex-col
+    }
+
+    .activityWrapper .date{
+        @apply w-[270px] bg-[#EBF4FD] flex rounded-full   font-normal
+        capitalize items-center justify-center p-2
+    }
+
+    .activityBox{
+        @apply  flex flex-col shadow-sm gap-5 w-full  py-10 
+    }
+
+    .activityDetail{
+        box-shadow:0 0 5px #00000032;
+        @apply flex  bg-white  items-center
+        justify-between p-3 rounded-[5px] 
+    }
+
+
+    .activityDetail span{
+        @apply flex gap-10
+    }
+
+    .activityDetail .time{
+        @apply text-[#8E8E8E]
+    }
+
+    .activityDetail .points{
+        @apply bg-[#DAF5DA] text-[#30902E] rounded-full p-2 px-3
+    }
 }

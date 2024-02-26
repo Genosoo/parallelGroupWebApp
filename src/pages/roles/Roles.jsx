@@ -3,10 +3,9 @@ import axios from 'axios';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { RiDeleteBack2Line } from "react-icons/ri";
 import { BsPersonPlus } from "react-icons/bs";
-import { useCsrfToken } from '../../context/csrftoken/CsrfTokenContext';
 import { apiRoles } from '../../api/api';
 import { AddRoleDialog, DeleteRoleDialog } from './RolesDailog';
-
+import { getCsrfTokenUrl } from '../../api/api';
 
 export default function Roles() {
     const [data, setData] = useState([]);
@@ -14,7 +13,24 @@ export default function Roles() {
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
     const [isNewDialogOpen, setIsNewDialogOpen] = useState(false);
     const [roleToDelete, setRoleToDelete] = useState(null);
-    const {csrfToken} = useCsrfToken();
+    const [csrfToken, setCsrfToken] = useState('');
+
+    
+    useEffect(() => {
+      const getTheCsrfToken = async () => {
+        try {
+          const response = await axios.get(getCsrfTokenUrl);
+          setCsrfToken(response.data['csrf-token']);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    
+      getTheCsrfToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [getCsrfTokenUrl]);
+  
+
 
   
     useEffect(() => {

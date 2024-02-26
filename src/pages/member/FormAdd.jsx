@@ -23,7 +23,6 @@ import { Menu } from '@mui/icons-material';
 import { random } from 'lodash';
 import Snackbar from '@mui/material/Snackbar';
 import SnackbarContent from '@mui/material/SnackbarContent';
-import { useCsrfToken } from '../../context/csrftoken/CsrfTokenContext';
 import {
   getPrefix,
   getSuffix,
@@ -38,6 +37,7 @@ import {
   getParallelGroup,
   apiUser,
 } from '../../api/api'
+import { getCsrfTokenUrl } from '../../api/api';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -47,7 +47,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 export default function Login() {
-  const {csrfToken} = useCsrfToken();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [errorSignup, setErrorSignup] = useState('');
@@ -57,7 +56,7 @@ export default function Login() {
   });
 
   const [open, setOpen] = React.useState(false);
-
+  const [csrfToken, setCsrfToken] = useState('');
   const [prefixOptions, setPrefixOptions] = useState([]);
   const [suffixOptions, setSuffixOptions] = useState([]);
   const [occupationOptions, setOccupationOptions] = useState([]);
@@ -111,6 +110,22 @@ export default function Login() {
 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+
+  useEffect(() => {
+    const getTheCsrfToken = async () => {
+      try {
+        const response = await axios.get(getCsrfTokenUrl);
+        setCsrfToken(response.data['csrf-token']);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    getTheCsrfToken();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getCsrfTokenUrl]);
+
   
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);

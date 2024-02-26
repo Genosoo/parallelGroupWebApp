@@ -15,6 +15,7 @@ import WatchNow from '../../pages/landingPage/watch/Watch';
 import Manage from '../../pages/landingPage/manage/Manage';
 import { apiAccount } from '../../api/api';
 import axios from 'axios';
+import FAQ from '../../pages/landingPage/faq/Page'
 
 export default function Routes_landing_page() {
   const [userData, setUserData] = useState([]);
@@ -44,6 +45,7 @@ const isAdmin = userData === 'Administrator';
       <Route path="programs-and-projects" element={<ProgProj />} />
       <Route path="news-and-articles" element={<NewsArticles />} />
       <Route path="contact-us" element={<Contact />} />
+      <Route path="faq" element={<FAQ/>} />
    
       <Route path="account" element={<Account />} />
       <Route path="command-center" element={<CommandCenter />} />

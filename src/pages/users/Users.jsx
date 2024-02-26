@@ -128,7 +128,10 @@ export default function Users() {
         const sortedData = filteredData.sort((a, b) =>
           new Date(b.date_created) - new Date(a.date_created)
         );
+        const statusResponse = await axios.get(getMemberStatus);
   
+        setStatus(statusResponse.data.success);
+        console.log("status", statusResponse);
         setData(sortedData);
         console.log("Users", sortedData);
       } catch (error) {
@@ -136,19 +139,9 @@ export default function Users() {
       }
     };
 
-    const fetchMembeStatus = async () => {
-      try {
-        const statusResponse = await axios.get(getMemberStatus);
-  
-        setStatus(statusResponse.data.success);
-        console.log("status", statusResponse);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+ 
   
     fetchData();
-    fetchMembeStatus();
   }, []);
   
 
@@ -312,7 +305,7 @@ const handleFindClick = () => {
         setTimeout(() => {
           window.location.reload();
           setStatusMessage(null);
-        }, 1000);
+        }, 2000);
       }
     } catch (error) {
       console.error("Error updating status:", error);

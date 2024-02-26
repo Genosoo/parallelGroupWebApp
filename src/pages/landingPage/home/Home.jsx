@@ -1,8 +1,8 @@
 import Carousel from './carousel/Carousel';
-import Blogs from './blogs/Blogs';
 import Ads from './ads/Ads';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import News from './news_articles/NewsArticles'
 
 export default function Home() {
  // Extracts pathname property(key) from an object
@@ -17,7 +17,7 @@ export default function Home() {
     <div className='landingPage_container'>
       <Carousel/>
       <Ads />
-      <Blogs />
+      <News />
     </div>
   )
 }

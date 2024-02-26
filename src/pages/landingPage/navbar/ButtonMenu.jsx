@@ -131,26 +131,26 @@ export default function CustomizedMenus() {
           </Link >
         ) : null}
        
-        <Link to={'/parallel-groups/command-center/'}>
+        <Link to={'/command-center'}>
         <div className="linkBoxSpan" onClick={handleClose}>
              <span className='linkText'>Command Center</span>
         </div>
         </Link> 
 
          <div className='flex flex-col gap-2 py-4 border-y mb-2 border-[#298ad949]'>
-         <Link to={'/parallel-groups/new-report/'}>
+         <Link to={'/new-report'}>
         <div className="linkBoxSpan" onClick={handleClose}>
              <span className='linkText'>New Report</span>
              </div>
         </Link> 
 
-        <Link to={'/parallel-groups/report-tracker/'}>
+        <Link to={'/report-tracker'}>
         <div className="linkBoxSpan" onClick={handleClose}>
              <span className='linkText'>Report Tracker</span>
              </div>
         </Link> 
 
-          <Link to={'/parallel-groups/report-history/'}>
+          <Link to={'/report-history'}>
           <div className="linkBoxSpan" onClick={handleClose}>
               <span className='linkText'>Report History</span>
               </div>
@@ -158,32 +158,32 @@ export default function CustomizedMenus() {
          </div>
 
 
-         <Link to={'/parallel-groups/watch-now/'}>
+         <Link to={'/watch-now'}>
         <div className="linkBoxSpan border-b py-2 border-[#298ad949]" onClick={handleClose}>
              <span className='linkText'>Activity</span>
              </div>
         </Link> 
 
-        <Link to={'/parallel-groups/watch-now/'}>
+        <Link to={'/watch-now'}>
         <div className="linkBoxSpan  border-b py-3 border-[#298ad949]" onClick={handleClose}>
              <span className='linkText'>Watch Now</span>
              </div>
         </Link> 
 
-        <Link to={'/parallel-groups/account/'}>
+        <Link to={'/account'}>
         <div className="linkBoxSpan " onClick={handleClose}>
              <span className='linkText'>My Profile</span>
              </div>
         </Link> 
 
-        <Link to={'/parallel-groups/account/'}>
+        <Link to={'/account'}>
         <div className="linkBoxSpan " onClick={handleClose}>
              <span className='linkText'>QR code</span>
              </div>
         </Link> 
 
         {roles === 'Administrator'  ? (
-        <Link to={'/parallel-groups/manage/'}>
+        <Link to={'/manage'}>
         <div className="linkBoxSpan border-b pb-2 border-[#298ad949]" onClick={handleClose}>
              <span className='linkText'>Manage</span>
              </div>

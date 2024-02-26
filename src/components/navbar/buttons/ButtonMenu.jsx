@@ -124,7 +124,7 @@ export default function CustomizedMenus() {
           
       {/* Conditionally render Dashboard link based on role */}
       {roles === 'Administrator' || roles === 'Parallel Group Administrator' ? (
-          <Link to={'/parallel-groups'}>
+          <Link to={'/home'}>
              <div className="flex flex-col w-full gap-1">
              <span className='flex  items-center  font-montserrat  
                bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px]
@@ -134,7 +134,7 @@ export default function CustomizedMenus() {
           </Link >
         ) : null}
        
-        {/* <Link to={'/parallel-groups/command-center'}>
+        {/* <Link to={'/command-center'}>
         <div className="flex flex-col w-full gap-1 " onClick={handleClose}>
              <span className='flex  items-center  font-montserrat  
                bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px]
@@ -143,7 +143,7 @@ export default function CustomizedMenus() {
              </div>
         </Link> 
 
-        <Link to={'/parallel-groups/new-report'}>
+        <Link to={'/new-report'}>
         <div className="flex flex-col w-full gap-1 " onClick={handleClose}>
              <span className='flex  items-center  font-montserrat  
                bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px]
@@ -152,7 +152,7 @@ export default function CustomizedMenus() {
              </div>
         </Link> 
 
-        <Link to={'/parallel-groups/report-tracker'}>
+        <Link to={'/report-tracker'}>
         <div className="flex flex-col w-full gap-1 " onClick={handleClose}>
              <span className='flex  items-center  font-montserrat  
                bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px]
@@ -163,7 +163,7 @@ export default function CustomizedMenus() {
 
      
 
-        <Link to={'/parallel-groups/watch/'}>
+        <Link to={'/watch/'}>
         <div className="flex flex-col w-full gap-1 " onClick={handleClose}>
              <span className='flex  items-center  font-montserrat  
                bg-[#298ad915] w-full p-3 text-[#298BD9] rounded-[15px]

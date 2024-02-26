@@ -1,0 +1,50 @@
+@tailwind components;
+
+
+@layer components{
+
+    .faqContainer{
+        @apply flex flex-col items-center justify-center pt-20
+    }
+
+    .faqWrapper{
+        @apply w-[80%] font-montserrat 
+    }
+
+    .faqTitle{
+         @apply text-[#298BD9] text-[2rem] font-bold text-center lg:text-start
+    }
+
+    .faqWrapper h2{
+        @apply text-[#298BD9] font-bold text-[1.5rem]
+    }
+
+    .faqContent{
+        @apply mt-20 flex flex-col items-center
+    }
+
+    .faqDesc{
+        @apply font-manrope px-12 text-base font-medium
+    }
+    
+    .faqShowmore{
+        @apply text-[#298BD9] font-medium text-[1rem] mt-10
+    }
+
+    .faqSearch{
+        @apply border-[#298BD9] border flex items-center w-full lg:w-[50%]
+         bg-white mb-10 rounded-[30px] overflow-hidden justify-between px-3
+    }
+
+    .faqSearch input{
+        @apply p-5   rounded-[30px] outline-none w-[90%]
+    }
+
+    .faqIcon{
+        @apply bg-[#298BD9] w-[50px] h-[50px] rounded-full
+        flex items-center justify-center text-white text-[2rem]
+        
+    }
+
+}
+

@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { baseUrl } from "../../../api/api" 
-import qrcodeImage from '../../../assets/qrcode.png'
+import { baseUrl, getqrCode } from "../../../api/api" 
 
 export default function Qrcode({data, handleQRcodeClose }) {
     const personData = data.individual
@@ -15,7 +14,7 @@ export default function Qrcode({data, handleQRcodeClose }) {
          <h3>{personData.first_name || "--"} {personData.last_name || "--"}</h3>
          <p>{data.username || "--"}</p>
         <div className="qrCodeImage">
-            <img src={qrcodeImage} alt="qr code" />
+            <img src={getqrCode} alt="qr code" />
         </div>
 
         <button onClick={handleQRcodeClose}>Done</button>

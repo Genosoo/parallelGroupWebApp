@@ -355,7 +355,6 @@ const handleFindClick = () => {
       setData(updatedData);
         setStatusMessage('Successfully Status Changed!');
         setTimeout(() => {
-          window.location.reload();
           setStatusMessage(null);
         }, 1000);
     } catch (error) {

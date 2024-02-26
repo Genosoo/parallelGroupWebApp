@@ -48,7 +48,7 @@ export default function LoginForm() {
   
        // Redirect based on user roles
        if (!roles || roles === 'user') {
-        navigate('/parallel-groups');
+        navigate('/home');
       } else {
         navigate('/main/dashboard');
       }
@@ -59,6 +59,9 @@ export default function LoginForm() {
       console.error('Login error:', error);
       if (error.response && error.response.status === 401) {
         setError(error.response.data.error);
+        setTimeout(() => (
+          setError("")
+          ),3000)
       } else {
         setError('An error occurred. Please try again later.');
       }
@@ -66,9 +69,7 @@ export default function LoginForm() {
       setLoading(false);
     }
 
-    setTimeout(() => (
-      setError("")
-      ),3000)
+   
 
   };
 

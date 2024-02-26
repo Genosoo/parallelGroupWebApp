@@ -1,13 +1,10 @@
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import ImageDropzone from '../dialogs/ImageDropzone';
-import { useCsrfToken } from '../../../../context/CsrfTokenContext';
-import { apiBlog } from '../../../../api/api';
+import { apiBlog, getCsrfTokenUrl } from '../../../../api/api';
 
 export default function Add_NewAndArticles() {
-
-
-  const { csrfToken } = useCsrfToken();
+  const [csrfToken, setCsrfToken] = useState('');
   const [formData, setFormData] = useState({
     title: '',
     author:'',
@@ -23,6 +20,19 @@ export default function Add_NewAndArticles() {
 
   const [selectedImage, setSelectedImage] = useState(null);
   
+  useEffect(() => {
+    const getTheCsrfToken = async () => {
+      try {
+        const response = await axios.get(getCsrfTokenUrl);
+        setCsrfToken(response.data['csrf-token']);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    getTheCsrfToken();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getCsrfTokenUrl]);
 
 
 

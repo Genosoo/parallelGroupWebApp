@@ -2,12 +2,11 @@ import { useState, useEffect} from "react";
 import axios from "axios";
 import DialogContent from '@mui/material/DialogContent';
 import ChangePassword from './form/ChangePassword'
-import { apiAccount, baseUrl, getPoints } from "../../api/api";
+import { apiAccount, baseUrl, getPoints, getqrCode } from "../../api/api";
 import './AccountStyle.css'
 import { FaFacebookF } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
-import qrCode from '../../assets/qrcode.png'
-// import Activity from "./activity/Activity";
+import Activity from "./activity/Activity";
 import UpdateForm from "./form/UpdateForm";
 import { StyledUpdateDialog } from "./StyledComponent";
 import Qrcode from "./qrcode/Qrcode";
@@ -153,8 +152,13 @@ export default function Account() {
                       </span>
                    </div>
                  <div className="parallelGroupBox">
-                     <img  src={`${baseUrl}${data.individual?.photo}`} alt="parallel group image" />
-                     <span>BBM Youth</span>
+                 {data.individual?.parallel_group_data?.logo ? (
+                          <img src={`${baseUrl}${data.individual.parallel_group_data.logo}`} alt="parallel group image" />
+                        ) : (
+                          <p>No image available</p>
+                        )}
+
+                     <span>{data.individual?.parallel_group_data.name}</span>
                  </div>
                </div>
              </div>
@@ -163,7 +167,7 @@ export default function Account() {
                <span className="profileTitle">
                    QR Code
                </span>
-               <img src={qrCode} alt="qr code" className="qrcodeImage" onClick={handleQRCodeOpen}/>
+               <img src={getqrCode} alt="qr code" className="qrcodeImage" onClick={handleQRCodeOpen}/>
              </div>
 
          </div>
@@ -216,7 +220,9 @@ export default function Account() {
                </div>
               </StyledUpdateDialog>
 
-       {/* <Activity /> */}
+       <div className="w-full">
+       <Activity />
+       </div>
     
 
     </div>

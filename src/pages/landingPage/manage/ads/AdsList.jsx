@@ -1,7 +1,6 @@
-import { apiAds, baseUrl } from '../../../../api/api';
+import { apiAds, baseUrl, getCsrfTokenUrl } from '../../../../api/api';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useCsrfToken } from '../../../../context/csrftoken/CsrfTokenContext';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -13,7 +12,21 @@ export default function AdsList() {
   const [adsData, setAdsData] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedAdId, setSelectedAdId] = useState(null);
-  const { csrfToken } = useCsrfToken();
+  const [csrfToken, setCsrfToken] = useState('');
+
+  useEffect(() => {
+    const getTheCsrfToken = async () => {
+      try {
+        const response = await axios.get(getCsrfTokenUrl);
+        setCsrfToken(response.data['csrf-token']);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    getTheCsrfToken();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getCsrfTokenUrl]);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -5,13 +5,13 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import Cookies from 'js-cookie'; // Import Cookies for handling cookies
 import Carousel from './carousel/Carousel';
-import Blogs from './blogs/Blogs';
 import image1 from '../../assets/login/image4.png';
 import image2 from '../../assets/login/image2.png';
 import image3 from '../../assets/login/image3.png';
 import image4 from '../../assets/login/image4.png';
 import Navbar from '../landingPage/navbar/Navbar';
 import Footer from '../landingPage/footer/Footer';
+import News from '../landingPage/news_articles/NewsArticles'
 
 export default function Login() {
   const navigate = useNavigate(); // useNavigate hook for navigation
@@ -37,7 +37,7 @@ export default function Login() {
     <div className="mainContainer">
       <Navbar />
       <Carousel images={images} />
-      <Blogs />
+      <News />
       <Footer />
     </div>
   );

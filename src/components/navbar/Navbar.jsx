@@ -1,7 +1,7 @@
 import BreadCrumbs from './breadcrumbs/BreadCrumbs'
-import ButtonNotif from './buttons/ButtonNotif'
 import ButtonSearch from './buttons/ButtonSearch'
 import ButtonMenu from './buttons/ButtonMenu'
+import Notification from './Notification'
 
 export default function Navbar() {
   return (
@@ -9,7 +9,7 @@ export default function Navbar() {
       <BreadCrumbs />
       <div className='nav_right_box'>
          <ButtonSearch />
-         <ButtonNotif />
+         <Notification />
          <ButtonMenu />
       </div>
     </div>

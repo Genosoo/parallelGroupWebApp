@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getPoints } from "../../../api/api";
 import axios from "axios";
-import "./ActivityStyle.css";
+import "./ActivityStyled.css";
 
 export default function Activity() {
   const [points, setPoints] = useState([]);
@@ -11,7 +11,7 @@ export default function Activity() {
       try {
         const pointsResponse = await axios.get(getPoints);
         setPoints(pointsResponse.data.success);
-        console.log("my Points", pointsResponse.data.success);
+        console.log("my Points", pointsResponse.data);
       } catch (error) {
         console.log(error);
       }
@@ -56,27 +56,28 @@ export default function Activity() {
 
 
   return (
-    <div className="activityContainer1">
+    <div className="activityContainer">
+      <h2 className="activityTitle">Activity</h2>
       {groupedPoints.map(([date, items], index) => (
-        <div key={index} className="activityWrapper1">
-          <h2 className="date1">{date}</h2>
-          <ul className="activityBox1">
+        <div key={index} className="activityWrapper">
+          <h2 className="date">{date}</h2>
+          <ul className="activityBox">
             {items.map((item, idx) => {
               const createdAt = new Date(item.created_at);
               const hours = createdAt.getHours();
               const amOrPm = hours >= 12 ? "PM" : "AM";
               const displayHours = hours % 12 || 12; // Convert to 12-hour format
               return (
-                <li key={idx} className="activityDetail1">
+                <li key={idx} className="activityDetail">
                   <span>
-                  <p className="time1">
+                  <p className="time">
                     {displayHours}:
                     {createdAt.getMinutes() < 10 ? "0" : ""}
                     {createdAt.getMinutes()} {amOrPm}
                   </p>
-                  <p className="desc1">{item.point_type.desc}</p>
+                  <p className="desc">{item.point_type.desc}</p>
                   </span>
-                  <p className="points1">+{item.point_type.score} Point</p>
+                  <p className="points">+{item.point_type.score} Point</p>
                 </li>
               );
             })}

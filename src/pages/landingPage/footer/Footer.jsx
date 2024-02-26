@@ -8,11 +8,12 @@ export default function Footer() {
         <img src={Logo} alt="logo" />
         <div className="linkWrapper">
            <ul className='linkBox'>
-               <li><Link to='/parallel-groups'>Home</Link></li>
-               <li><Link to='/parallel-groups/about'>About</Link></li>
-               <li><Link to='/parallel-groups/programs-and-projects'>Programs & Projects</Link></li>
-               <li><Link to='/parallel-groups/news-and-articles'>News & Articles</Link></li>
-               <li><Link to='/parallel-groups/contact-us'>Contact Us</Link></li>
+               <li><Link to='/home'>Home</Link></li>
+               <li><Link to='/about'>About</Link></li>
+               <li><Link to='/programs-and-projects'>Programs & Projects</Link></li>
+               <li><Link to='/news-and-articles'>News & Articles</Link></li>
+               <li><Link to='/contact-us'>Contact Us</Link></li>
+               <li><Link to='/faq'>FAQs</Link></li>
            </ul>
         </div>
         <h2>Powered by Tambuli Labs</h2>

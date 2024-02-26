@@ -182,7 +182,7 @@ export default function Add_NewAndArticles() {
        <ImageDropzone onDropCallback={onDrop} selectedImage={selectedImage} />
              
 
-        <button type="submit" className='btn_add_news'  >
+        <button type="submit" className='bg-blue-600 text-white p-3'  >
          {loading ? 'Adding...' : 'Add'}
         </button>
       </form>

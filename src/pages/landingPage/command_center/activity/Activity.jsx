@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { getPoints } from "../../../../api/api";
 import axios from "axios";
-import "./ActivityStyle.css";
 
 export default function Activity() {
   const [points, setPoints] = useState([]);
@@ -11,7 +10,7 @@ export default function Activity() {
       try {
         const pointsResponse = await axios.get(getPoints);
         setPoints(pointsResponse.data.success);
-        console.log("my Points", pointsResponse.data.success);
+        console.log("my Points", pointsResponse.data);
       } catch (error) {
         console.log(error);
       }
@@ -57,6 +56,7 @@ export default function Activity() {
 
   return (
     <div className="activityContainer">
+      <h2 className="activityTitle">Activity</h2>
       {groupedPoints.map(([date, items], index) => (
         <div key={index} className="activityWrapper">
           <h2 className="date">{date}</h2>

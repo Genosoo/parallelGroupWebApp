@@ -24,7 +24,8 @@ export default function Cards({data}) {
 
             </div>
             <div className="db_cards">
-               <h1>{data.memship_status?.Inactive}</h1>
+            <h1>{(data.memship_status?.Inactive || 0) + (data.memship_status?.Pending || 0)}</h1>
+
                 <p>No. of Members</p>
                 <span className="cards_inactive">Inactive</span>
             </div>

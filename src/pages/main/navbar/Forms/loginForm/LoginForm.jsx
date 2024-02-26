@@ -48,7 +48,7 @@ export default function LoginForm() {
   
        // Redirect based on user roles
        if (!roles || roles === 'user') {
-        navigate('/parallel-groups');
+        navigate('/home');
       } else {
         navigate('/main/dashboard');
       }

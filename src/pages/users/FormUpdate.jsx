@@ -11,14 +11,14 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-
+import { getCsrfTokenUrl } from "../../api/api";
 
 
 // eslint-disable-next-line no-unused-vars
-export default function FormUpdate({ data, apiEndpoint, csrfToken, onClose  }) {
+export default function FormUpdate({ data, apiEndpoint,  onClose  }) {
     const [loading, setLoading] = useState(false);
     const [errorSignup, setErrorSignup] = useState('');
-  
+    const [csrfToken, setCsrfToken] = useState('');
     const [formData, setFormData] = useState({
       username: data?.username || "",
       individual: {
@@ -46,6 +46,20 @@ export default function FormUpdate({ data, apiEndpoint, csrfToken, onClose  }) {
       password2:'',
       user_id:data.individual?.user_id
    });
+
+   useEffect(() => {
+    const getTheCsrfToken = async () => {
+      try {
+        const response = await axios.get(getCsrfTokenUrl);
+        setCsrfToken(response.data['csrf-token']);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    getTheCsrfToken();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getCsrfTokenUrl]);
 
   
   

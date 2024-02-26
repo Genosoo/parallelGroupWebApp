@@ -1,15 +1,13 @@
 /* eslint-disable react/prop-types */
 import { Dialog } from '@mui/material';
-import { useState, useCallback } from 'react';
+import { useEffect, useState, useCallback  } from 'react';
 import axios from 'axios';
 import ImageDropzone from './ImageDropzone';
-import { useCsrfToken } from '../../../../context/csrftoken/CsrfTokenContext';
-import { apiBlog } from '../../../../api/api';
+import { apiBlog, getCsrfTokenUrl } from '../../../../api/api';
 
 const AddNewsDialog = ({ open, onClose }) => {
     
-
-  const { csrfToken } = useCsrfToken();
+  const [csrfToken, setCsrfToken] = useState('');
   const [formData, setFormData] = useState({
     title: '',
     author:'',
@@ -23,6 +21,19 @@ const AddNewsDialog = ({ open, onClose }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   
 
+  useEffect(() => {
+    const getTheCsrfToken = async () => {
+      try {
+        const response = await axios.get(getCsrfTokenUrl);
+        setCsrfToken(response.data['csrf-token']);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    getTheCsrfToken();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getCsrfTokenUrl]);
 
 
   const handleChange = (e) => {

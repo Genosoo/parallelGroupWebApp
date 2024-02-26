@@ -2,7 +2,7 @@
 
 @layer components{
     .carouselContainer{
-        @apply h-[70vh]
+        @apply h-[80vh]
     }
 
     .carouselSlides {
